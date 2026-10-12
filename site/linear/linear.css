@@ -190,11 +190,14 @@ input {
    ========================================================= */
 /* A floating bar as wide as the grid, a little off the top. */
 .nav {
-  position: sticky;
+  position: fixed;
   top: 16px;
+  left: 0;
+  right: 0;
   z-index: 50;
-  width: min(var(--max), 100% - 2 * var(--gutter));
-  margin: 16px auto 0;
+  /* Inset from the grid, so it never touches the hero line panels. */
+  width: calc(min(var(--max), 100% - 2 * var(--gutter)) - 32px);
+  margin: 0 auto;
   border-radius: var(--radius-lg);
 }
 .nav > .wrap {
@@ -284,7 +287,7 @@ input {
    one band, and the flow is sized by the height left below it. */
 .hero {
   --hero-top: 456px; /* header, padding and the centred copy */
-  padding-top: clamp(32px, 5svh, 64px);
+  padding-top: calc(84px + clamp(32px, 5svh, 64px));
   overflow: clip;
 }
 .hero__head {
