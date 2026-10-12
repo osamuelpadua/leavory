@@ -50,7 +50,7 @@ Below 961px the header keeps a compact “Request a demo” button beside the me
 
 ## Creative rationale
 
-`site/rationale/` (served at `/rationale/`) presents the work: the problem with the previous site, the goal, the decisions (colour, type, lines, motion), the references (torq.io for the hero component, serro.ai for the lines and motion), the hero explained, the concept of the mark, the home page, and the five principles that keep the identity consistent. It is a static page on the same stylesheet, with `noindex`. The screenshots in `site/rationale/img/` are the previous leavory.com (from the local mirror in `leavory-old`) and the new hero at the Fix step; retake them if the hero changes.
+`site/rationale/` (served at `/rationale/`) presents the work: the problem with the previous site, the goal, the decisions (colour, type, lines, motion), illustration instead of photography, the references (torq.io for the hero component, serro.ai for the lines and motion), the hero explained, the concept of the mark, the home page, and the five principles that keep the identity consistent. It is a static page on the same stylesheet, with `noindex`. The screenshots in `site/rationale/img/` are the previous leavory.com (from the local mirror in `leavory-old`) and the new hero at the Fix step; retake them if the hero changes.
 
 ## Palette
 

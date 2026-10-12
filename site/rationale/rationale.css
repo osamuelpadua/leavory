@@ -173,6 +173,13 @@ html {
 .rt-shot--wide {
   max-width: 1200px;
 }
+.rt-shot--full + .rt-shots {
+  margin-top: 24px;
+}
+/* Wide strips of illustration read best at full width, one above the other. */
+.rt-shots--stack {
+  grid-template-columns: minmax(0, 1fr);
+}
 
 /* ---------- Lists ---------- */
 .rt-list li {
@@ -192,13 +199,18 @@ html {
 }
 .rt-goals,
 .rt-annot,
-.rt-rules {
+.rt-rules,
+.rt-why {
   display: grid;
   grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
   gap: 40px 32px;
 }
-.rt-annot {
+.rt-annot,
+.rt-why {
   --n: 4;
+}
+.rt-shots + .rt-why {
+  margin-top: clamp(40px, 5vw, 56px);
 }
 .rt-rules {
   --n: 5;
@@ -208,14 +220,16 @@ html {
 }
 .rt-goals li,
 .rt-annot li,
-.rt-rules li {
+.rt-rules li,
+.rt-why li {
   position: relative;
   padding-top: 24px;
   border-top: 1px solid var(--line-2);
 }
 .rt-goals h3,
 .rt-annot h3,
-.rt-rules h3 {
+.rt-rules h3,
+.rt-why h3 {
   margin-top: 14px;
   font-size: 20px;
   font-weight: 540;
@@ -223,7 +237,8 @@ html {
 }
 .rt-goals p,
 .rt-annot p,
-.rt-rules p {
+.rt-rules p,
+.rt-why p {
   margin-top: 8px;
   font-size: 15px;
   color: var(--text-2);
@@ -553,7 +568,8 @@ html {
   .rt-concept {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .rt-annot {
+  .rt-annot,
+  .rt-why {
     --n: 2;
   }
   .rt-rules {
@@ -613,7 +629,8 @@ html {
     gap: 16px;
   }
   .rt-annot,
-  .rt-rules {
+  .rt-rules,
+  .rt-why {
     --n: 1;
   }
   .rt-toc,
