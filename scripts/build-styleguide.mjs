@@ -72,8 +72,11 @@ const group = (title, items, cols = 3) =>
   `<div class="sg-group"><h3 class="sg-group__title">${title}</h3><div class="sg-grid" style="--cols:${cols}">${items.join("")}</div></div>`;
 
 /* ---------- 01 Logo ---------- */
-const lockup = (size = 20, color = "") =>
-  `<span class="logo" style="font-size:${size}px${color}">${icon("i-mark", Math.round(size * 1.2), ' class="logo__mark"')}<span>Leavory</span></span>`;
+// The header proportion, scaled: mark 1.2× the type size, gap 0.5×.
+const lockup = (size = 20, color = "") => {
+  const m = Math.round(size * 1.2);
+  return `<span class="logo" style="font-size:${size}px;gap:${Math.round(size * 0.5)}px${color}">${icon("i-mark", m, ` class="logo__mark" style="width:${m}px;height:${m}px${color}"`)}<span>Leavory</span></span>`;
+};
 const logo = section(
   "01",
   "Logo",
@@ -93,7 +96,7 @@ const logo = section(
         "24 × 24 grid · fill Brand/Red",
       ),
       tile(
-        `<div class="sg-center sg-pad sg-light">${lockup(40, ";color:#1e1c1b").replace('class="logo__mark"', 'class="logo__mark" style="color:#1e1c1b"')}</div>`,
+        `<div class="sg-center sg-pad sg-light">${lockup(40, ";color:#1e1c1b")}</div>`,
         "On light",
         "Single colour Neutral/Ink",
       ),
