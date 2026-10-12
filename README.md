@@ -50,7 +50,7 @@ Below 961px the header keeps a compact “Request a demo” button beside the me
 
 ## Figma import copy
 
-`site/figma/` (served at `/figma/`) is a frozen, script-free copy of the page at 1440px, for importing into Figma with the html.to.design plugin. The WebGL sphere and the striped wordmark are images, icons are inlined, the flow is pinned at the Fix step, and `figma.css` removes motion, backdrop blur and non-standard font weights. It carries `noindex`, since it duplicates the home page. Regenerate it after changing the page: `node scripts/build-figma.mjs` (then `npm run format`).
+`site/figma/` is a local-only, generated copy of the current home page at 1440px, for importing into Figma with the html.to.design browser extension. It is ignored by Git and excluded from Vercel deployments; open it at `http://localhost:5173/figma/` after `npm run dev`. The WebGL sphere and the striped wordmark are images, icons are inlined, the flow is pinned at the Fix step, and `figma.css` removes motion, backdrop blur and non-standard font weights. It carries `noindex`, since it duplicates the home page. Regenerate it after changing the page: `node scripts/build-figma.mjs`. The generator reads the current home, uses `scripts/figma-import.css`, and freezes decorative line fields as images with semantic HTML names. Public design-system assets are independent copies in `site/ds/`.
 
 ## Design system page
 

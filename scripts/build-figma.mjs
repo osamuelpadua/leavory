@@ -5,7 +5,7 @@
 // and figma.css turns off motion, backdrop blur and other effects the
 // importer does not support. Usage: node scripts/build-figma.mjs
 import { spawn } from "node:child_process";
-import { mkdir, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
 import { prepareFigmaImport } from "./prepare-figma-import.mjs";
 
@@ -26,6 +26,7 @@ if (!(await reachable())) {
 }
 
 await mkdir(outDir, { recursive: true });
+await copyFile("scripts/figma-import.css", `${outDir}/figma.css`);
 const browser = await chromium.launch({ channel: "chrome" });
 try {
   const page = await browser.newPage({
