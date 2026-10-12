@@ -401,7 +401,10 @@ const surfaces = section(
       "Line field",
       [
         tile(
-          `<div class="sg-field"><span class="sg-bar" style="left:84px;top:40px;height:90px"></span><span class="sg-bar is-red" style="left:168px;top:120px;height:70px"></span><span class="sg-bar" style="left:288px;top:20px;height:110px"></span><span class="sg-bar" style="left:396px;top:150px;height:60px"></span></div>`,
+          readFileSync("site/ds/line-field.svg", "utf8").replace(
+            "<svg ",
+            '<svg class="sg-field-vector" ',
+          ),
           "Line field",
           "Hairlines every 12px · white 5.5%",
           "Bars 2px, 48–120px, white 32% · one red per field · rise 3.2–6.6s",
