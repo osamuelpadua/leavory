@@ -1,7 +1,7 @@
-// Leavory — the hero flow. Pipeline results and vulnerability sources run
-// along the wires into a sphere of particles (the estate), which goes through
-// Connect, Scan, Cross-reference and Fix; the few findings that matter light
-// up red and leave for "Fix first". The sphere turns toward the cursor and
+// Leavory — the hero flow. Connect and Scan happen in the customer's pipeline
+// (Trivy runs there; only results and the SBOM travel); Cross-reference
+// happens in Leavory, against the public advisories; the few findings that
+// matter light up red and leave for "Fix first". The sphere turns toward the cursor and
 // its particles move out of the cursor's way. Plain WebGL2, no dependencies.
 // With reduced motion it renders one still frame of the Fix step.
 (() => {
@@ -26,31 +26,115 @@
   /* ---------- Steps and their notes ---------- */
   const STAGES = [
     { a: "Mapping your pipelines…", b: "Connecting Azure DevOps…" },
-    { a: "Running Trivy…", c: "Publishing the SBOM…" },
+    { a: "Trivy runs in your pipeline…", c: "Only results leave…" },
     { b: "Checking OSV and NVD…", a: "Flagging CISA KEV…" },
     { c: "Ranking by EPSS…", a: "Drafting the fix…" },
   ];
   const STAGE_TIME = 3.4;
+  const STEP_NAMES = ["Connect", "Scan", "Cross-reference", "Fix"];
+  // Each step shows its tasks as live status: they come in one after the
+  // other with a spinner and a progress bar, and turn into a check just
+  // before the next step starts.
   const timers = [];
+  const at = (ms, fn) => {
+    if (ms > 0) timers.push(setTimeout(fn, ms));
+    else fn();
+  };
   const setStage = (index) => {
+    flow.dataset.stage = String(index);
+    timers.splice(0).forEach(clearTimeout);
     steps.forEach((el, i) => el.classList.toggle("is-on", i === index));
     out.classList.toggle("is-hot", index === 3);
     for (const slot of ["a", "b", "c"]) {
-      const text = STAGES[index][slot];
-      const note = notes[slot];
-      const wasOn = note.classList.contains("is-on");
-      note.classList.remove("is-on");
+      notes[slot].classList.remove("is-on", "is-done");
       leads[slot]?.classList.remove("is-on");
-      if (!text) continue;
-      const show = () => {
-        note.textContent = text;
+    }
+    const step = `Step 0${index + 1} · ${STEP_NAMES[index]}`;
+    Object.entries(STAGES[index]).forEach(([slot, text], k) => {
+      const note = notes[slot];
+      const delay = motionOK ? 320 + k * 900 : 0;
+      const done = STAGE_TIME * 1000 - 600 + k * 100;
+      at(delay, () => {
+        note.querySelector(".flow__note-step").textContent = step;
+        note.querySelector(".flow__note-text").textContent = text;
+        note.style.setProperty("--dur", `${done - delay}ms`);
         note.classList.add("is-on");
         leads[slot]?.classList.add("is-on");
-      };
-      if (wasOn && motionOK) timers.push(setTimeout(show, 280));
-      else show();
-    }
+        if (!motionOK) note.classList.add("is-done");
+      });
+      if (motionOK) at(done, () => note.classList.add("is-done"));
+    });
   };
+
+  /* ---------- Wires meet the steps at two ports ---------- */
+  // The steps panel's width depends on the font and the screen, so the
+  // wires are routed to its left edge once it is laid out: the customer's
+  // pipelines enter through one port, the public data through the other.
+  const svg = flow.querySelector(".flow__lines");
+  const midGroup = flow.querySelector(".flow__mid");
+  const exitGroup = flow.querySelector(".flow__exit");
+  const firstTile = flow.querySelector(".flow__tile");
+  const outEl = flow.querySelector(".flow__out");
+  let W = 1200;
+  let exitFrom = 812;
+  let exitTo = 856;
+  const stepsEl = flow.querySelector(".flow__steps");
+  const wires = [...flow.querySelectorAll(".flow__wire")];
+  const ports = [...flow.querySelectorAll(".flow__port")];
+  const PORT_Y = { pipe: 274, adv: 286 };
+  let afterRoute = () => {};
+  const route = () => {
+    const s = stage.getBoundingClientRect();
+    if (!s.width || !s.height) return;
+    W = (560 * s.width) / s.height;
+    svg.setAttribute("viewBox", `0 0 ${W.toFixed(1)} 560`);
+    const unit = (px) => ((px - s.left) / s.width) * W;
+    const r = stepsEl.getBoundingClientRect();
+    const x = unit(r.left);
+    const start = unit(firstTile.getBoundingClientRect().right);
+    // Leads follow the centre; exit dots run from the steps to the output.
+    midGroup.setAttribute(
+      "transform",
+      `translate(${(W / 2 - 600).toFixed(1)} 0)`,
+    );
+    exitFrom = unit(r.right) + 6;
+    exitTo = unit(outEl.getBoundingClientRect().left) - 6;
+    // A dotted run every 12 units, brightening toward the output.
+    const n = Math.max(2, Math.floor((exitTo - exitFrom) / 12));
+    exitGroup.replaceChildren(
+      ...Array.from({ length: n }, (_, k) => {
+        const dot = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle",
+        );
+        dot.setAttribute(
+          "cx",
+          (exitFrom + ((exitTo - exitFrom) * (k + 0.5)) / n).toFixed(1),
+        );
+        dot.setAttribute("cy", "280");
+        dot.setAttribute("r", "1.6");
+        dot.style.opacity = (0.2 + (0.7 * k) / Math.max(1, n - 1)).toFixed(2);
+        return dot;
+      }),
+    );
+    for (const wire of wires) {
+      const y0 = Number(wire.dataset.y);
+      const y1 = PORT_Y[wire.dataset.group];
+      wire.setAttribute(
+        "d",
+        `M${start.toFixed(1)} ${y0} C ${(start + 120).toFixed(1)} ${y0}, ${(x - 120).toFixed(1)} ${y1}, ${x.toFixed(1)} ${y1}`,
+      );
+    }
+    for (const port of ports) {
+      port.setAttribute("cx", x.toFixed(1));
+      port.setAttribute("cy", PORT_Y[port.dataset.group]);
+    }
+    afterRoute();
+  };
+  route();
+  new ResizeObserver(route).observe(stepsEl);
+  new ResizeObserver(route).observe(stage);
+  document.fonts?.ready.then(route);
 
   /* ---------- WebGL ---------- */
   const gl = canvas.getContext("webgl2", {
@@ -113,7 +197,6 @@
   gl.useProgram(program);
   const uScale = gl.getUniformLocation(program, "uScale");
   const uPx = gl.getUniformLocation(program, "uPx");
-  gl.uniform2f(uScale, 2 / 1200, 2 / 560);
 
   /* ---------- Particles ---------- */
   let seed = 3;
@@ -123,7 +206,7 @@
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-  const CX = 640;
+  let CX = 600;
   const CY = 280;
   const R = 205;
   const N = 2200;
@@ -160,14 +243,24 @@
     size[i] = 1.6 + rand() * 1.2;
   }
 
-  // Wires: sampled once from the SVG paths (they share the design units).
-  const wirePts = [...flow.querySelectorAll(".flow__wire")].map((path) => {
-    const length = path.getTotalLength();
-    return Array.from({ length: 65 }, (_, k) => {
-      const p = path.getPointAtLength((length * k) / 64);
-      return [p.x, p.y];
-    });
-  });
+  // Wires: sampled from the SVG paths (they share the design units), and
+  // again whenever they are re-routed.
+  const wirePts = { pipe: [], adv: [] };
+  const sample = () => {
+    wirePts.pipe = [];
+    wirePts.adv = [];
+    for (const path of wires) {
+      const length = path.getTotalLength();
+      wirePts[path.dataset.group].push(
+        Array.from({ length: 65 }, (_, k) => {
+          const p = path.getPointAtLength((length * k) / 64);
+          return [p.x, p.y];
+        }),
+      );
+    }
+  };
+  sample();
+  afterRoute = sample;
   const along = (pts, t) => {
     const f = Math.min(Math.max(t, 0), 1) * (pts.length - 1);
     const k = Math.min(Math.floor(f), pts.length - 2);
@@ -207,7 +300,10 @@
     canvas.width = width;
     canvas.height = height;
     gl.viewport(0, 0, width, height);
-    gl.uniform1f(uPx, width / 1200);
+    W = (560 * rect.width) / rect.height;
+    CX = W / 2;
+    gl.uniform2f(uScale, 2 / W, 2 / 560);
+    gl.uniform1f(uPx, width / W);
     if (!motionOK) draw();
   };
   const pointer = { x: 0, y: 0, active: false };
@@ -215,7 +311,7 @@
     const onMove = (event) => {
       const rect = stage.getBoundingClientRect();
       const box = flow.getBoundingClientRect();
-      pointer.x = ((event.clientX - rect.left) / rect.width) * 1200;
+      pointer.x = ((event.clientX - rect.left) / rect.width) * W;
       pointer.y = ((event.clientY - rect.top) / rect.height) * 560;
       pointer.active =
         event.clientX >= box.left &&
@@ -282,19 +378,22 @@
       off[o + 1] += vel[o + 1] * dt;
     }
 
-    // Results flow in while connecting and scanning, slower later.
-    spawnWire += dt * (stageIndex < 2 ? 9 : stageIndex === 2 ? 5 : 2.5);
+    // Results arrive from the pipelines while connecting and scanning; the
+    // advisories feed in while cross-referencing.
+    spawnWire += dt * (stageIndex === 3 ? 1.5 : 9);
     while (spawnWire > 1) {
       spawnWire -= 1;
+      const group = stageIndex === 2 ? wirePts.adv : wirePts.pipe;
       travellers.push({
-        wire: Math.floor(rand() * wirePts.length),
+        wire: group[Math.floor(rand() * group.length)],
         t: 0,
         speed: 0.5 + rand() * 0.35,
         size: 1.6 + rand() * 1.6,
       });
     }
     for (const p of travellers) p.t += p.speed * dt;
-    while (travellers.length && travellers[0].t >= 1) travellers.shift();
+    for (let k = travellers.length - 1; k >= 0; k--)
+      if (travellers[k].t >= 1) travellers.splice(k, 1);
 
     // Fix: the findings leave the sphere for "Fix first".
     if (stageIndex === 3) {
@@ -359,25 +458,23 @@
       let a = (0.14 + 0.78 * depth) * tone[i];
       let col = [1, 1, 1];
 
-      if (stageIndex === 1) {
+      // Cross-reference: a line sweeps the estate against the advisories.
+      if (stageIndex === 2) {
         const g = Math.exp(-(((py - band) / 9) ** 2));
         if (g > 0.01) {
           col = [1 - 0.224 * g, 1 - 0.835 * g, 1 - 0.761 * g];
           a = Math.min(1, a + g * 0.6);
           s *= 1 + g * 0.5;
         }
-      } else if (stageIndex === 2) {
-        const flash = Math.max(0, Math.sin(time * 5 + phase[i] * 9)) ** 12;
-        a = Math.min(1, a * (1 + flash * 1.8));
       }
 
       if (red[i]) {
-        // Barely there until the end; then they burn.
+        // Barely there until the sweep passes them; then they burn.
         const heat =
           stageIndex === 3
             ? 0.75 + 0.25 * Math.sin(time * 6 + phase[i])
-            : stageIndex === 2
-              ? 0.35
+            : stageIndex === 2 && py < band
+              ? 0.5
               : 0.12;
         col = RED;
         a = Math.max(a * 0.6, heat);
@@ -387,12 +484,12 @@
     }
 
     for (const p of travellers) {
-      const [x, y] = along(wirePts[p.wire], p.t);
+      const [x, y] = along(p.wire, p.t);
       const fade = Math.min(p.t * 6, 1, (1 - p.t) * 5);
       put(x, y, p.size, 1, 1, 1, 0.85 * fade);
     }
     for (const p of leavers) {
-      const x = 846 + p.t * 116;
+      const x = exitFrom + p.t * (exitTo - exitFrom);
       const fade = Math.min(p.t * 5, 1, (1 - p.t) * 4);
       put(x, p.y, p.size, RED[0], RED[1], RED[2], fade);
     }

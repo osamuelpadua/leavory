@@ -50,6 +50,28 @@
       { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
     );
     revealables.forEach((el) => observer.observe(el));
+    // A fast scroll can jump past a block between two frames; reveal
+    // anything that has already reached the viewport.
+    let queued = false;
+    const catchUp = () => {
+      queued = false;
+      for (const el of revealables) {
+        if (el.classList.contains("is-visible")) continue;
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        }
+      }
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(catchUp);
+      },
+      { passive: true },
+    );
   }
 
   /* ---------- Demo form: front-end only, nothing is sent ---------- */
