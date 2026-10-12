@@ -51,6 +51,11 @@
   /* One corner family for the whole page: controls, then panels. */
   --radius: 10px;
   --radius-lg: 14px;
+  /* Vertical rhythm: regular sections, and the anchor blocks. */
+  --section: clamp(88px, 10vw, 144px);
+  --section-lg: clamp(104px, 12vw, 176px);
+  /* Comfortable line length for running text. */
+  --measure: 38rem;
 }
 
 /* ---------- Base ---------- */
@@ -837,7 +842,7 @@ input {
 }
 
 .statement {
-  padding: clamp(56px, 8vw, 120px) 0 clamp(64px, 8vw, 112px);
+  padding: var(--section) 0;
 }
 .statement__text {
   max-width: 24em;
@@ -960,7 +965,7 @@ input {
 
 /* ---------- Feature sections ---------- */
 .feature {
-  padding: clamp(80px, 11vw, 160px) 0;
+  padding: var(--section) 0;
   border-bottom: 1px solid var(--line);
 }
 .feature__head {
@@ -976,7 +981,7 @@ input {
   letter-spacing: -0.04em;
 }
 .feature__head p {
-  max-width: 42rem;
+  max-width: var(--measure);
   font-size: clamp(17px, 1.4vw, 21px);
   line-height: 1.4;
   letter-spacing: -0.01em;
@@ -1051,7 +1056,7 @@ input {
 }
 
 .platform {
-  padding-top: clamp(80px, 11vw, 160px);
+  padding-top: var(--section-lg);
 }
 .platform__head {
   text-align: center;
@@ -1586,7 +1591,7 @@ input {
 
 /* ---------- Roles ---------- */
 .roles {
-  padding: clamp(80px, 11vw, 160px) 0;
+  padding: var(--section) 0;
   border-bottom: 1px solid var(--line);
 }
 .big {
@@ -1674,7 +1679,7 @@ input {
 
 /* ---------- Security ---------- */
 .security {
-  padding: clamp(80px, 11vw, 160px) 0;
+  padding: var(--section) 0;
   border-bottom: 1px solid var(--line);
 }
 .security__inner {
@@ -1808,7 +1813,7 @@ input {
 
 /* ---------- Call to action ---------- */
 .cta {
-  padding: clamp(96px, 13vw, 180px) 0;
+  padding: var(--section-lg) 0;
   text-align: center;
 }
 .cta h2 {
