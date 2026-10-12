@@ -1,9 +1,11 @@
 // Import-safe decorations and semantic layer names, only for site/figma/.
 import { writeFile } from "node:fs/promises";
+import { outlineStamps } from "./outline-stamps.mjs";
 
 export async function prepareFigmaImport(page, outDir) {
   await page.goto("http://127.0.0.1:5173/figma/");
   await page.evaluate(() => document.fonts.ready);
+  await outlineStamps(page);
   const fields = page.locator(".lines:not(img)");
   const count = await fields.count();
   const assets = [];
@@ -32,12 +34,17 @@ export async function prepareFigmaImport(page, outDir) {
   await page.evaluate((assets) => {
     document.querySelectorAll(".lines:not(img)").forEach((field, i) => {
       const asset = assets[i];
-      const img = document.createElement("img");
+      const isCta = field.classList.contains("lines--cta");
+      const img = document.createElement(isCta ? "div" : "img");
       img.className = `${field.className} figma-line-field`;
       img.src = `${asset.name}.png`;
       img.alt = "";
       img.setAttribute("aria-hidden", "true");
       img.style.cssText = `width:${asset.width}px;height:${asset.height}px;bottom:auto`;
+      if (isCta) {
+        img.removeAttribute("src");
+        img.style.cssText = `width:100%;height:100%;background-image:url("${asset.name}.png");background-repeat:repeat-x;background-size:${asset.width}px 100%`;
+      }
       field.replaceWith(img);
     });
     const name = (el, label) => {

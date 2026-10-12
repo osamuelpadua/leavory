@@ -4,6 +4,9 @@
 // site/index.html with every <use> inlined, so the guide always
 // shows what the site ships. Usage: node scripts/build-styleguide.mjs
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { spawn } from "node:child_process";
+import { chromium } from "@playwright/test";
+import { outlineStamps } from "./outline-stamps.mjs";
 
 const src = readFileSync("site/index.html", "utf8");
 const pick = (re, label) => {
@@ -802,4 +805,28 @@ if (/<use\b|<script|<canvas/.test(html))
   throw new Error("leftover <use>, <script> or <canvas>");
 mkdirSync("site/ds", { recursive: true });
 writeFileSync("site/ds/index.html", html);
+const base = "http://127.0.0.1:5173";
+const reachable = () =>
+  fetch(base).then(
+    () => true,
+    () => false,
+  );
+let server;
+if (!(await reachable())) {
+  server = spawn(process.execPath, ["scripts/serve.mjs"], { stdio: "ignore" });
+  for (let i = 0; i < 50 && !(await reachable()); i++)
+    await new Promise((resolve) => setTimeout(resolve, 100));
+}
+const browser = await chromium.launch({ channel: "chrome" });
+try {
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 1000 },
+  });
+  await page.goto(`${base}/ds/`);
+  await outlineStamps(page);
+  writeFileSync("site/ds/index.html", await page.content());
+} finally {
+  await browser.close();
+  server?.kill();
+}
 console.log("wrote site/ds/index.html");
