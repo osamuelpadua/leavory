@@ -1,4 +1,4 @@
-// Builds site/figma/: a frozen, script-free copy of /linear/ for importing
+// Builds site/figma/: a frozen, script-free copy of the landing page for importing
 // into Figma with html.to.design. It opens the live page at 1440px, waits
 // for the Fix step, then freezes it: the WebGL sphere and the striped
 // wordmark become images, icon sprites are inlined, scripts are removed,
@@ -31,7 +31,7 @@ try {
     viewport: { width: WIDTH, height: 1000 },
     deviceScaleFactor: 2,
   });
-  await page.goto(`${base}/linear/`);
+  await page.goto(`${base}/`);
   await page.evaluate(() => document.fonts.ready);
   // The Fix step, with its status notes done and the output lit.
   await page.waitForFunction(
@@ -169,7 +169,11 @@ try {
 
     // Paths and stylesheet for site/figma/.
     const css = doc.querySelector('link[rel="stylesheet"]');
-    css.setAttribute("href", "../linear/linear.css");
+    css.setAttribute("href", "../css/styles.css");
+    for (const link of doc.querySelectorAll(
+      'link[rel="icon"], link[rel="preload"]',
+    ))
+      link.setAttribute("href", "../" + link.getAttribute("href"));
     const extra = doc.createElement("link");
     extra.rel = "stylesheet";
     extra.href = "figma.css";

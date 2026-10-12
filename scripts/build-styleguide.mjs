@@ -1,11 +1,11 @@
-// Builds site/styleguide/index.html: the design system of /linear/, as one
+// Builds site/styleguide/index.html: the design system of the landing page, as one
 // static page made for importing into Figma with html.to.design. Real
 // markup (icons, isotype, figures, product window) is copied from
-// site/linear/index.html with every <use> inlined, so the guide always
+// site/index.html with every <use> inlined, so the guide always
 // shows what the site ships. Usage: node scripts/build-styleguide.mjs
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
-const src = readFileSync("site/linear/index.html", "utf8");
+const src = readFileSync("site/index.html", "utf8");
 const pick = (re, label) => {
   const m = src.match(re);
   if (!m) throw new Error(`not found: ${label}`);
@@ -124,7 +124,7 @@ const logo = section(
           "≥ isotype height on every side",
         ),
         tile(
-          `<div class="sg-center sg-pad"><img src="../linear/favicon.svg" width="64" height="64" alt="" /><img src="../linear/favicon.svg" width="32" height="32" alt="" /><img src="../linear/favicon.svg" width="16" height="16" alt="" /></div>`,
+          `<div class="sg-center sg-pad"><img src="../favicon.svg" width="64" height="64" alt="" /><img src="../favicon.svg" width="32" height="32" alt="" /><img src="../favicon.svg" width="16" height="16" alt="" /></div>`,
           "Favicon",
           "32 × 32 · Ink tile, radius 7",
         ),
@@ -751,8 +751,8 @@ const html = `<!doctype html>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1440" />
     <title>Leavory — Design system</title>
-    <link rel="icon" type="image/svg+xml" href="../linear/favicon.svg" />
-    <link rel="stylesheet" href="../linear/linear.css" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../figma/figma.css" />
     <link rel="stylesheet" href="styleguide.css" />
   </head>

@@ -46,20 +46,23 @@ UI compositions are illustrative and labeled. Their grouping explains product co
 
 The original navigation and the “See everything”, “Explore platform”, “Explore intelligence”, role and workflow detail links now lead to real sections or panels within the landing page. There are no invented detail pages. The original theme control is omitted, because this design has a single deliberate red, black and white direction.
 
-## Visual composition (v3 — reference-led redesign)
+## Visual composition
 
-Style reference: bee-eng.pt (layout, rhythm, chamfered edges, wide display type, 3D objects); palette kept to #C62A3D, #D21E38, #1E1C1B, #FFFFFF.
+Dark, quiet surfaces, tight display type and hairline structure; palette kept to #C62A3D, #D21E38, #1E1C1B, #FFFFFF.
 
-| Section      | Composition                                                                                                                                                                                                       |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Opening      | Recreation of the current leavory.com intro (Vulnerability + Quality of Service → Leavory) in the new palette, with a chamfered panel exit                                                                        |
-| Hero         | Uppercase wide H1 over a red chamfered ribbon, 3D cluster of black spheres with three red ones (“the few that matter”), high-fidelity product window with the six PDF findings and the selected finding explained |
-| Manifesto    | The PDF line about spreadsheets and scattered alerts, with risk, context and recommendation in red                                                                                                                |
-| Integrations | “Azure DevOps” solution block with the three PDF benefits as ring bullets, orbit object over outlined “Built for Azure DevOps”, GitHub/GitLab line                                                                |
-| Who it’s for | Folder-shaped panel with four vertical icon tabs; each role shows a small, value-free UI fragment                                                                                                                 |
-| Product      | Three cut-corner capability cards; Platform and Intelligence modules                                                                                                                                              |
-| How it works | Four steps (Fix in red) and the “never reads your source code” block with the sealed object                                                                                                                       |
-| Demo         | Form on a white cut-corner panel, red cell object                                                                                                                                                                 |
+| Section      | Composition                                                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hero         | Centred two-tone H1 and lede (brand names with their marks); live flow: pipelines and public sources → Leavory → a ranked “Fix first” list |
+| Sources      | Connects to · Built on · Cross-references, with the copy’s own source list                                                                 |
+| Statement    | The PDF line about spreadsheets and scattered alerts, in two tones                                                                         |
+| Capabilities | Three isometric figures with the PDF capabilities                                                                                          |
+| Intelligence | Product window with the six PDF findings and the selected finding explained                                                                |
+| Azure DevOps | The three PDF benefits as numbered cells; GitHub/GitLab line                                                                               |
+| Platform     | Five capabilities in a row, each with an animated line icon                                                                                |
+| Who it’s for | Four roles                                                                                                                                 |
+| How it works | Four steps (Fix in red), each with a small figure                                                                                          |
+| Security     | “Never reads your source code” with the organization-boundary diagram and a stamp                                                          |
+| Demo         | Front-end-only form on a line field, with a stamp                                                                                          |
 
 The hero detail text (“Tokens issued by this service never expire…”) is a generic, technically correct explanation of the finding type, not a claim about a real scan. The “6 / 3 / 3” tab counts are counts of the six example rows shown.
 

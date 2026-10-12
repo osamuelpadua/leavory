@@ -7,7 +7,7 @@
   const motionOK = window.matchMedia(
     "(prefers-reduced-motion: no-preference)",
   ).matches;
-  const STEP = 12; // must match the hairline spacing in linear.css
+  const STEP = 12; // must match the hairline spacing in css/styles.css
 
   document.querySelectorAll(".lines[data-bars]").forEach((field, n) => {
     let seed = 41 + n * 17;

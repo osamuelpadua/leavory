@@ -1,5 +1,5 @@
 /* Static overrides for importing /figma/ into Figma (html.to.design).
-   The page is a frozen copy of /linear/ at 1440px; these rules remove what
+   The page is a frozen copy of the landing page at 1440px; these rules remove what
    the importer handles poorly: motion, backdrop blur, sticky positioning,
    and non-standard font weights. Generated alongside scripts/build-figma.mjs. */
 
