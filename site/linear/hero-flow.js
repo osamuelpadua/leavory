@@ -271,7 +271,28 @@
   const travellers = []; // along the wires
   const leavers = []; // out to "Fix first"
 
-  const MAX = N + 200;
+  // Background texture: a fine grid of dots that shows in slow, drifting
+  // patches, behind everything else.
+  const DOT = 10; // grid step, in design units
+  const MAX_DOTS = Math.ceil(2400 / DOT) * Math.ceil(560 / DOT);
+  const hash = (x, y) => {
+    const h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+    return h - Math.floor(h);
+  };
+  const noise = (x, y) => {
+    const xi = Math.floor(x);
+    const yi = Math.floor(y);
+    const fx = x - xi;
+    const fy = y - yi;
+    const u = fx * fx * (3 - 2 * fx);
+    const v = fy * fy * (3 - 2 * fy);
+    const a = hash(xi, yi);
+    const b = hash(xi + 1, yi);
+    const c = hash(xi, yi + 1);
+    const d = hash(xi + 1, yi + 1);
+    return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+  };
+  const MAX = N + 200 + MAX_DOTS;
   const data = new Float32Array(MAX * 7);
   const vao = gl.createVertexArray();
   gl.bindVertexArray(vao);
@@ -412,6 +433,17 @@
       data.set([x, y, s, r, g, b, a], n * 7);
       n++;
     };
+
+    // The dot texture first, so everything else draws over it.
+    const drift = time * 0.035;
+    for (let y = DOT / 2; y < 560; y += DOT)
+      for (let x = DOT / 2; x < W; x += DOT) {
+        const v = noise(x / 90 + drift, y / 90 - drift * 0.6);
+        const patch = Math.min(1, Math.max(0, (v - 0.52) / 0.22));
+        if (patch <= 0.02) continue;
+        const edge = Math.min(1, y / 60, (560 - y) / 60);
+        put(x, y, 1.4, 1, 1, 1, 0.22 * patch * edge);
+      }
 
     for (let i = 0; i < N; i++) {
       const d = i * 3;
