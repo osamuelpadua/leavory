@@ -189,20 +189,14 @@ input {
    HEADER
    ========================================================= */
 /* A floating bar as wide as the grid, a little off the top. */
+/* A full-width bar fixed to the top; its content follows the grid. */
 .nav {
   position: fixed;
-  top: 16px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  /* Inset from the grid, so it never touches the hero line panels. */
-  width: calc(min(var(--max), 100% - 2 * var(--gutter)) - 32px);
-  margin: 0 auto;
-  border-radius: var(--radius-lg);
-}
-.nav > .wrap {
-  width: auto;
-  padding-inline: 24px 14px;
+  border-bottom: 1px solid var(--line-2);
 }
 .nav__inner {
   display: grid;
@@ -263,7 +257,7 @@ input {
 .nav__mobile {
   display: grid;
   gap: 4px;
-  padding: 8px 18px 20px;
+  padding: 8px var(--gutter) 20px;
   border-top: 1px solid var(--line);
 }
 .nav__mobile a:not(.pill) {
@@ -286,8 +280,8 @@ input {
 /* The first screen shows the headline and the whole flow: the copy sits in
    one band, and the flow is sized by the height left below it. */
 .hero {
-  --hero-top: 404px; /* header, padding and the centred copy */
-  padding-top: calc(84px + clamp(32px, 5svh, 64px));
+  --hero-top: 388px; /* header, padding and the centred copy */
+  padding-top: calc(68px + clamp(32px, 5svh, 64px));
   padding-bottom: clamp(40px, 6svh, 80px);
   overflow: clip;
 }
@@ -2026,10 +2020,7 @@ input {
     linear-gradient(rgb(var(--ink-rgb) / 0.72), rgb(var(--ink-rgb) / 0.72));
   backdrop-filter: blur(14px) saturate(1.6);
   -webkit-backdrop-filter: blur(14px) saturate(1.6);
-  box-shadow:
-    inset 0 1px 0 rgb(var(--white-rgb) / 0.1),
-    inset 0 0 0 1px rgb(var(--white-rgb) / 0.06),
-    0 12px 32px rgb(var(--ink-rgb) / 0.5);
+  box-shadow: 0 12px 32px rgb(var(--ink-rgb) / 0.35);
 }
 /* The organization boundary on the security diagram keeps its dashed edge. */
 .boundary__box.is-out {
