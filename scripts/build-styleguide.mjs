@@ -780,7 +780,7 @@ const html = `<!doctype html>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../figma/figma.css" />
-    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="/ds/styleguide.css" />
   </head>
   <body class="sg">
     <main>

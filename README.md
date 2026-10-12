@@ -28,6 +28,14 @@ Browser tests (`tests/landing.spec.ts`) use the locally installed Google Chrome 
 
 Upload the contents of `site/` to any static host. No server, environment variables, database, or credentials are required. Pushing to `main` publishes `site/` to GitHub Pages (`.github/workflows/pages.yml`).
 
+### Vercel
+
+The Vercel project is `osamuelpaduas-projects/leavory`, published at https://leavory.vercel.app. The root `vercel.json` publishes `site/` without installation or a build step. To publish local changes, run `vercel deploy --prod --scope osamuelpaduas-projects`.
+
+Vercel serves the home page at `/leavory-home`, the creative rationale at `/leavory-rationale`, and the design system at `/leavory-ds`. The root URL and previous page URLs redirect to the new routes.
+
+The custom domain `layout.samuelpadua.com.br` is attached to this project. In Registro.br's DNS zone for `samuelpadua.com.br`, create a CNAME record named `layout` with value `a07b8b9ac5085ec8.vercel-dns-017.com`, as recommended by the Vercel dashboard. HTTPS activation depends on the DNS configuration and propagation. Recheck with `vercel domains inspect layout.samuelpadua.com.br --scope osamuelpaduas-projects`.
+
 ## Structure
 
 - `site/index.html`: all sections, semantic markup, and an inline SVG icon sprite (UI icons, the official brand marks, the isotype).

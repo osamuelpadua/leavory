@@ -1,0 +1,8 @@
+node_modules
+.git
+exports
+docs
+tests
+test-results
+playwright-report
+.reference

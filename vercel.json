@@ -1,0 +1,73 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "installCommand": "",
+  "outputDirectory": "site",
+  "redirects": [
+    {
+      "destination": "/leavory-home",
+      "permanent": true,
+      "source": "/"
+    },
+    {
+      "destination": "/leavory-home",
+      "permanent": true,
+      "source": "/leavory"
+    },
+    {
+      "destination": "/leavory-home",
+      "permanent": true,
+      "source": "/leavory/"
+    },
+    {
+      "destination": "/leavory-home",
+      "permanent": true,
+      "source": "/leavory-home/"
+    },
+    {
+      "destination": "/leavory-rationale",
+      "permanent": true,
+      "source": "/rationale"
+    },
+    {
+      "destination": "/leavory-rationale",
+      "permanent": true,
+      "source": "/rationale/"
+    },
+    {
+      "destination": "/leavory-rationale",
+      "permanent": true,
+      "source": "/leavory-rationale/"
+    },
+    {
+      "destination": "/leavory-ds",
+      "permanent": true,
+      "source": "/ds"
+    },
+    {
+      "destination": "/leavory-ds",
+      "permanent": true,
+      "source": "/ds/"
+    },
+    {
+      "destination": "/leavory-ds",
+      "permanent": true,
+      "source": "/leavory-ds/"
+    }
+  ],
+  "rewrites": [
+    {
+      "destination": "/index.html",
+      "source": "/leavory-home"
+    },
+    {
+      "destination": "/rationale/index.html",
+      "source": "/leavory-rationale"
+    },
+    {
+      "destination": "/ds/index.html",
+      "source": "/leavory-ds"
+    }
+  ]
+}
