@@ -74,6 +74,25 @@
     );
   }
 
+  /* ---------- Stamps turn with the scroll ---------- */
+  const rings = document.querySelectorAll(".stamp__ring");
+  if (rings.length && motionOK.matches) {
+    let frame = null;
+    const turn = () => {
+      frame = null;
+      const angle = (window.scrollY * 0.12) % 360;
+      rings.forEach((ring) => ring.style.setProperty("--turn", `${angle}deg`));
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (frame === null) frame = requestAnimationFrame(turn);
+      },
+      { passive: true },
+    );
+    turn();
+  }
+
   /* ---------- Demo form: front-end only, nothing is sent ---------- */
   const form = document.querySelector(".cta__form");
   const email = form.querySelector('input[type="email"]');

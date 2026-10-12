@@ -54,6 +54,13 @@ const app = inline(pick(/<figure\s+class="app"[\s\S]*?<\/figure>/, "app"));
 if (figs.length !== 3 || steps.length !== 4 || caps.length !== 5)
   throw new Error(`figures ${figs.length}/${steps.length}/${caps.length}`);
 
+const stampEl = inline(
+  pick(
+    /<div class="stamp stamp--cta"[\s\S]*?<svg class="stamp__mark">[\s\S]*?<\/svg>\s*<\/div>/,
+    "stamp",
+  ),
+).replace(" stamp--cta", "");
+
 /* ---------- Doc helpers ---------- */
 const section = (no, title, lede, body) => `
   <section class="sg-section" aria-labelledby="sg-${no}">
@@ -584,6 +591,23 @@ const components = section(
         ),
       ],
       3,
+    ) +
+    group(
+      "Stamp",
+      [
+        tile(
+          `<div class="sg-center sg-pad">${stampEl}</div>`,
+          "Stamp",
+          "Isotype + ring text, Plex Mono Medium 14 · uppercase · 12%",
+          "Ring turns with the page scroll",
+        ),
+        tile(
+          `<div class="sg-center sg-pad" style="flex-direction:column;align-items:flex-start;gap:12px"><p class="t-body">Security — seal on the corner of the diagram</p><p class="t-body">Demo — signature above the title</p></div>`,
+          "Placement",
+          "Two uses per page at most",
+        ),
+      ],
+      2,
     ) +
     group(
       "Product window",
