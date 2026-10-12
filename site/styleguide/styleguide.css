@@ -1,6 +1,4 @@
-/* Leavory design system page: the frame around the live components. Fixed
-   to 1440px for importing into Figma with html.to.design. Components keep
-   their own styles from ../linear/linear.css. */
+/* Leavory UI kit page, fixed to 1440px. */
 
 .sg {
   width: 1440px;
@@ -31,11 +29,26 @@
   font-size: 18px;
   color: var(--text-2);
 }
+.sg-tocs {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+  margin-top: 72px;
+}
+.sg-toc__title {
+  margin-bottom: 12px;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.sg-tocs > div:first-child .sg-toc {
+  grid-template-columns: repeat(2, 1fr);
+}
 .sg-toc {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 0 32px;
-  margin-top: 72px;
 }
 .sg-toc li {
   display: flex;

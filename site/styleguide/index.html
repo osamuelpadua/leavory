@@ -22,7 +22,7 @@
             style="width: 40px; height: 40px"
           >
             <mask
-              id="i-mark-m-51"
+              id="i-mark-m-52"
               maskUnits="userSpaceOnUse"
               x="0"
               y="0"
@@ -56,23 +56,33 @@
               width="24"
               height="24"
               fill="currentColor"
-              mask="url(#i-mark-m-51)"
+              mask="url(#i-mark-m-52)"
             /></svg
           ><span>Leavory</span></span
         >
         <h1>Design system</h1>
-        <p>UI kit for leavory.com · Linear-inspired version · 2026</p>
-        <ol class="sg-toc">
-          <li><span>01</span>Logo</li>
-          <li><span>02</span>Colour</li>
-          <li><span>03</span>Typography</li>
-          <li><span>04</span>Grid and layout</li>
-          <li><span>05</span>Spacing, radius and lines</li>
-          <li><span>06</span>Surfaces and effects</li>
-          <li><span>07</span>Components</li>
-          <li><span>08</span>Icons and illustrations</li>
-          <li><span>09</span>Motion</li>
-        </ol>
+        <p>UI Kit · v1.0 · October 2026</p>
+        <div class="sg-tocs">
+          <div>
+            <p class="sg-toc__title">Foundations</p>
+            <ol class="sg-toc">
+              <li><span>01</span>Logo</li>
+              <li><span>02</span>Colour</li>
+              <li><span>03</span>Typography</li>
+              <li><span>04</span>Grid and layout</li>
+              <li><span>05</span>Spacing, radius and lines</li>
+              <li><span>06</span>Surfaces and effects</li>
+            </ol>
+          </div>
+          <div>
+            <p class="sg-toc__title">Components</p>
+            <ol class="sg-toc">
+              <li><span>07</span>Components</li>
+              <li><span>08</span>Icons and illustrations</li>
+              <li><span>09</span>Motion</li>
+            </ol>
+          </div>
+        </div>
       </section>
 
       <section class="sg-section" aria-labelledby="sg-01">
@@ -142,8 +152,8 @@
               </div>
               <p class="sg-spec">
                 <b>Primary lockup</b
-                ><span>Isotype --red · wordmark --white</span
-                ><span>Geist 540 · tracking −0.04em</span>
+                ><span>Isotype Brand/Red · wordmark Neutral/White</span
+                ><span>Geist Medium · letter spacing −4%</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -198,7 +208,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Isotype</b><span>24 × 24 grid · fill --red</span>
+                <b>Isotype</b><span>24 × 24 grid · fill Brand/Red</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -255,7 +265,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>On light</b><span>Single colour --ink</span>
+                <b>On light</b><span>Single colour Neutral/Ink</span>
               </p>
             </figure>
           </div>
@@ -544,15 +554,14 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Favicon</b
-                ><span>site/linear/favicon.svg · 32px, ink tile r7</span>
+                <b>Favicon</b><span>32 × 32 · Ink tile, radius 7</span>
               </p>
             </figure>
           </div>
         </div>
         <p class="sg-note">
-          Don’t stretch, outline, recolour (other than --white or --ink on
-          light) or add effects to the mark.
+          Don’t stretch, outline, recolour (other than White, or Ink on light
+          backgrounds) or add effects to the mark.
         </p>
       </section>
 
@@ -561,22 +570,22 @@
           <p class="sg-no">02</p>
           <h2 id="sg-02">Colour</h2>
           <p class="sg-lede">
-            Four colours and their transparencies, nothing else. A test fails if
-            any other colour is rendered.
+            Four colours and their transparencies, nothing else. Every surface,
+            line and text tone is one of these.
           </p>
         </header>
         <div class="sg-swatches">
           <figure class="sg-swatch">
             <div class="sg-swatch__chip" style="background: #c62a3d"></div>
             <p class="sg-spec">
-              <b>Red</b><span>--red</span
+              <b>Red</b><span>Brand/Red</span
               ><span>#C62A3D · buttons, accents, findings</span>
             </p>
           </figure>
           <figure class="sg-swatch">
             <div class="sg-swatch__chip" style="background: #d21e38"></div>
             <p class="sg-spec">
-              <b>Red type</b><span>--red-type</span
+              <b>Red type</b><span>Brand/Red Type</span
               ><span>#D21E38 · large red type only</span>
             </p>
           </figure>
@@ -589,13 +598,14 @@
               "
             ></div>
             <p class="sg-spec">
-              <b>Ink</b><span>--ink</span><span>#1E1C1B · background</span>
+              <b>Ink</b><span>Neutral/Ink</span
+              ><span>#1E1C1B · background</span>
             </p>
           </figure>
           <figure class="sg-swatch">
             <div class="sg-swatch__chip" style="background: #ffffff"></div>
             <p class="sg-spec">
-              <b>White</b><span>--white</span
+              <b>White</b><span>Neutral/White</span
               ><span>#FFFFFF · text, primary button</span>
             </p>
           </figure>
@@ -608,7 +618,7 @@
                 <span style="background: rgb(255 255 255 / 1)"></span>
               </div>
               <p class="sg-spec">
-                <b>Text</b><span>--text</span><span>#FFFFFF · 100%</span
+                <b>Text</b><span>White/100</span><span>#FFFFFF · 100%</span
                 ><span>Primary text</span>
               </p>
             </figure>
@@ -617,8 +627,8 @@
                 <span style="background: rgb(255 255 255 / 0.68)"></span>
               </div>
               <p class="sg-spec">
-                <b>Text 2</b><span>--text-2</span><span>#FFFFFF · 68%</span
-                ><span>Secondary text</span>
+                <b>Text secondary</b><span>White/68</span
+                ><span>#FFFFFF · 68%</span><span>Secondary text</span>
               </p>
             </figure>
             <figure class="sg-swatch">
@@ -626,8 +636,8 @@
                 <span style="background: rgb(255 255 255 / 0.54)"></span>
               </div>
               <p class="sg-spec">
-                <b>Text 3</b><span>--text-3</span><span>#FFFFFF · 54%</span
-                ><span>Labels, captions</span>
+                <b>Text tertiary</b><span>White/54</span
+                ><span>#FFFFFF · 54%</span><span>Labels, captions</span>
               </p>
             </figure>
             <figure class="sg-swatch">
@@ -635,7 +645,7 @@
                 <span style="background: rgb(255 255 255 / 0.14)"></span>
               </div>
               <p class="sg-spec">
-                <b>Line 2</b><span>--line-2</span><span>#FFFFFF · 14%</span
+                <b>Rule</b><span>White/14</span><span>#FFFFFF · 14%</span
                 ><span>Rules, dividers</span>
               </p>
             </figure>
@@ -644,7 +654,7 @@
                 <span style="background: rgb(255 255 255 / 0.08)"></span>
               </div>
               <p class="sg-spec">
-                <b>Line</b><span>--line</span><span>#FFFFFF · 8%</span
+                <b>Hairline</b><span>White/8</span><span>#FFFFFF · 8%</span
                 ><span>Hairlines</span>
               </p>
             </figure>
@@ -653,7 +663,7 @@
                 <span style="background: rgb(255 255 255 / 0.025)"></span>
               </div>
               <p class="sg-spec">
-                <b>Surface</b><span>--surface</span><span>#FFFFFF · 2.5%</span
+                <b>Surface</b><span>White/2.5</span><span>#FFFFFF · 2.5%</span
                 ><span>Quiet fills</span>
               </p>
             </figure>
@@ -671,36 +681,36 @@
           <h2 id="sg-03">Typography</h2>
           <p class="sg-lede">
             Geist for everything you read, IBM Plex Mono for labels, numbers and
-            data. Headlines can split into two tones: grey, then white.
+            data. Large headlines can split into two tones: grey, then white.
           </p>
         </header>
         <div class="sg-fonts">
           <div class="sg-font">
             <p class="sg-font__big">Aa</p>
             <p class="sg-spec">
-              <b>Geist</b><span>Variable 100–900 · headlines, UI, body</span
-              ><span>site/fonts/geist.woff2</span>
+              <b>Geist</b><span>Regular · Medium · Semibold</span
+              ><span>Headlines, interface, body</span>
             </p>
           </div>
           <div class="sg-font sg-font--mono">
             <p class="sg-font__big">Aa</p>
             <p class="sg-spec">
-              <b>IBM Plex Mono</b><span>400, 500 · labels, numbers, data</span
-              ><span>site/fonts/plex-mono-*.woff2</span>
+              <b>IBM Plex Mono</b><span>Regular · Medium</span
+              ><span>Labels, numbers, data</span>
             </p>
           </div>
         </div>
         <div class="sg-types">
           <div class="sg-type">
             <div class="sg-type__sample t-display">
-              <span style="color: var(--text-3)"
+              <span style="color: rgb(255 255 255 / 0.54)"
                 >Know exactly which vulnerabilities</span
               >
               to fix first.
             </div>
             <p class="sg-spec">
-              <b>Display / H1</b><span>Geist · clamp(36px … 68px)</span
-              ><span>Weight 540 · line 1.02 · tracking −0.04em</span>
+              <b>Display / XL</b><span>Geist Medium · 68 / 70</span
+              ><span>Letter spacing −4% · Mobile 36 / 38</span>
             </p>
           </div>
           <div class="sg-type">
@@ -708,28 +718,28 @@
               Your whole estate in one view.
             </div>
             <p class="sg-spec">
-              <b>Section display</b><span>Geist · clamp(38px … 76px)</span
-              ><span>Weight 540 · line 1.02 · tracking −0.04em</span>
+              <b>Display / L</b><span>Geist Medium · 76 / 78</span
+              ><span>Letter spacing −4% · Mobile 38 / 40</span>
             </p>
           </div>
           <div class="sg-type">
             <div class="sg-type__sample t-h2">From a new CVE to the fix</div>
             <p class="sg-spec">
-              <b>H2</b><span>Geist · clamp(34px … 58px)</span
-              ><span>Weight 540 · line 1.04 · tracking −0.04em</span>
+              <b>Heading / H2</b><span>Geist Medium · 58 / 60</span
+              ><span>Letter spacing −4% · Mobile 34 / 36</span>
             </p>
           </div>
           <div class="sg-type">
             <div class="sg-type__sample t-statement">
               Leavory replaces tracking spreadsheets and scattered alerts.
-              <span style="color: var(--text-3)"
+              <span style="color: rgb(255 255 255 / 0.54)"
                 >A single place where risk, context, and recommendation live
                 together.</span
               >
             </div>
             <p class="sg-spec">
-              <b>Statement</b><span>Geist · clamp(28px … 50px)</span
-              ><span>Weight 530 · line 1.1 · tracking −0.035em</span>
+              <b>Heading / Statement</b><span>Geist Medium · 50 / 55</span
+              ><span>Letter spacing −3.5% · Mobile 28 / 31</span>
             </p>
           </div>
           <div class="sg-type">
@@ -737,15 +747,15 @@
               Everything your security team needs, without the noise.
             </div>
             <p class="sg-spec">
-              <b>H3 / lead heading</b><span>Geist · clamp(22px … 28px)</span
-              ><span>Weight 540 · line 1.2 · tracking −0.025em</span>
+              <b>Heading / H3</b><span>Geist Medium · 28 / 34</span
+              ><span>Letter spacing −2.5% · Mobile 22 / 26</span>
             </p>
           </div>
           <div class="sg-type">
             <div class="sg-type__sample t-card">Projects and DORA metrics</div>
             <p class="sg-spec">
-              <b>Card title</b><span>Geist · 20px</span
-              ><span>Weight 540 · line 1.2 · tracking −0.025em</span>
+              <b>Heading / Card</b><span>Geist Medium · 20 / 24</span
+              ><span>Letter spacing −2.5%</span>
             </p>
           </div>
           <div class="sg-type">
@@ -754,8 +764,8 @@
               GitLab pipelines into a short list of what to fix today.
             </div>
             <p class="sg-spec">
-              <b>Lede</b><span>Geist · clamp(16px … 18px)</span
-              ><span>Weight 400 · line 1.5 · tracking 0</span>
+              <b>Body / Lede</b><span>Geist Regular · 18 / 27</span
+              ><span>Letter spacing 0% · Mobile 16 / 24</span>
             </p>
           </div>
           <div class="sg-type">
@@ -764,22 +774,23 @@
               pipelines on its own, in the background.
             </div>
             <p class="sg-spec">
-              <b>Body</b><span>Geist · 15–16px</span
-              ><span>Weight 400 · line 1.5 · tracking 0</span>
+              <b>Body / Default</b><span>Geist Regular · 15 / 22</span
+              ><span>Letter spacing 0%</span>
             </p>
           </div>
           <div class="sg-type">
             <div class="sg-type__sample t-label">Your pipelines</div>
             <p class="sg-spec">
-              <b>Label</b><span>IBM Plex Mono · 11–12px caps</span
-              ><span>Weight 500 · line 1 · tracking +0.08em</span>
+              <b>Label / Caps</b
+              ><span>IBM Plex Mono Medium · 12 / 12 · Uppercase</span
+              ><span>Letter spacing 8% · Mobile 11 / 11</span>
             </p>
           </div>
           <div class="sg-type">
             <div class="sg-type__sample t-data">auth-service</div>
             <p class="sg-spec">
-              <b>Data</b><span>IBM Plex Mono · 12px</span
-              ><span>Weight 400 · line 1.4 · tracking 0</span>
+              <b>Data / Mono</b><span>IBM Plex Mono Regular · 12 / 17</span
+              ><span>Letter spacing 0%</span>
             </p>
           </div>
         </div>
@@ -796,9 +807,11 @@
         </header>
         <div class="sg-container">
           <div class="sg-container__inner">
-            <span>Container · --max 1440px</span>
+            <span>Max content width · 1440</span>
           </div>
-          <span class="sg-container__g">Gutter · clamp(20px, 4vw, 64px)</span>
+          <span class="sg-container__g"
+            >Margins · Desktop 64 · Tablet 32 · Mobile 20</span
+          >
         </div>
         <div class="sg-colsets">
           <div class="sg-cols">
@@ -907,7 +920,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Control</b><span>--radius · 10px</span
+                <b>Control</b><span>Radius/Control · 10</span
                 ><span>Buttons, chips, inputs, tiles</span>
               </p>
             </figure>
@@ -921,7 +934,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Panel</b><span>--radius-lg · 14px</span
+                <b>Panel</b><span>Radius/Panel · 14</span
                 ><span>Header bar, cards, product window</span>
               </p>
             </figure>
@@ -952,7 +965,7 @@
                   ></span>
                 </div>
               </div>
-              <p class="sg-spec"><b>Hairline</b><span>1px · --line</span></p>
+              <p class="sg-spec"><b>Hairline</b><span>1px · White/8</span></p>
             </figure>
             <figure class="sg-tile">
               <div class="sg-stage">
@@ -963,7 +976,7 @@
                   ></span>
                 </div>
               </div>
-              <p class="sg-spec"><b>Rule</b><span>1px · --line-2</span></p>
+              <p class="sg-spec"><b>Rule</b><span>1px · White/14</span></p>
             </figure>
             <figure class="sg-tile">
               <div class="sg-stage">
@@ -998,9 +1011,8 @@
               </div>
               <p class="sg-spec">
                 <b>Liquid glass</b
-                ><span
-                  >Figma: Background blur 8 · fill white 3–10% gradient</span
-                ><span>Rim: inner 1px white 14% top, 4% all round</span>
+                ><span>Background blur 8 · fill White 3–10% linear</span
+                ><span>Stroke inside 1px White/4 · top highlight White/14</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -1019,7 +1031,8 @@
                 <div class="sg-pad sg-center"><div class="sg-glow"></div></div>
               </div>
               <p class="sg-spec">
-                <b>Red glow</b><span>--red · blur 36–44px, 30–45%</span
+                <b>Red glow</b
+                ><span>Drop shadow Brand/Red 30–45% · blur 36–44</span
                 ><span>Active Fix pieces only</span>
               </p>
             </figure>
@@ -1065,7 +1078,7 @@
         <header class="sg-head">
           <p class="sg-no">07</p>
           <h2 id="sg-07">Components</h2>
-          <p class="sg-lede">Live markup from the site, in their key states.</p>
+          <p class="sg-lede">Core components and their states.</p>
         </header>
         <div class="sg-group">
           <h3 class="sg-group__title">Navigation</h3>
@@ -1132,8 +1145,9 @@
               <p class="sg-spec">
                 <b>Header</b
                 ><span
-                  >Full-width bar · 68px · glass on ink · rule --line-2</span
-                ><span>Links 14px --text-2 → --text on hover</span>
+                  >Full-width bar · height 68 · glass · bottom rule
+                  White/14</span
+                ><span>Links Body 14 · White/68, active White</span>
               </p>
             </figure>
           </div>
@@ -1148,8 +1162,23 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Primary</b><span>White fill · ink text 14–15px 500</span
-                ><span>Hover: white 86%</span>
+                <b>Primary · Default</b
+                ><span>Fill White · label Ink, Geist Medium 14</span
+                ><span>Height 34 · radius 10</span>
+              </p>
+            </figure>
+            <figure class="sg-tile">
+              <div class="sg-stage">
+                <div class="sg-center sg-pad">
+                  <a
+                    class="pill pill--light"
+                    style="background-color: rgb(255 255 255 / 0.86)"
+                    >Request a demo</a
+                  >
+                </div>
+              </div>
+              <p class="sg-spec">
+                <b>Primary · Hover</b><span>Fill White/86</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -1163,7 +1192,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Primary large</b><span>44px · used in the demo form</span>
+                <b>Primary · Large</b><span>Height 44 · Geist Medium 15</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -1187,8 +1216,43 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Text link</b><span>15px --text-2 + arrow</span
-                ><span>Hover: --text</span>
+                <b>Text link · Default</b
+                ><span>Body 15 · White/68 + arrow</span>
+              </p>
+            </figure>
+            <figure class="sg-tile">
+              <div class="sg-stage">
+                <div class="sg-center sg-pad">
+                  <a class="more" style="color: #fff"
+                    >See how it works
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="14"
+                      height="14"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M7 17 17 7M8 7h9v9"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      /></svg
+                  ></a>
+                </div>
+              </div>
+              <p class="sg-spec"><b>Text link · Hover</b><span>White</span></p>
+            </figure>
+            <figure class="sg-tile">
+              <div class="sg-stage">
+                <div class="sg-center sg-pad">
+                  <nav class="nav__links" style="display: flex">
+                    <a>Product</a><a style="color: #fff">How it works</a>
+                  </nav>
+                </div>
+              </div>
+              <p class="sg-spec">
+                <b>Nav link · Default / Hover</b
+                ><span>Body 14 · White/68 → White</span>
               </p>
             </figure>
           </div>
@@ -1270,7 +1334,7 @@
               </div>
               <p class="sg-spec">
                 <b>Error and note</b><span>Red dot + 14px</span
-                ><span>Note 14px --text-3</span>
+                ><span>Note 14 · White/54</span>
               </p>
             </figure>
           </div>
@@ -1303,7 +1367,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Status</b><span>12.5px --text-2 · ring or red diamond</span>
+                <b>Status</b><span>12.5 · White/68 · ring or red diamond</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -1364,7 +1428,7 @@
               </div>
               <p class="sg-spec">
                 <b>Source tile</b><span>46px · tonal · radius 10</span
-                ><span>Default · active group · Trivy at Scan (red)</span>
+                ><span>Default · Active · Highlight</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -1384,7 +1448,7 @@
               <p class="sg-spec">
                 <b>Live status · running</b
                 ><span>Glass · spinner · progress bar</span
-                ><span>Step 10.5px mono · text 13.5px</span>
+                ><span>Step Plex Mono 10.5 · text Geist Medium 13.5</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -1430,7 +1494,7 @@
               </div>
               <p class="sg-spec">
                 <b>Fix first panel</b><span>Glass · red rim at Fix</span
-                ><span>Rows mono 12px · compact severity</span>
+                ><span>Rows Plex Mono 12 · compact severity</span>
               </p>
             </figure>
           </div>
@@ -1448,7 +1512,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Steps</b><span>Glass · 13px 500 caps +0.08em</span
+                <b>Steps</b><span>Glass · Geist Medium 13 · uppercase · 8%</span
                 ><span>Active: white; Fix active: red + glow</span>
               </p>
             </figure>
@@ -1526,7 +1590,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Role</b><span>Rule --line-2 · red icon 20px</span>
+                <b>Role</b><span>Rule White/14 · icon 20 Brand/Red</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -2014,8 +2078,8 @@
               </div>
               <p class="sg-spec">
                 <b>App window</b
-                ><span>Glass panel · radius 14 · 208 / fluid / 340 columns</span
-                ><span>Example findings only</span>
+                ><span>Glass panel · radius 14 · columns 208 / fill / 340</span
+                ><span>Sample data</span>
               </p>
             </figure>
           </div>
@@ -2215,7 +2279,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Azure DevOps</b><span>Microsoft Azure icons V23</span>
+                <b>Azure DevOps</b><span>Official mark · single colour</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -2235,7 +2299,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>GitHub</b><span>Simple Icons 16.35</span>
+                <b>GitHub</b><span>Official mark · single colour</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -2255,7 +2319,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>GitLab</b><span>Simple Icons 16.35</span>
+                <b>GitLab</b><span>Official mark · single colour</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -2274,7 +2338,9 @@
                   </svg>
                 </div>
               </div>
-              <p class="sg-spec"><b>Trivy</b><span>Simple Icons 16.35</span></p>
+              <p class="sg-spec">
+                <b>Trivy</b><span>Official mark · single colour</span>
+              </p>
             </figure>
             <figure class="sg-tile">
               <div class="sg-stage">
@@ -2293,15 +2359,13 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>LinkedIn</b><span>Simple Icons 9.21</span>
+                <b>LinkedIn</b><span>Official mark · single colour</span>
               </p>
             </figure>
           </div>
         </div>
         <div class="sg-group">
-          <h3 class="sg-group__title">
-            Capability icons (animated on the site)
-          </h3>
+          <h3 class="sg-group__title">Capability icons (animated)</h3>
           <div class="sg-grid" style="--cols: 5">
             <figure class="sg-tile">
               <div class="sg-stage">
@@ -4975,8 +5039,7 @@
                 </div>
               </div>
               <p class="sg-spec">
-                <b>Particle sphere</b
-                ><span>WebGL on the site · still frame here</span>
+                <b>Particle sphere</b><span>Hero animation · key frame</span>
               </p>
             </figure>
             <figure class="sg-tile">
@@ -4999,7 +5062,8 @@
           <p class="sg-no">09</p>
           <h2 id="sg-09">Motion</h2>
           <p class="sg-lede">
-            Calm and functional. Everything stops with prefers-reduced-motion.
+            Prototype notes. Calm and functional; with reduced motion turned on,
+            every loop stops and the hero shows its last frame.
           </p>
         </header>
         <table class="sg-table">
@@ -5014,7 +5078,7 @@
             <tr>
               <td>Easing</td>
               <td>cubic-bezier(0.22, 1, 0.36, 1)</td>
-              <td>--ease, for entrances and slides</td>
+              <td>Ease out, for entrances and slides</td>
             </tr>
             <tr>
               <td>Scroll reveal</td>
@@ -5037,7 +5101,7 @@
             <tr>
               <td>Line-field bars</td>
               <td>3.2–6.6s, rising</td>
-              <td>Paused offscreen; one red per field</td>
+              <td>One red bar per field</td>
             </tr>
             <tr>
               <td>Capability icons</td>
@@ -5048,11 +5112,6 @@
               <td>Figures</td>
               <td>3.6–6s float, bob, slide</td>
               <td>Only the highlighted piece moves</td>
-            </tr>
-            <tr>
-              <td>Hover</td>
-              <td>0.2s colour</td>
-              <td>Links and buttons</td>
             </tr>
           </tbody>
         </table>
