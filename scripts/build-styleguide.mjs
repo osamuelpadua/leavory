@@ -72,10 +72,10 @@ const group = (title, items, cols = 3) =>
   `<div class="sg-group"><h3 class="sg-group__title">${title}</h3><div class="sg-grid" style="--cols:${cols}">${items.join("")}</div></div>`;
 
 /* ---------- 01 Logo ---------- */
-// The header proportion, scaled: mark 1.2× the type size, gap 0.5×.
+// The header proportion, scaled: mark 1.2× the type size, gap 0.4×.
 const lockup = (size = 20, color = "") => {
   const m = Math.round(size * 1.2);
-  return `<span class="logo" style="font-size:${size}px;gap:${Math.round(size * 0.5)}px${color}">${icon("i-mark", m, ` class="logo__mark" style="width:${m}px;height:${m}px${color}"`)}<span>Leavory</span></span>`;
+  return `<span class="logo" style="font-size:${size}px;gap:${Math.round(size * 0.4)}px${color}">${icon("i-mark", m, ` class="logo__mark" style="width:auto;height:${m}px${color}"`)}<span>Leavory</span></span>`;
 };
 const logo = section(
   "01",
@@ -91,9 +91,9 @@ const logo = section(
         "Geist Medium · letter spacing −4%",
       ),
       tile(
-        `<div class="sg-center sg-pad">${icon("i-mark", 140, ' class="logo__mark" style="width:140px;height:140px"')}</div>`,
+        `<div class="sg-center sg-pad">${icon("i-mark", 140, ' class="logo__mark" style="width:auto;height:140px"')}</div>`,
         "Isotype",
-        "24 × 24 grid · fill Brand/Red",
+        "Shield 18 × 21.5 · fill Brand/Red",
       ),
       tile(
         `<div class="sg-center sg-pad sg-light">${lockup(40, ";color:#1e1c1b")}</div>`,
@@ -107,7 +107,7 @@ const logo = section(
       "Sizes and space",
       [
         tile(
-          `<div class="sg-row sg-pad">${[16, 20, 24, 32].map((s) => `<div class="sg-stack">${icon("i-mark", s, ' class="logo__mark" style="width:auto;height:auto"')}<span class="sg-cap">${s}px</span></div>`).join("")}</div>`,
+          `<div class="sg-row sg-pad">${[16, 20, 24, 32].map((s) => `<div class="sg-stack">${icon("i-mark", s, ` class="logo__mark" style="width:auto;height:${s}px"`)}<span class="sg-cap">${s}px</span></div>`).join("")}</div>`,
           "Minimum size",
           "Isotype 16px · lockup 20px type",
         ),
@@ -716,7 +716,7 @@ const motion = section(
 /* ---------- Page ---------- */
 const cover = `
   <section class="sg-cover">
-    <span class="logo sg-cover__logo">${icon("i-mark", 40, ' class="logo__mark" style="width:40px;height:40px"')}<span>Leavory</span></span>
+    <span class="logo sg-cover__logo">${icon("i-mark", 40, ' class="logo__mark" style="width:auto;height:40px"')}<span>Leavory</span></span>
     <h1>Design system</h1>
     <p>UI Kit · v1.0 · October 2026</p>
     <div class="sg-tocs"><div><p class="sg-toc__title">Foundations</p><ol class="sg-toc">${["Logo", "Colour", "Typography", "Grid and layout", "Spacing, radius and lines", "Surfaces and effects"].map((t, i) => `<li><span>0${i + 1}</span>${t}</li>`).join("")}</ol></div><div><p class="sg-toc__title">Components</p><ol class="sg-toc">${["Components", "Icons and illustrations", "Motion"].map((t, i) => `<li><span>0${i + 7}</span>${t}</li>`).join("")}</ol></div></div>

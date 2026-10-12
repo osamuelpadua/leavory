@@ -211,7 +211,7 @@ input {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.4em;
   font-size: 20px;
   font-weight: 540;
   letter-spacing: -0.04em;
@@ -219,8 +219,9 @@ input {
 /* The isotype, in brand red: a shield cut through by three diagonal lines. */
 .logo__mark {
   flex: none;
-  width: 24px;
-  height: 24px;
+  width: auto;
+  height: 1.2em;
+  aspect-ratio: 18 / 21.5;
   color: var(--red);
 }
 .nav__links {
