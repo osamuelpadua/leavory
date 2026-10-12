@@ -47,6 +47,7 @@ body {
 }
 
 /* Figma uses standard weights. */
+.logo,
 .hero__title,
 .statement__text,
 .feature__head h2,

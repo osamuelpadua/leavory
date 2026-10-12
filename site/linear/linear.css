@@ -212,17 +212,15 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 540;
+  letter-spacing: -0.04em;
 }
+/* The isotype: a shield cut by the site's hairlines, one segment red. */
 .logo__mark {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  background-color: var(--red);
+  flex: none;
+  width: 24px;
+  height: 24px;
   color: var(--white);
 }
 .nav__links {
