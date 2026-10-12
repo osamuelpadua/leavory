@@ -504,34 +504,52 @@
       </section>
 
       <!-- ============ SOURCES ============ -->
+      <!-- Grouped with the copy's own words, so it reads as how Leavory
+           works, not as customers or partners. -->
       <section class="sources" aria-labelledby="sources-title">
         <div class="wrap">
-          <ul class="sources__list">
-            <li>
-              <svg width="22" height="22" aria-hidden="true">
-                <use href="#i-azure" /></svg
-              >Azure DevOps
-            </li>
-            <li>
-              <svg width="22" height="22" aria-hidden="true">
-                <use href="#i-github" /></svg
-              >GitHub
-            </li>
-            <li>
-              <svg width="22" height="22" aria-hidden="true">
-                <use href="#i-gitlab" /></svg
-              >GitLab
-            </li>
-            <li>Trivy</li>
-            <li>OSV</li>
-            <li>NVD</li>
-            <li>CISA KEV</li>
-            <li>EPSS</li>
-          </ul>
-          <h2 id="sources-title" class="mono">
-            Results from the pipelines you already run, checked against the
-            sources that matter
+          <h2 id="sources-title" class="sr-only">
+            What Leavory connects to and checks against
           </h2>
+          <div class="sources__grid">
+            <div class="sources__group">
+              <p class="mono">Connects to</p>
+              <ul>
+                <li>
+                  <svg width="20" height="20" aria-hidden="true">
+                    <use href="#i-azure" /></svg
+                  >Azure DevOps
+                </li>
+                <li>
+                  <svg width="20" height="20" aria-hidden="true">
+                    <use href="#i-github" /></svg
+                  >GitHub
+                </li>
+                <li>
+                  <svg width="20" height="20" aria-hidden="true">
+                    <use href="#i-gitlab" /></svg
+                  >GitLab
+                </li>
+              </ul>
+            </div>
+            <div class="sources__group">
+              <p class="mono">Built on</p>
+              <ul>
+                <li>Trivy</li>
+              </ul>
+            </div>
+            <div class="sources__group">
+              <p class="mono">Cross-references</p>
+              <ul>
+                <li>OSV</li>
+                <li>NVD</li>
+                <li>GitHub Advisories</li>
+                <li>CVE.org</li>
+                <li>CISA KEV</li>
+                <li>EPSS</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
