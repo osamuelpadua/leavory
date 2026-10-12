@@ -286,7 +286,7 @@ input {
 /* The first screen shows the headline and the whole flow: the copy sits in
    one band, and the flow is sized by the height left below it. */
 .hero {
-  --hero-top: 456px; /* header, padding and the centred copy */
+  --hero-top: 404px; /* header, padding and the centred copy */
   padding-top: calc(84px + clamp(32px, 5svh, 64px));
   overflow: clip;
 }
@@ -297,7 +297,6 @@ input {
 }
 .hero__title {
   max-width: 20ch;
-  margin-top: clamp(16px, 2.4svh, 24px);
   font-size: clamp(36px, min(4.6vw, 7svh), 68px);
   font-weight: 540;
   line-height: 1.02;
@@ -310,29 +309,6 @@ input {
   font-size: clamp(16px, 1.3vw, 18px);
   color: var(--text-2);
   text-wrap: balance;
-}
-/* Announcement chip above the headline, in liquid glass. */
-.hero__new {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 12px 7px 8px;
-  border-radius: var(--radius);
-  font-size: 13.5px;
-  color: var(--text-2);
-  transition: color 0.2s;
-}
-.hero__new b {
-  padding: 3px 7px;
-  border-radius: 6px;
-  background-color: var(--red);
-  color: var(--white);
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-.hero__new:hover {
-  color: var(--text);
 }
 
 /* ---------- Flow visual (design units: 1200 × 560) ---------- */
@@ -869,10 +845,23 @@ input {
   margin: 24px 0 36px;
   overflow: visible;
 }
-/* Tonal shapes, no outlines: each face is opaque ink under a white or red
-   gradient (set in the markup), so light and depth draw the form. */
+/* Glass: each face is translucent ink under a white or red gradient (set in
+   the markup), with a thin rim of light; pieces behind show through. */
 .iso .base {
   fill: var(--ink);
+  fill-opacity: 0.52;
+}
+.iso path[fill^="url"]:not([fill$="-shade)"]):not([fill$="-beam)"]) {
+  stroke: rgb(var(--white-rgb) / 0.2);
+  stroke-width: 0.75;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.iso path[fill$="tr)"],
+.iso path[fill$="lr)"],
+.iso path[fill$="rr)"],
+.iso path[fill$="facer)"] {
+  stroke: rgb(var(--red-rgb) / 0.9);
 }
 /* Subtle motion: the flagged repository bobs, the explained cube floats,
    the newest advisory slides into the stream. */
@@ -1999,7 +1988,6 @@ input {
    light on top. */
 .nav,
 .nav__toggle,
-.hero__new,
 .cells,
 .boundary__box,
 .chip,
