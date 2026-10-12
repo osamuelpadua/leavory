@@ -172,9 +172,8 @@ const colour = section(
         alpha(0.54, "Text tertiary", "White/54", "Labels, captions"),
         alpha(0.14, "Rule", "White/14", "Rules, dividers"),
         alpha(0.08, "Hairline", "White/8", "Hairlines"),
-        alpha(0.025, "Surface", "White/2.5", "Quiet fills"),
       ],
-      6,
+      5,
     ) +
     `<p class="sg-note">Contrast: red type on ink is about 3.2:1, so red is used for large type and shapes only; small text is white or its transparencies.</p>`,
 );
@@ -301,10 +300,10 @@ const grid = section(
     ].join("")}</div>` +
     `<table class="sg-table"><thead><tr><th>Breakpoint</th><th>Changes</th></tr></thead><tbody>
       <tr><td>≤ 1100px</td><td>Product window drops its sidebar; Platform, roles and timeline go to 2 columns</td></tr>
-      <tr><td>≤ 960px</td><td>Menu becomes a toggle; heads, figures and cells stack to 1 column</td></tr>
-      <tr><td>≤ 760px</td><td>Hero flow crops to the sphere; hero line panels and output panel hide</td></tr>
+      <tr><td>≤ 960px</td><td>Links move into a menu beside a compact demo button; heads, figures and cells stack to 1 column</td></tr>
+      <tr><td>≤ 760px</td><td>Hero flow crops to the sphere; hero line panels and output panel hide; status notes shift left</td></tr>
       <tr><td>≤ 560px</td><td>Roles and timeline 1 column; demo form stacks</td></tr>
-      <tr><td>≤ 480px</td><td>Product table hides its status column</td></tr>
+      <tr><td>≤ 480px</td><td>Header demo button tightens; product table hides its status column</td></tr>
     </tbody></table>`,
 );
 
@@ -332,7 +331,7 @@ const space = section(
           `<div class="sg-center sg-pad"><div class="sg-radius" style="border-radius:14px;width:180px"></div></div>`,
           "Panel",
           "Radius/Panel · 14",
-          "Header bar, cards, product window",
+          "Cells, product window, boundary frame",
         ),
         tile(
           `<div class="sg-center sg-pad"><div class="sg-radius" style="border-radius:5px;width:64px;height:28px"></div></div>`,
@@ -421,10 +420,16 @@ const components = section(
     "Navigation",
     [
       tile(
-        `<header class="nav sg-nav"><div class="wrap nav__inner">${`<a class="logo">${icon("i-mark", 24, ' class="logo__mark"')}<span>Leavory</span></a>`}<nav class="nav__links"><a>Product</a><a>Azure DevOps</a><a>Who it’s for</a><a>How it works</a><a>Security</a></nav><a class="pill pill--light nav__cta">Request a demo</a></div></header>`,
-        "Header",
+        `<header class="nav sg-nav"><div class="wrap nav__inner">${`<a class="logo">${icon("i-mark", 24, ' class="logo__mark"')}<span>Leavory</span></a>`}<nav class="nav__links" aria-label="Header sample"><a>Product</a><a>Azure DevOps</a><a>Who it’s for</a><a>How it works</a><a>Security</a></nav><a class="pill pill--light nav__cta">Request a demo</a></div></header>`,
+        "Header · Desktop",
         "Full-width bar · height 68 · glass · bottom rule White/14",
         "Links Body 14 · White/68, active White",
+      ),
+      tile(
+        `<div class="sg-pad"><header class="nav sg-nav sg-nav--mobile"><div class="wrap nav__inner"><a class="logo">${icon("i-mark", 24, ' class="logo__mark"')}<span>Leavory</span></a><a class="pill pill--light nav__cta">Request a demo</a><span class="nav__toggle">${icon("i-menu", 18)}</span></div></header></div>`,
+        "Header · ≤ 960px",
+        "Logo · compact demo button · menu toggle 38, gap 8",
+        "≤ 480px the button tightens to padding 11, type 13",
       ),
     ],
     1,
@@ -442,6 +447,23 @@ const components = section(
           `<div class="sg-center sg-pad"><a class="pill pill--light" style="background-color:rgb(255 255 255 / 0.86)">Request a demo</a></div>`,
           "Primary · Hover",
           "Fill White/86",
+        ),
+        tile(
+          `<div class="sg-center sg-pad"><a class="pill pill--light" style="background-color:rgb(255 255 255 / 0.78)">Request a demo</a></div>`,
+          "Primary · Pressed",
+          "Fill White/78",
+        ),
+        tile(
+          `<div class="sg-center sg-pad"><a class="pill pill--light" style="outline:2px solid #fff;outline-offset:3px">Request a demo</a></div>`,
+          "Focus visible · every control",
+          "Outline 2px White · offset 3",
+          "Chips and inputs: offset 2",
+        ),
+        tile(
+          `<div class="sg-center sg-pad"><span class="nav__toggle" style="display:grid">${icon("i-menu", 18)}</span><span class="motion-toggle">${icon("i-pause", 16)}</span><span class="motion-toggle">${icon("i-play", 16)}</span></div>`,
+          "Icon buttons",
+          "Glass · radius 10 · menu 38 · pause 36",
+          "Pause / play: pressed state swaps the icon",
         ),
         tile(
           `<div class="sg-center sg-pad"><a class="pill pill--light" style="height:44px;padding:0 20px;font-size:15px">Request a demo</a></div>`,
@@ -480,10 +502,10 @@ const components = section(
           "44px · glass input",
         ),
         tile(
-          `<div class="sg-pad sg-center" style="flex-direction:column;gap:6px"><p class="cta__error">Enter a valid work email.</p><p class="cta__note">A real conversation with an engineer.</p></div>`,
-          "Error and note",
-          "Red dot + 14px",
-          "Note 14 · White/54",
+          `<div class="sg-pad"><div class="cta__row"><input type="email" value="dev@" aria-label="Work email" aria-invalid="true" /><button class="pill pill--light">Request a demo</button></div><p class="cta__error">Enter a valid work email.</p><p class="cta__note">A real conversation with an engineer.</p></div>`,
+          "Email · Invalid",
+          "Rim 1px Brand/Red 90% · message: red dot + 14px",
+          "Linked with aria-describedby · note 14 · White/54",
         ),
       ],
       3,
@@ -628,6 +650,8 @@ const uiIcons = [
   "i-arrow",
   "i-menu",
   "i-close",
+  "i-pause",
+  "i-play",
   "i-search",
   "i-mail",
   "i-shield",
@@ -725,7 +749,7 @@ const icons = section(
 const motion = section(
   "09",
   "Motion",
-  "Prototype notes. Calm and functional; with reduced motion turned on, every loop stops and the hero shows its last frame.",
+  "Prototype notes. Calm and functional; with reduced motion turned on, every loop stops and the hero shows its last frame. Otherwise the pause button in the hero stops every loop on demand.",
   `<table class="sg-table"><thead><tr><th>Pattern</th><th>Timing</th><th>Notes</th></tr></thead><tbody>
     <tr><td>Easing</td><td>cubic-bezier(0.22, 1, 0.36, 1)</td><td>Ease out, for entrances and slides</td></tr>
     <tr><td>Scroll reveal</td><td>0.9s fade · 1s rise 18px</td><td>Once per block</td></tr>
@@ -734,6 +758,7 @@ const motion = section(
     <tr><td>Line-field bars</td><td>3.2–6.6s, rising</td><td>One red bar per field</td></tr>
     <tr><td>Capability icons</td><td>1.8–4.8s loops</td><td>Bars, pulse draw, travelling package, sweep</td></tr>
     <tr><td>Figures</td><td>3.6–6s float, bob, slide</td><td>Only the highlighted piece moves</td></tr>
+    <tr><td>Pause control</td><td>Instant</td><td>Button in the hero corner pauses the flow and every CSS loop; hidden with reduced motion</td></tr>
   </tbody></table>`,
 );
 
@@ -750,6 +775,7 @@ const html = `<!doctype html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1440" />
+    <meta name="robots" content="noindex" />
     <title>Leavory — Design system</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="stylesheet" href="../css/styles.css" />

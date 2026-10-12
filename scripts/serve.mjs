@@ -35,7 +35,10 @@ createServer(async (req, res) => {
     });
     res.end(body);
   } catch {
-    res.writeHead(404, { "Content-Type": "text/plain" }).end("Not found");
+    // Like GitHub Pages: site/404.html for any missing path.
+    const page = await readFile(join(root, "404.html")).catch(() => null);
+    if (page) res.writeHead(404, { "Content-Type": types[".html"] }).end(page);
+    else res.writeHead(404, { "Content-Type": "text/plain" }).end("Not found");
   }
 }).listen(port, host, () => {
   console.log(`Leavory → http://localhost:${port}/`);

@@ -161,9 +161,19 @@ try {
     for (const el of doc.querySelectorAll("[data-reveal]"))
       el.classList.add("is-visible");
     for (const el of doc.querySelectorAll(
-      "script, .skip-link, #mobile-navigation, .nav__toggle",
+      "script, .skip-link, #mobile-navigation, .nav__toggle, .motion-toggle",
     ))
       el.remove();
+
+    // A working copy, not a page to share or index.
+    for (const el of doc.querySelectorAll(
+      'link[rel="canonical"], meta[property^="og:"], meta[name^="twitter:"]',
+    ))
+      el.remove();
+    const robots = doc.createElement("meta");
+    robots.name = "robots";
+    robots.content = "noindex";
+    doc.querySelector('meta[name="viewport"]').after(robots);
     for (const el of doc.querySelectorAll(".lines"))
       el.classList.remove("is-paused");
 

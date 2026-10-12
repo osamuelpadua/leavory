@@ -9,6 +9,19 @@
       name="description"
       content="Leavory turns the scan results from your Azure DevOps, GitHub, and GitLab pipelines into a short list of what to fix today."
     />
+    <link rel="canonical" href="https://leavory.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Leavory" />
+    <meta property="og:url" content="https://leavory.com/" />
+    <meta
+      property="og:title"
+      content="Leavory — Know exactly which vulnerabilities to fix first"
+    />
+    <meta
+      property="og:description"
+      content="Leavory turns the scan results from your Azure DevOps, GitHub, and GitLab pipelines into a short list of what to fix today."
+    />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link
       rel="preload"
@@ -50,6 +63,23 @@
           fill="none"
           stroke="currentColor"
           stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24">
+        <path
+          d="M9 5v14M15 5v14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+      </symbol>
+      <symbol id="i-play" viewBox="0 0 24 24">
+        <path
+          d="M8 5.5v13l10.5-6.5z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
         />
       </symbol>
       <symbol id="i-shield" viewBox="0 0 24 24">
@@ -533,6 +563,17 @@
               </ol>
             </div>
           </div>
+          <!-- Stops every looping animation on the page (WCAG 2.2.2). -->
+          <button
+            class="motion-toggle"
+            type="button"
+            aria-pressed="false"
+            aria-label="Pause animations"
+          >
+            <svg width="16" height="16" aria-hidden="true">
+              <use href="#i-pause" />
+            </svg>
+          </button>
         </figure>
       </section>
 
@@ -3363,13 +3404,14 @@
                 type="email"
                 placeholder="you@yourcompany.com"
                 autocomplete="email"
+                aria-describedby="demo-error"
                 required
               />
               <button type="submit" class="pill pill--light">
                 Request a demo
               </button>
             </div>
-            <p class="cta__error" role="alert" hidden>
+            <p id="demo-error" class="cta__error" role="alert" hidden>
               Enter a valid work email.
             </p>
             <p class="cta__note">A real conversation with an engineer.</p>

@@ -72,10 +72,21 @@
   gap: 8px 0;
   margin-bottom: 56px;
 }
+/* Small type stays white; red marks it, like the eyebrow on the page. */
 .sg-no {
   grid-row: span 2;
+  display: flex;
+  align-items: center;
+  align-self: start;
+  gap: 10px;
   font: 500 14px/1.6 var(--mono);
-  color: var(--red);
+  color: var(--text-2);
+}
+.sg-no::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: var(--red);
 }
 .sg-head h2 {
   font-size: 48px;
@@ -460,6 +471,22 @@
   width: auto;
   padding-inline: 28px;
 }
+/* The header below 961px: logo, compact demo button, menu. */
+.sg .sg-nav--mobile {
+  width: 390px;
+}
+.sg .sg-nav--mobile > .wrap {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px;
+  padding-inline: 20px;
+}
+.sg .sg-nav--mobile .nav__toggle,
+.sg .motion-toggle {
+  display: grid;
+}
+.sg .motion-toggle {
+  position: static;
+}
 /* Flow pieces are positioned in design units on the site; here they flow. */
 .sg-flow {
   --u: 1px;
@@ -514,7 +541,7 @@
 /* ---------- Icons ---------- */
 .sg-icons {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   gap: 16px;
 }
 .sg-icons figure {

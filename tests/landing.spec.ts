@@ -112,6 +112,176 @@ test.describe("landing page", () => {
     expect(posts).toEqual([]);
   });
 
+  test("an invalid email is marked on the field and linked to its message", async ({
+    page,
+  }) => {
+    await page.goto(URL);
+    const email = page.getByLabel("Work email");
+    await expect(email).toHaveAttribute("aria-describedby", "demo-error");
+    await page
+      .locator(".cta__form")
+      .getByRole("button", { name: "Request a demo" })
+      .click();
+    await expect(email).toHaveAttribute("aria-invalid", "true");
+    expect(
+      await email.evaluate((el) => getComputedStyle(el).boxShadow),
+    ).toContain("198, 42, 61");
+  });
+
+  test("the pause button stops the hero flow and every looping animation", async ({
+    page,
+  }) => {
+    await page.goto(URL);
+    const toggle = page.getByRole("button", { name: "Pause animations" });
+    const active = page.locator(".flow__steps .is-on");
+    await expect(active).toHaveText("Connect");
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-pressed", "true");
+    expect(
+      await page
+        .locator(".cap-icon .bar")
+        .first()
+        .evaluate((el) => getComputedStyle(el).animationPlayState),
+    ).toBe("paused");
+    // A step lasts 3.4s; paused, the flow stays on Connect well past it.
+    await page.waitForTimeout(4500);
+    await expect(active).toHaveText("Connect");
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-pressed", "false");
+    await expect(active).toHaveText("Scan", { timeout: 6000 });
+  });
+
+  test("with reduced motion there is nothing to pause", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(URL);
+    await expect(page.locator(".motion-toggle")).toBeHidden();
+  });
+
+  for (const width of [320, 375, 768]) {
+    test(`a demo button is in the first screen at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 700 });
+      await page.goto(URL);
+      await expect(page.locator(".nav__cta")).toBeInViewport({ ratio: 1 });
+    });
+  }
+
+  test("the demo form keeps touch-sized controls when it stacks", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto(URL);
+    for (const control of [
+      page.getByLabel("Work email"),
+      page
+        .locator(".cta__form")
+        .getByRole("button", { name: "Request a demo" }),
+    ]) {
+      const box = (await control.boundingBox())!;
+      expect(box.height).toBeGreaterThanOrEqual(44);
+      expect(box.width).toBeGreaterThan(300);
+    }
+  });
+
+  for (const width of [320, 390]) {
+    test(`hero status notes stay on screen at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(URL);
+      // The longest text each slot shows during the cycle.
+      const longest = {
+        a: ["Step 02 · Scan", "Trivy runs in your pipeline…"],
+        b: ["Step 01 · Connect", "Connecting Azure DevOps…"],
+        c: ["Step 02 · Scan", "Only results leave…"],
+      };
+      const overflow = await page.evaluate((longest) => {
+        const bad: string[] = [];
+        for (const [slot, [step, text]] of Object.entries(longest)) {
+          const note = document.querySelector<HTMLElement>(
+            `.flow__note[data-slot="${slot}"]`,
+          )!;
+          note.querySelector(".flow__note-step")!.textContent = step;
+          note.querySelector(".flow__note-text")!.textContent = text;
+          note.style.transition = "none";
+          note.classList.add("is-on"); // full size, not the entry scale
+          const r = note.getBoundingClientRect();
+          if (r.left < 0 || r.right > innerWidth) bad.push(slot);
+        }
+        return bad;
+      }, longest);
+      expect(overflow).toEqual([]);
+    });
+  }
+
+  test("the page carries its canonical URL and sharing metadata", async ({
+    page,
+  }) => {
+    await page.goto(URL);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      "https://leavory.com/",
+    );
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+      "content",
+      "https://leavory.com/",
+    );
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+      "content",
+      /Leavory/,
+    );
+  });
+
+  test("the design system and the Figma copy load cleanly and stay out of search", async ({
+    page,
+  }) => {
+    for (const path of ["/styleguide/", "/figma/"]) {
+      const errors: string[] = [];
+      const failed: string[] = [];
+      page.on("pageerror", (error) => errors.push(error.message));
+      page.on(
+        "response",
+        (r) => r.status() >= 400 && failed.push(`${r.status()} ${r.url()}`),
+      );
+      await page.goto(path);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        "content",
+        "noindex",
+      );
+      expect(errors).toEqual([]);
+      expect(failed).toEqual([]);
+      if (path === "/styleguide/") {
+        const audit = await new AxeBuilder({ page })
+          .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+          .analyze();
+        expect(audit.violations.map((v) => v.id)).toEqual([]);
+      }
+      page.removeAllListeners("pageerror");
+      page.removeAllListeners("response");
+    }
+  });
+
+  test("the not-found page leads back home", async ({ page }) => {
+    await page.goto("/404.html");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Page not found.",
+    );
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      "noindex",
+    );
+    // Styled, and the way back resolves to the site root.
+    expect(
+      await page.evaluate(
+        () => getComputedStyle(document.body).backgroundColor,
+      ),
+    ).toBe("rgb(30, 28, 27)");
+    expect(
+      await page
+        .getByRole("link", { name: "Back to the home page" })
+        .evaluate((a: HTMLAnchorElement) => new URL(a.href).pathname),
+    ).toBe("/");
+  });
+
   test("only the four brand colors (and their transparencies) are rendered", async ({
     page,
   }) => {
@@ -148,7 +318,7 @@ test.describe("landing page", () => {
     expect(offenders).toEqual([]);
   });
 
-  for (const width of [375, 768, 1024, 1440]) {
+  for (const width of [320, 375, 768, 1024, 1440]) {
     test(`responsive layout and accessibility at ${width}px`, async ({
       page,
     }, testInfo) => {

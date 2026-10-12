@@ -40,7 +40,6 @@
   --text-3: rgb(var(--white-rgb) / 0.54);
   --line: rgb(var(--white-rgb) / 0.08);
   --line-2: rgb(var(--white-rgb) / 0.14);
-  --surface: rgb(var(--white-rgb) / 0.025);
 
   --sans:
     "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -188,6 +187,9 @@ input {
 }
 .pill--light:hover {
   background-color: rgb(var(--white-rgb) / 0.86);
+}
+.pill--light:active {
+  background-color: rgb(var(--white-rgb) / 0.78);
 }
 
 /* =========================================================
@@ -543,7 +545,7 @@ input {
    bar that fills while the step runs. */
 .flow__note {
   position: absolute;
-  left: calc(var(--u) * var(--x) + var(--dx, 0px));
+  left: calc(var(--u) * (var(--x) - var(--nudge, 0)) + var(--dx, 0px));
   top: calc(var(--u) * var(--y));
   display: flex;
   align-items: center;
@@ -783,6 +785,36 @@ input {
       rgb(var(--ink-rgb) / 0) 100%
     );
 }
+/* Pause control: a small glass button in the stage's corner. It stops
+   every loop on the page; with reduced motion nothing loops, so it hides. */
+.motion-toggle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.motion-toggle:hover {
+  color: var(--text);
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-toggle {
+    display: none;
+  }
+}
+.motion-paused *,
+.motion-paused *::before,
+.motion-paused *::after {
+  animation-play-state: paused !important;
+}
 /* Without WebGL, a still dotted sphere stands in for the live one. */
 .flow:not(.is-live) .flow__stage::before {
   content: "";
@@ -847,7 +879,7 @@ input {
 .statement__text {
   max-width: 24em;
   font-size: clamp(28px, 3.6vw, 50px);
-  font-weight: 530;
+  font-weight: 540;
   line-height: 1.1;
   letter-spacing: -0.035em;
 }
@@ -2099,6 +2131,7 @@ input {
    light on top. */
 .nav,
 .nav__toggle,
+.motion-toggle,
 .cells,
 .boundary__box,
 .chip,
@@ -2139,6 +2172,12 @@ input {
     inset 0 1px 0 rgb(var(--white-rgb) / 0.12),
     inset 0 0 0 1px rgb(var(--red-rgb) / 0.7),
     0 0 40px -10px rgb(var(--red-rgb) / 0.5);
+}
+/* An email that failed validation: the glass rim turns red. */
+.cta__row input[aria-invalid="true"] {
+  box-shadow:
+    inset 0 1px 0 rgb(var(--white-rgb) / 0.12),
+    inset 0 0 0 1px rgb(var(--red-rgb) / 0.9);
 }
 .chip:has(input:checked) {
   background:
@@ -2196,12 +2235,13 @@ input {
 }
 
 @media (max-width: 960px) {
-  .nav__links,
-  .nav__cta {
+  .nav__links {
     display: none;
   }
+  /* The demo stays one tap away: a compact button beside the menu. */
   .nav__inner {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
   }
   .nav__toggle {
     display: grid;
@@ -2253,6 +2293,13 @@ input {
     padding-left: 0;
     border-left: 0;
   }
+  /* Touch-sized rows for the small links. */
+  .footer__small {
+    gap: 0;
+  }
+  .footer__small a {
+    padding-block: 8px;
+  }
 }
 
 @media (min-width: 961px) {
@@ -2272,10 +2319,22 @@ input {
   .lines--hero {
     display: none;
   }
+  /* The stage runs edge to edge here; the button keeps to the grid. */
+  .motion-toggle {
+    right: var(--gutter);
+  }
   /* The output panel would sit half off-screen; the sphere carries it. */
   .flow__out,
   .flow__label--out {
     display: none;
+  }
+  /* Notes on the right would run off a narrow screen; they shift left,
+     still over the end of their leads. */
+  .flow__note[data-slot="a"] {
+    --nudge: 104;
+  }
+  .flow__note[data-slot="c"] {
+    --nudge: 96;
   }
   .flow__stage {
     --u: calc(100cqw / 600);
@@ -2314,6 +2373,10 @@ input {
   .cta__row {
     flex-direction: column;
   }
+  /* Stacked, the input keeps its own height instead of growing from 0. */
+  .cta__row input {
+    flex: none;
+  }
   .sources__grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
@@ -2330,6 +2393,11 @@ input {
 }
 
 @media (max-width: 480px) {
+  /* Logo, demo button and menu still fit side by side at 320px. */
+  .nav__cta {
+    padding: 0 11px;
+    font-size: 13px;
+  }
   .ftable th:last-child,
   .ftable td:last-child {
     display: none;

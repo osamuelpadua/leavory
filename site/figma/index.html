@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#1E1C1B" />
     <title>Leavory — Figma import (static)</title>
     <meta
       name="description"
       content="Leavory turns the scan results from your Azure DevOps, GitHub, and GitLab pipelines into a short list of what to fix today."
     />
+
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link
       rel="preload"
@@ -91,7 +93,7 @@
               --delay: -3.79s;
               --rest: 60%;
               left: 36px;
-              transform: matrix(1, 0, 0, 1, 0, 634.372);
+              transform: matrix(1, 0, 0, 1, 0, 650.645);
             "
           ></span
           ><span
@@ -103,7 +105,7 @@
               --delay: -0.4s;
               --rest: 50%;
               left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 916.486);
+              transform: matrix(1, 0, 0, 1, 0, 935.49);
             "
           ></span
           ><span
@@ -115,7 +117,7 @@
               --delay: -6.7s;
               --rest: 28%;
               left: 36px;
-              transform: matrix(1, 0, 0, 1, 0, 162.717);
+              transform: matrix(1, 0, 0, 1, 0, 182.487);
             "
           ></span
           ><span
@@ -127,7 +129,7 @@
               --delay: -5.67s;
               --rest: 22%;
               left: 12px;
-              transform: matrix(1, 0, 0, 1, 0, 452.127);
+              transform: matrix(1, 0, 0, 1, 0, 467.367);
             "
           ></span>
         </div>
@@ -147,7 +149,7 @@
               --delay: -0.04s;
               --rest: 60%;
               left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 432.477);
+              transform: matrix(1, 0, 0, 1, 0, 448.137);
             "
           ></span
           ><span
@@ -159,7 +161,7 @@
               --delay: -5.56s;
               --rest: 30%;
               left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 860.263);
+              transform: matrix(1, 0, 0, 1, 0, 874.136);
             "
           ></span
           ><span
@@ -171,7 +173,7 @@
               --delay: -1.02s;
               --rest: 24%;
               left: 37px;
-              transform: matrix(1, 0, 0, 1, 0, 1014.01);
+              transform: matrix(1, 0, 0, 1, 0, -79.7451);
             "
           ></span
           ><span
@@ -183,7 +185,7 @@
               --delay: -1.17s;
               --rest: 35%;
               left: 12px;
-              transform: matrix(1, 0, 0, 1, 0, 428.833);
+              transform: matrix(1, 0, 0, 1, 0, 442.926);
             "
           ></span>
         </div>
@@ -558,6 +560,7 @@
               </ol>
             </div>
           </div>
+          <!-- Stops every looping animation on the page (WCAG 2.2.2). -->
         </figure>
       </section>
 
@@ -3903,7 +3906,7 @@
               --delay: -0s;
               --rest: 27%;
               left: 132px;
-              transform: matrix(1, 0, 0, 1, 0, 795.007);
+              transform: matrix(1, 0, 0, 1, 0, 795.212);
             "
           ></span
           ><span
@@ -3915,7 +3918,7 @@
               --delay: -0.39s;
               --rest: 10%;
               left: 1260px;
-              transform: matrix(1, 0, 0, 1, 0, 734.715);
+              transform: matrix(1, 0, 0, 1, 0, 734.929);
             "
           ></span
           ><span
@@ -3927,7 +3930,7 @@
               --delay: -4.8s;
               --rest: 66%;
               left: 180px;
-              transform: matrix(1, 0, 0, 1, 0, 40.9634);
+              transform: matrix(1, 0, 0, 1, 0, 41.1858);
             "
           ></span
           ><span
@@ -3939,7 +3942,7 @@
               --delay: -1.35s;
               --rest: 50%;
               left: 1200px;
-              transform: matrix(1, 0, 0, 1, 0, 561.877);
+              transform: matrix(1, 0, 0, 1, 0, 562.115);
             "
           ></span
           ><span
@@ -3951,7 +3954,7 @@
               --delay: -2.09s;
               --rest: 17%;
               left: 264px;
-              transform: matrix(1, 0, 0, 1, 0, 478.324);
+              transform: matrix(1, 0, 0, 1, 0, 478.539);
             "
           ></span
           ><span
@@ -3963,7 +3966,7 @@
               --delay: -6.35s;
               --rest: 65%;
               left: 1080px;
-              transform: matrix(1, 0, 0, 1, 0, 144.368);
+              transform: matrix(1, 0, 0, 1, 0, 144.708);
             "
           ></span
           ><span
@@ -3975,7 +3978,7 @@
               --delay: -0.42s;
               --rest: 5%;
               left: 48px;
-              transform: matrix(1, 0, 0, 1, 0, 680.859);
+              transform: matrix(1, 0, 0, 1, 0, 681.171);
             "
           ></span>
         </div>
@@ -4095,6 +4098,7 @@
                 type="email"
                 placeholder="you@yourcompany.com"
                 autocomplete="email"
+                aria-describedby="demo-error"
                 required=""
                 style=""
               />
@@ -4102,7 +4106,7 @@
                 Request a demo
               </button>
             </div>
-            <p class="cta__error" role="alert" hidden="">
+            <p id="demo-error" class="cta__error" role="alert" hidden="">
               Enter a valid work email.
             </p>
             <p class="cta__note">A real conversation with an engineer.</p>

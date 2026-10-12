@@ -34,6 +34,26 @@
       if (event.matches) setMenu(false);
     });
 
+  /* ---------- Pause animations ---------- */
+  // One switch for every loop on the page: CSS animations pause through
+  // the root class, and the hero flow listens for the event.
+  const motionToggle = document.querySelector(".motion-toggle");
+  if (motionToggle) {
+    motionToggle.title = "Pause animations";
+    motionToggle.addEventListener("click", () => {
+      const paused = motionToggle.getAttribute("aria-pressed") !== "true";
+      motionToggle.setAttribute("aria-pressed", String(paused));
+      motionToggle.title = paused ? "Play animations" : "Pause animations";
+      motionToggle
+        .querySelector("use")
+        .setAttribute("href", paused ? "#i-play" : "#i-pause");
+      document.documentElement.classList.toggle("motion-paused", paused);
+      document.dispatchEvent(
+        new CustomEvent("motionpause", { detail: { paused } }),
+      );
+    });
+  }
+
   /* ---------- Scroll reveal ---------- */
   const revealables = document.querySelectorAll("[data-reveal]");
   if (!motionOK.matches || !("IntersectionObserver" in window)) {

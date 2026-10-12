@@ -526,6 +526,8 @@
   const STEP = 1 / 60;
   let running = false;
   let visible = false;
+  let paused = false; // the page's pause button (js/main.js)
+  let lost = false; // the WebGL context is gone for good
   let last = 0;
   let carry = 0;
   const frame = (now) => {
@@ -540,7 +542,7 @@
     requestAnimationFrame(frame);
   };
   const update = () => {
-    const should = visible && !document.hidden;
+    const should = visible && !document.hidden && !paused && !lost;
     if (should === running) return;
     running = should;
     if (running) {
@@ -553,9 +555,16 @@
     update();
   }).observe(flow);
   document.addEventListener("visibilitychange", update);
+  // Paused, the frame holds still and pending status notes stay as they are.
+  document.addEventListener("motionpause", (event) => {
+    paused = event.detail.paused;
+    if (paused) timers.splice(0).forEach(clearTimeout);
+    update();
+  });
 
   canvas.addEventListener("webglcontextlost", (event) => {
     event.preventDefault();
+    lost = true;
     running = false;
     timers.forEach(clearTimeout);
     flow.classList.remove("is-live");
