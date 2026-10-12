@@ -442,7 +442,13 @@
         const patch = Math.min(1, Math.max(0, (v - 0.52) / 0.22));
         if (patch <= 0.02) continue;
         const edge = Math.min(1, y / 60, (560 - y) / 60);
-        put(x, y, 1.4, 1, 1, 1, 0.22 * patch * edge);
+        // A soft shadow around the sphere: the texture fades out behind it,
+        // so only the sphere's own particles show there.
+        const r = Math.hypot(x - CX, y - CY) / R;
+        const t = Math.min(1, Math.max(0, (r - 0.85) / 0.55));
+        const clear = t * t * (3 - 2 * t);
+        if (clear <= 0.01) continue;
+        put(x, y, 1.4, 1, 1, 1, 0.22 * patch * edge * clear);
       }
 
     for (let i = 0; i < N; i++) {
