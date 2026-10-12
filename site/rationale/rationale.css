@@ -508,6 +508,23 @@ html {
 .rt-sizes .logo__mark {
   width: auto;
 }
+.rt-intro {
+  max-width: var(--measure);
+  margin: 16px 0 32px;
+  font-size: 16px;
+  color: var(--text-2);
+}
+/* Mockups: small, three to a row. */
+.rt-mockups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+.rt-note {
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--text-3);
+}
 
 /* ---------- Home ---------- */
 .rt-sections {
@@ -581,6 +598,9 @@ html {
   }
 }
 @media (max-width: 960px) {
+  .rt-mockups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .rt-bar__title {
     display: none;
   }
@@ -606,7 +626,8 @@ html {
     display: none;
   }
   .rt-shots,
-  .rt-compare {
+  .rt-compare,
+  .rt-mockups {
     grid-template-columns: minmax(0, 1fr);
   }
   .rt-concept {
