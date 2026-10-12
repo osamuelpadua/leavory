@@ -213,6 +213,28 @@ test.describe("landing page", () => {
     });
   }
 
+  test("the stamp rings stay centred on their mark as they turn", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(URL);
+    for (const stamp of [".stamp--seal", ".stamp--cta"]) {
+      await page.locator(stamp).scrollIntoViewIfNeeded();
+      await page.mouse.wheel(0, 300);
+      await page.waitForTimeout(300);
+      const offset = await page.locator(stamp).evaluate((el) => {
+        const box = el.getBoundingClientRect();
+        const ring = el.querySelector(".stamp__ring text")!;
+        const text = ring.getBoundingClientRect();
+        return Math.hypot(
+          text.left + text.width / 2 - (box.left + box.width / 2),
+          text.top + text.height / 2 - (box.top + box.height / 2),
+        );
+      });
+      expect(offset).toBeLessThan(2);
+    }
+  });
+
   test("the page carries its canonical URL and sharing metadata", async ({
     page,
   }) => {

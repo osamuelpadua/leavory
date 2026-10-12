@@ -1787,15 +1787,13 @@ input {
   box-shadow: 0 0 0 6px var(--ink);
   pointer-events: none;
 }
+/* The whole ring turns, as a plain box around its centre. Turning the
+   <text> inside instead relied on transform-box: view-box, which Safari
+   resolves to a different origin, so the ring drifted off the mark. */
 .stamp__ring {
   width: 100%;
   height: 100%;
   overflow: visible;
-}
-/* Turning the text inside the SVG keeps the layout box still. */
-.stamp__ring text {
-  transform-box: view-box;
-  transform-origin: 50% 50%;
   transform: rotate(var(--turn, 0deg));
 }
 .stamp__ring text {
