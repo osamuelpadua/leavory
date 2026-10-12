@@ -734,12 +734,12 @@ const icons = section(
       "Hero sphere and wordmark",
       [
         tile(
-          `<div class="sg-center sg-pad"><img src="/ds/sphere.png" alt="" style="width:100%;max-width:560px" /></div>`,
+          `<div class="sg-center sg-pad"><img src="../ds/sphere.png" alt="" style="width:100%;max-width:560px" /></div>`,
           "Particle sphere",
           "Hero animation · key frame",
         ),
         tile(
-          `<div class="sg-pad"><img src="/ds/wordmark.png" alt="" style="width:100%" /></div>`,
+          `<div class="sg-pad"><img src="../ds/wordmark.png" alt="" style="width:100%" /></div>`,
           "Striped wordmark",
           "Footer · stripes every 8px, white 42%",
         ),
@@ -782,8 +782,8 @@ const html = `<!doctype html>
     <title>Leavory — Design system</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <link rel="stylesheet" href="/ds/import.css" />
-    <link rel="stylesheet" href="/ds/styleguide.css" />
+    <link rel="stylesheet" href="../ds/import.css" />
+    <link rel="stylesheet" href="../ds/styleguide.css" />
   </head>
   <body class="sg">
     <main>
