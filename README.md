@@ -64,6 +64,10 @@ A second version of the page lives in `site/linear/` (served at `/linear/`), wit
 
 `site/figma/` (served at `/figma/`) is a frozen, script-free copy of `/linear/` at 1440px, made for importing into Figma with the html.to.design plugin. The WebGL sphere and the striped wordmark are images, icons are inlined, the flow is pinned at the Fix step, and `figma.css` removes motion, backdrop blur and non-standard font weights. Regenerate it after changing `/linear/`: `node scripts/build-figma.mjs` (then `npm run format`).
 
+## Design system page
+
+`site/styleguide/` (served at `/styleguide/`) documents the design system of `/linear/` on one static 1440px page for importing into Figma with html.to.design: logo, colour, typography, grid and breakpoints, spacing, radius and lines, surfaces and effects, components in their key states, icons and illustrations, and motion. It is generated from the live markup, so regenerate it after changing `/linear/`: `node scripts/build-styleguide.mjs` (then `npm run format`).
+
 ## Opening
 
 The client-required opening plays before the page: “Vulnerability” and “Quality of Service” appear, their brand letters light up in red and fly into “Leavory”, then two chamfered panels part to reveal the hero (~4 s). It plays once per browser session, never when the URL has a section hash, can be skipped with the button, a click or Escape, and shrinks to a short name-only version for reduced motion.

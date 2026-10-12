@@ -1,0 +1,519 @@
+/* Leavory design system page: the frame around the live components. Fixed
+   to 1440px for importing into Figma with html.to.design. Components keep
+   their own styles from ../linear/linear.css. */
+
+.sg {
+  width: 1440px;
+  margin: 0 auto;
+}
+.sg main {
+  padding: 0 64px 120px;
+}
+
+/* ---------- Cover ---------- */
+.sg-cover {
+  padding: 120px 0 96px;
+  border-bottom: 1px solid var(--line-2);
+}
+.sg-cover__logo {
+  font-size: 34px;
+  gap: 14px;
+}
+.sg-cover h1 {
+  margin-top: 72px;
+  font-size: 96px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.sg-cover > p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: var(--text-2);
+}
+.sg-toc {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 32px;
+  margin-top: 72px;
+}
+.sg-toc li {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  font-size: 16px;
+}
+.sg-toc span {
+  font: 500 12px/1.6 var(--mono);
+  color: var(--text-3);
+}
+
+/* ---------- Sections ---------- */
+.sg-section {
+  padding: 96px 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.sg-head {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px 0;
+  margin-bottom: 56px;
+}
+.sg-no {
+  grid-row: span 2;
+  font: 500 14px/1.6 var(--mono);
+  color: var(--red);
+}
+.sg-head h2 {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.sg-lede {
+  max-width: 44rem;
+  margin-top: 12px;
+  font-size: 17px;
+  color: var(--text-2);
+}
+.sg-group {
+  margin-top: 48px;
+}
+.sg-group__title {
+  margin-bottom: 16px;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.sg-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: 16px;
+}
+.sg-note {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+/* ---------- Tiles: a stage and its spec ---------- */
+.sg-tile {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.sg-stage {
+  position: relative;
+  flex: 1;
+  min-height: 140px;
+  background: rgb(255 255 255 / 0.015);
+}
+.sg-pad {
+  padding: 28px;
+}
+.sg-center {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+}
+.sg-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 32px;
+}
+.sg-stack {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.sg-cap {
+  font: 400 11px/1 var(--mono);
+  color: var(--text-3);
+}
+.sg-light {
+  background-color: #ffffff;
+}
+.sg-spec {
+  display: grid;
+  gap: 4px;
+  padding: 14px 18px 16px;
+  border-top: 1px solid var(--line);
+}
+.sg-spec b {
+  font-size: 14px;
+  font-weight: 600;
+}
+.sg-spec span {
+  font: 400 12px/1.45 var(--mono);
+  color: var(--text-2);
+}
+.sg-clear {
+  padding: 38px;
+  outline: 1px dashed rgb(198 42 61 / 0.7);
+}
+
+/* ---------- Colour ---------- */
+.sg-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.sg-swatch {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.sg-swatch__chip {
+  height: 180px;
+}
+.sg-swatch__chip--alpha {
+  height: 110px;
+  padding: 16px;
+  background: var(--ink);
+}
+.sg-swatch__chip--alpha span {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* ---------- Type ---------- */
+.sg-fonts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.sg-font {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.sg-font__big {
+  padding: 28px 28px 8px;
+  font-size: 140px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.sg-font--mono .sg-font__big {
+  font-family: var(--mono);
+  letter-spacing: -0.02em;
+}
+.sg-types {
+  margin-top: 32px;
+}
+.sg-type {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  align-items: center;
+  gap: 48px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+}
+.sg-type .sg-spec {
+  border-top: 0;
+  padding: 0;
+}
+.t-display {
+  font-size: 68px;
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+.t-h2 {
+  font-size: 58px;
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+.t-statement {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.t-h3 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+.t-card {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.t-lede {
+  font-size: 18px;
+  color: var(--text-2);
+}
+.t-body {
+  font-size: 15px;
+  color: var(--text-2);
+}
+.t-label {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.t-data {
+  font: 400 12px/1.4 var(--mono);
+  color: var(--text-2);
+}
+
+/* ---------- Grid ---------- */
+.sg-container {
+  position: relative;
+  padding: 0 48px 40px;
+  border: 1px dashed rgb(255 255 255 / 0.24);
+  border-radius: 14px;
+}
+.sg-container__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  margin-top: 40px;
+  border-radius: 10px;
+  background: rgb(198 42 61 / 0.14);
+  box-shadow: inset 0 0 0 1px rgb(198 42 61 / 0.6);
+  font: 500 13px/1 var(--mono);
+}
+.sg-container__g {
+  position: absolute;
+  left: 48px;
+  bottom: 12px;
+  font: 400 12px/1 var(--mono);
+  color: var(--text-3);
+}
+.sg-colsets {
+  display: grid;
+  gap: 24px;
+  margin-top: 40px;
+}
+.sg-cols {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  align-items: center;
+  gap: 48px;
+}
+.sg-cols .sg-spec {
+  border-top: 0;
+  padding: 0;
+}
+.sg-cols__bar {
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  gap: 16px;
+}
+.sg-cols__bar span {
+  height: 48px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.06);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14);
+}
+.sg-table {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.sg-table th {
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--line-2);
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.sg-table td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-2);
+}
+.sg-table td:first-child {
+  width: 220px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* ---------- Space, radius, lines ---------- */
+.sg-spaces {
+  display: grid;
+  gap: 10px;
+}
+.sg-space {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.sg-space span {
+  height: 20px;
+  border-radius: 3px;
+  background: var(--red);
+}
+.sg-space b {
+  font: 500 12px/1 var(--mono);
+  color: var(--text-2);
+}
+.sg-radius {
+  width: 120px;
+  height: 80px;
+  background: rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.22);
+}
+.sg-rule {
+  display: block;
+  width: 80%;
+  border-top: 1px solid;
+}
+
+/* ---------- Surfaces ---------- */
+.sg-glass,
+.sg-tonal {
+  display: grid;
+  place-items: center;
+  width: 220px;
+  height: 96px;
+  border-radius: 14px;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.sg-glass {
+  background:
+    linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.1),
+      rgb(255 255 255 / 0.04) 40%,
+      rgb(255 255 255 / 0.03) 60%,
+      rgb(255 255 255 / 0.07)
+    ),
+    #2a2827;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 0 0 1px rgb(255 255 255 / 0.04);
+}
+.sg-tonal {
+  background:
+    linear-gradient(rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03)), var(--ink);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+}
+.sg-glow {
+  width: 120px;
+  height: 64px;
+  border-radius: 12px;
+  background: var(--red);
+  box-shadow: 0 0 44px rgb(198 42 61 / 0.45);
+}
+.sg-field {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.055) 0 1px,
+    transparent 1px 12px
+  );
+}
+.sg-bar {
+  position: absolute;
+  width: 2px;
+  margin-left: -0.5px;
+  border-radius: 1px;
+  background: rgb(255 255 255 / 0.32);
+}
+.sg-bar.is-red {
+  background: var(--red);
+}
+
+/* ---------- Components in context ---------- */
+/* The header shown inline, not fixed. */
+.sg .sg-nav {
+  position: relative;
+}
+.sg .sg-nav > .wrap {
+  width: auto;
+  padding-inline: 28px;
+}
+/* Flow pieces are positioned in design units on the site; here they flow. */
+.sg-flow {
+  --u: 1px;
+  --dx: 0px;
+}
+.sg-flow .flow__tile,
+.sg-flow .flow__steps,
+.sg-flow .flow__note,
+.sg-flow .flow__out {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+}
+.sg-flow .flow__tile.is-active {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    inset 0 0 0 30px rgb(255 255 255 / 0.08);
+  color: var(--text);
+}
+.sg-flow .flow__tile.is-hot {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    inset 0 0 0 30px rgb(198 42 61 / 0.9),
+    0 0 26px rgb(198 42 61 / 0.5);
+  color: var(--white);
+}
+.sg-flow .flow__note .flow__note-bar::after {
+  transform: scaleX(0.6);
+}
+.sg-flow .flow__note.is-done .flow__note-bar::after {
+  transform: none;
+}
+.sg-iso .iso {
+  height: 200px;
+  margin: 0;
+}
+.sg .caps__grid h3,
+.sg .caps__grid p,
+.sg .roles__grid p,
+.sg .timeline p,
+.sg .cells p {
+  max-width: none;
+}
+.sg .cells,
+.sg .roles__grid,
+.sg .timeline,
+.sg .caps__grid {
+  margin-top: 0;
+}
+
+/* ---------- Icons ---------- */
+.sg-icons {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 16px;
+}
+.sg-icons figure {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 28px 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.sg-icons figcaption {
+  font: 400 12px/1 var(--mono);
+  color: var(--text-2);
+}
