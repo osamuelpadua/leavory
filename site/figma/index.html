@@ -22,11 +22,16 @@
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="figma.css" />
   </head>
-  <body>
+  <body data-name="Leavory / Desktop 1440" class="figma-leavory-desktop-1440">
     <!-- ============ HEADER ============ -->
-    <header class="nav">
+    <header class="figma-navigation-header nav" data-name="Navigation / Header">
       <div class="wrap nav__inner">
-        <a href="#top" class="logo" aria-label="Leavory home">
+        <a
+          href="#top"
+          class="figma-brand-logo-01 logo"
+          aria-label="Leavory home"
+          data-name="Brand / Logo / 01"
+        >
           <svg
             class="logo__mark"
             width="24"
@@ -63,133 +68,58 @@
           </svg>
           <span>Leavory</span>
         </a>
-        <nav class="nav__links" aria-label="Main navigation">
+        <nav
+          class="figma-navigation-links-01 nav__links"
+          aria-label="Main navigation"
+          data-name="Navigation / Links / 01"
+        >
           <a href="#product">Product</a>
           <a href="#azure">Azure DevOps</a>
           <a href="#roles">Who it’s for</a>
           <a href="#how-it-works">How it works</a>
           <a href="#security">Security</a>
         </nav>
-        <a class="pill pill--light nav__cta" href="#demo">Request a demo</a>
+        <a
+          class="figma-button-request-a-demo pill pill--light nav__cta"
+          href="#demo"
+          data-name="Button / Request a demo"
+          >Request a demo</a
+        >
       </div>
     </header>
 
-    <main id="main">
+    <main
+      id="main"
+      data-name="Page / Main content"
+      class="figma-page-main-content"
+    >
       <!-- ============ HERO ============ -->
-      <section id="top" class="hero" aria-labelledby="hero-title">
-        <div
-          class="lines lines--hero lines--left"
-          data-bars="4"
-          data-zones="0.1-0.9"
+      <section
+        id="top"
+        class="figma-section-01-know-exactly-which-vulnerabilities-to-fix-first hero"
+        aria-labelledby="hero-title"
+        data-name="Section 01 / Know exactly which vulnerabilities to fix first."
+      >
+        <img
+          class="figma-decoration-lines-01 lines lines--hero lines--left figma-line-field"
+          src="hero-lines-left.png"
+          alt=""
           aria-hidden="true"
-          style="--travel: 1021px"
-        >
-          <span
-            class="lines__bar"
-            data-at="0.7808113977313041"
-            style="
-              --h: 85px;
-              --dur: 5.36s;
-              --delay: -3.79s;
-              --rest: 60%;
-              left: 36px;
-              transform: matrix(1, 0, 0, 1, 0, 619.397);
-            "
-          ></span
-          ><span
-            class="lines__bar is-red"
-            data-at="0.4935150345787406"
-            style="
-              --h: 114px;
-              --dur: 4.71s;
-              --delay: -0.4s;
-              --rest: 50%;
-              left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 898.997);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.7653056975454092"
-            style="
-              --h: 72px;
-              --dur: 4.36s;
-              --delay: -6.7s;
-              --rest: 28%;
-              left: 36px;
-              transform: matrix(1, 0, 0, 1, 0, 144.523);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.2701271373778582"
-            style="
-              --h: 67px;
-              --dur: 5.63s;
-              --delay: -5.67s;
-              --rest: 22%;
-              left: 12px;
-              transform: matrix(1, 0, 0, 1, 0, 438.102);
-            "
-          ></span>
-        </div>
-        <div
-          class="lines lines--hero lines--right"
-          data-bars="4"
-          data-zones="0.1-0.9"
+          data-name="Decoration / Lines / 01"
+          style="width: 49.5938px; height: 1021.09px; bottom: auto"
+        />
+        <img
+          class="figma-decoration-lines-02 lines lines--hero lines--right figma-line-field"
+          src="hero-lines-right.png"
+          alt=""
           aria-hidden="true"
-          style="--travel: 1021px"
+          data-name="Decoration / Lines / 02"
+          style="width: 49.5938px; height: 1021.09px; bottom: auto"
+        />
+        <div
+          class="figma-hero-heading-01 wrap hero__head"
+          data-name="Hero / Heading / 01"
         >
-          <span
-            class="lines__bar"
-            data-at="0.499963391572237"
-            style="
-              --h: 95px;
-              --dur: 5.62s;
-              --delay: -0.04s;
-              --rest: 60%;
-              left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 418.065);
-            "
-          ></span
-          ><span
-            class="lines__bar is-red"
-            data-at="0.49632477294653654"
-            style="
-              --h: 82px;
-              --dur: 6.27s;
-              --delay: -5.56s;
-              --rest: 30%;
-              left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 847.496);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.8876796372234822"
-            style="
-              --h: 96px;
-              --dur: 3.79s;
-              --delay: -1.02s;
-              --rest: 24%;
-              left: 37px;
-              transform: matrix(1, 0, 0, 1, 0, 992.623);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.3663366379216314"
-            style="
-              --h: 53px;
-              --dur: 6.01s;
-              --delay: -1.17s;
-              --rest: 35%;
-              left: 12px;
-              transform: matrix(1, 0, 0, 1, 0, 415.864);
-            "
-          ></span>
-        </div>
-        <div class="wrap hero__head">
           <h1 id="hero-title" class="hero__title">
             <span>Know exactly which vulnerabilities</span> to fix first.
           </h1>
@@ -225,13 +155,14 @@
         </div>
 
         <figure
-          class="flow is-live"
+          class="figma-hero-pipeline-flow-01 flow is-live"
           aria-label="How Leavory works: results from your pipelines and vulnerability sources are connected, scanned and cross-referenced, and come out as a short list of what to fix first."
           data-stage="3"
           style="width: 1324.8px; height: 612px; container-type: normal"
+          data-name="Hero / Pipeline flow / 01"
         >
           <div
-            class="flow__stage"
+            class="figma-flow-illustration-01 flow__stage"
             aria-hidden="true"
             style="
               --u: 1.0928571428571427px;
@@ -239,6 +170,7 @@
               --dx-mid: 6.684151785714334px;
               --dx-end: 121.296875px;
             "
+            data-name="Flow / Illustration / 01"
           >
             <svg class="flow__lines" viewBox="0 0 1212.2 560" style="">
               <path
@@ -389,7 +321,12 @@
                 </g>
               </g>
             </svg>
-            <img class="flow__canvas" src="sphere.png" alt="" />
+            <img
+              class="figma-flow-sphere-01 flow__canvas"
+              src="sphere.png"
+              alt=""
+              data-name="Flow / Sphere / 01"
+            />
             <div
               class="flow__box"
               data-side="left"
@@ -488,16 +425,21 @@
               </li>
             </ul>
             <div class="flow__shade" aria-hidden="true" style=""></div>
-            <div class="flow__steps" style="">
+            <div
+              class="figma-flow-steps-01 flow__steps"
+              style=""
+              data-name="Flow / Steps / 01"
+            >
               <span class="">Connect</span><span class="">Scan</span
               ><span class="">Cross-reference</span
               ><span class="is-on">Fix</span>
             </div>
             <div
-              class="flow__note is-on is-done"
+              class="figma-flow-status-card-01 flow__note is-on is-done"
               data-slot="a"
               data-side="mid"
               style="--x: 640; --y: 86; --dur: 2480ms"
+              data-name="Flow / Status card / 01"
             >
               <span class="flow__spin"></span>
               <span class="flow__note-body">
@@ -508,10 +450,11 @@
             </div>
 
             <div
-              class="flow__note is-on is-done"
+              class="figma-flow-status-card-02 flow__note is-on is-done"
               data-slot="c"
               data-side="mid"
               style="--x: 696; --y: 388; --dur: 2480ms"
+              data-name="Flow / Status card / 02"
             >
               <span class="flow__spin"></span>
               <span class="flow__note-body">
@@ -527,7 +470,11 @@
             >
               What to fix today
             </p>
-            <div class="flow__out is-hot" style="">
+            <div
+              class="figma-flow-fix-first-card-01 flow__out is-hot"
+              style=""
+              data-name="Flow / Fix first card / 01"
+            >
               <p class="flow__out-title">Fix first</p>
               <ol class="flow__out-list">
                 <li style="--i: 0">
@@ -560,12 +507,20 @@
       <!-- ============ SOURCES ============ -->
       <!-- Grouped with the copy's own words, so it reads as how Leavory
            works, not as customers or partners. -->
-      <section class="sources" aria-labelledby="sources-title">
+      <section
+        class="figma-section-02-what-leavory-connects-to-and-checks-against sources"
+        aria-labelledby="sources-title"
+        data-name="Section 02 / What Leavory connects to and checks against"
+      >
         <div class="wrap">
           <h2 id="sources-title" class="sr-only">
             What Leavory connects to and checks against
           </h2>
-          <div class="stamp stamp--sources" aria-hidden="true">
+          <div
+            class="figma-brand-circular-stamp-01 stamp stamp--sources"
+            aria-hidden="true"
+            data-name="Brand / Circular stamp / 01"
+          >
             <svg class="stamp__ring" viewBox="0 0 200 200">
               <path
                 id="stamp-sources"
@@ -690,7 +645,12 @@
       </section>
 
       <!-- ============ STATEMENT ============ -->
-      <section id="product" class="statement" aria-label="What Leavory does">
+      <section
+        id="product"
+        class="figma-section-03-what-leavory-does statement"
+        aria-label="What Leavory does"
+        data-name="Section 03 / What Leavory does"
+      >
         <div class="wrap">
           <p class="statement__text is-visible" data-reveal="">
             Leavory replaces tracking spreadsheets and scattered alerts.
@@ -703,7 +663,11 @@
       </section>
 
       <!-- ============ CAPABILITIES ============ -->
-      <section class="figs" aria-labelledby="figs-title">
+      <section
+        class="figma-section-04-everything-your-security-team-needs-without-the-noise figs"
+        aria-labelledby="figs-title"
+        data-name="Section 04 / Everything your security team needs, without the noise."
+      >
         <div class="wrap figs__head is-visible" data-reveal="">
           <h2 id="figs-title">
             Everything your security team needs, without the noise.
@@ -714,7 +678,11 @@
           </p>
         </div>
         <div class="wrap figs__grid">
-          <article class="fig is-visible" data-reveal="">
+          <article
+            class="figma-product-illustration-01 fig is-visible"
+            data-reveal=""
+            data-name="Product / Illustration / 01"
+          >
             <svg
               class="iso"
               preserveAspectRatio="xMidYMid meet"
@@ -1402,7 +1370,11 @@
               pipelines on its own, in the background.
             </p>
           </article>
-          <article class="fig is-visible" data-reveal="">
+          <article
+            class="figma-product-illustration-02 fig is-visible"
+            data-reveal=""
+            data-name="Product / Illustration / 02"
+          >
             <svg
               class="iso"
               preserveAspectRatio="xMidYMid meet"
@@ -1937,7 +1909,11 @@
               what to change first.
             </p>
           </article>
-          <article class="fig is-visible" data-reveal="">
+          <article
+            class="figma-product-illustration-03 fig is-visible"
+            data-reveal=""
+            data-name="Product / Illustration / 03"
+          >
             <svg
               class="iso"
               preserveAspectRatio="xMidYMid meet"
@@ -2418,8 +2394,9 @@
       <!-- ============ INTELLIGENCE ============ -->
       <section
         id="intelligence"
-        class="feature"
+        class="figma-section-05-from-a-new-cveto-the-fix feature"
         aria-labelledby="intelligence-title"
+        data-name="Section 05 / From a new CVEto the fix"
       >
         <div class="wrap feature__head is-visible" data-reveal="">
           <h2 id="intelligence-title">From a new CVE<br />to the fix</h2>
@@ -2449,8 +2426,9 @@
         <div class="wrap">
           <div class="screen is-visible" data-reveal="">
             <figure
-              class="app"
+              class="figma-product-application-preview-01 app"
               aria-label="Example of the Leavory workspace: findings ranked by priority, with the selected finding explained in plain language and a recommended fix."
+              data-name="Product / Application preview / 01"
             >
               <div class="app__top">
                 <svg
@@ -2771,7 +2749,12 @@
       </section>
 
       <!-- ============ AZURE DEVOPS ============ -->
-      <section id="azure" class="feature" aria-labelledby="azure-title">
+      <section
+        id="azure"
+        class="figma-section-06-built-forazure-devops feature"
+        aria-labelledby="azure-title"
+        data-name="Section 06 / Built forAzure DevOps"
+      >
         <div class="wrap feature__head is-visible" data-reveal="">
           <h2 id="azure-title">Built for<br />Azure DevOps</h2>
           <div>
@@ -2832,7 +2815,12 @@
       </section>
 
       <!-- ============ PLATFORM ============ -->
-      <section id="platform" class="platform" aria-labelledby="platform-title">
+      <section
+        id="platform"
+        class="figma-section-07-your-whole-estate-in-one-view platform"
+        aria-labelledby="platform-title"
+        data-name="Section 07 / Your whole estate in one view."
+      >
         <div class="wrap platform__head is-visible" data-reveal="">
           <p class="eyebrow">Platform</p>
           <h2 id="platform-title">Your whole estate in one view.</h2>
@@ -3041,7 +3029,12 @@
       </section>
 
       <!-- ============ ROLES ============ -->
-      <section id="roles" class="roles" aria-labelledby="roles-title">
+      <section
+        id="roles"
+        class="figma-section-08-one-platform-a-different-answer-for-each-role roles"
+        aria-labelledby="roles-title"
+        data-name="Section 08 / One platform. A different answer for each role."
+      >
         <div class="wrap">
           <h2 id="roles-title" class="big is-visible" data-reveal="">
             One platform.
@@ -3136,7 +3129,12 @@
       </section>
 
       <!-- ============ HOW IT WORKS ============ -->
-      <section id="how-it-works" class="feature" aria-labelledby="steps-title">
+      <section
+        id="how-it-works"
+        class="figma-section-09-from-connectedto-fixed feature"
+        aria-labelledby="steps-title"
+        data-name="Section 09 / From connectedto fixed"
+      >
         <div class="wrap feature__head is-visible" data-reveal="">
           <h2 id="steps-title">From connected<br />to fixed</h2>
           <div>
@@ -3863,7 +3861,12 @@
       </section>
 
       <!-- ============ SECURITY ============ -->
-      <section id="security" class="security" aria-labelledby="security-title">
+      <section
+        id="security"
+        class="figma-section-10-leavory-never-reads-your-source-code security"
+        aria-labelledby="security-title"
+        data-name="Section 10 / Leavory never reads your source code."
+      >
         <div class="wrap security__inner is-visible" data-reveal="">
           <div>
             <h2 id="security-title" class="big">
@@ -3876,7 +3879,11 @@
             </p>
           </div>
           <div class="boundary" aria-hidden="true">
-            <div class="stamp stamp--seal" aria-hidden="true">
+            <div
+              class="figma-brand-circular-stamp-02 stamp stamp--seal"
+              aria-hidden="true"
+              data-name="Brand / Circular stamp / 02"
+            >
               <svg class="stamp__ring" viewBox="0 0 200 200">
                 <path
                   id="stamp-trust"
@@ -3951,109 +3958,37 @@
       </section>
 
       <!-- ============ DEMO ============ -->
-      <section id="demo" class="cta" aria-labelledby="demo-title">
-        <div
-          class="lines lines--cta"
-          data-bars="7"
-          data-zones="0.03-0.28,0.72-0.97"
+      <section
+        id="demo"
+        class="figma-section-11-see-leavory-in-action cta"
+        aria-labelledby="demo-title"
+        data-name="Section 11 / See Leavory in action."
+      >
+        <img
+          class="figma-decoration-lines-03 lines lines--cta figma-line-field"
+          src="cta-lines.png"
+          alt=""
           aria-hidden="true"
-          style="--travel: 681px"
-        >
-          <span
-            class="lines__bar"
-            data-at="0.09062765792012215"
-            style="
-              --h: 51px;
-              --dur: 6.15s;
-              --delay: -0s;
-              --rest: 27%;
-              left: 132px;
-              transform: matrix(1, 0, 0, 1, 0, 667.29);
-            "
-          ></span
-          ><span
-            class="lines__bar is-red"
-            data-at="0.8738394427043386"
-            style="
-              --h: 120px;
-              --dur: 6.37s;
-              --delay: -0.39s;
-              --rest: 10%;
-              left: 1260px;
-              transform: matrix(1, 0, 0, 1, 0, 617.475);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.12845184400910512"
-            style="
-              --h: 84px;
-              --dur: 5.89s;
-              --delay: -4.8s;
-              --rest: 66%;
-              left: 180px;
-              transform: matrix(1, 0, 0, 1, 0, 42.6097);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.8309696861822158"
-            style="
-              --h: 107px;
-              --dur: 5.63s;
-              --delay: -1.35s;
-              --rest: 50%;
-              left: 1200px;
-              transform: matrix(1, 0, 0, 1, 0, 475.926);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.18043496573343873"
-            style="
-              --h: 88px;
-              --dur: 6.14s;
-              --delay: -2.09s;
-              --rest: 17%;
-              left: 264px;
-              transform: matrix(1, 0, 0, 1, 0, 404.813);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.7517152628558688"
-            style="
-              --h: 56px;
-              --dur: 3.74s;
-              --delay: -6.35s;
-              --rest: 65%;
-              left: 1080px;
-              transform: matrix(1, 0, 0, 1, 0, 143.978);
-            "
-          ></span
-          ><span
-            class="lines__bar"
-            data-at="0.03338747986825183"
-            style="
-              --h: 68px;
-              --dur: 4.12s;
-              --delay: -0.42s;
-              --rest: 5%;
-              left: 48px;
-              transform: matrix(1, 0, 0, 1, 0, 583.705);
-            "
-          ></span>
-        </div>
+          data-name="Decoration / Lines / 03"
+          style="width: 1440px; height: 680.594px; bottom: auto"
+        />
         <div class="wrap cta__inner is-visible" data-reveal="">
           <h2 id="demo-title">See Leavory in action.</h2>
           <p>
             Tell us which platform you use, and an engineer, not a sales bot,
             will reach out to schedule a demo.
           </p>
-          <form class="cta__form" novalidate="">
+          <form
+            class="figma-form-request-a-demo-01 cta__form"
+            novalidate=""
+            data-name="Form / Request a demo / 01"
+          >
             <fieldset>
               <legend class="sr-only">Which platform do you use?</legend>
-              <label class="chip">
+              <label
+                class="figma-component-chip-01 chip"
+                data-name="Component / Chip / 01"
+              >
                 <input
                   type="radio"
                   name="platform"
@@ -4073,7 +4008,10 @@
                   ></path></svg
                 ><span>Azure DevOps</span>
               </label>
-              <label class="chip">
+              <label
+                class="figma-component-chip-02 chip"
+                data-name="Component / Chip / 02"
+              >
                 <input type="radio" name="platform" value="github" style="" />
                 <svg
                   width="16"
@@ -4087,7 +4025,10 @@
                   ></path></svg
                 ><span>GitHub</span>
               </label>
-              <label class="chip">
+              <label
+                class="figma-component-chip-03 chip"
+                data-name="Component / Chip / 03"
+              >
                 <input type="radio" name="platform" value="gitlab" style="" />
                 <svg
                   width="16"
@@ -4114,7 +4055,11 @@
                 required=""
                 style=""
               />
-              <button type="submit" class="pill pill--light">
+              <button
+                type="submit"
+                class="figma-button-request-a-demo pill pill--light"
+                data-name="Button / Request a demo"
+              >
                 Request a demo
               </button>
             </div>
@@ -4128,10 +4073,18 @@
     </main>
 
     <!-- ============ FOOTER ============ -->
-    <footer class="footer">
+    <footer
+      class="figma-footer-brand-and-links footer"
+      data-name="Footer / Brand and links"
+    >
       <div class="wrap footer__grid">
         <div class="footer__brand">
-          <a href="#top" class="logo" aria-label="Leavory home">
+          <a
+            href="#top"
+            class="figma-brand-logo-02 logo"
+            aria-label="Leavory home"
+            data-name="Brand / Logo / 02"
+          >
             <svg
               class="logo__mark"
               width="24"
@@ -4197,7 +4150,11 @@
           >
         </nav>
       </div>
-      <div class="footer__mark" aria-hidden="true">
+      <div
+        class="figma-brand-wordmark-01 footer__mark"
+        aria-hidden="true"
+        data-name="Brand / Wordmark / 01"
+      >
         <img src="wordmark.png" alt="" width="1440" height="422" />
       </div>
     </footer>

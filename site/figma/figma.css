@@ -73,3 +73,15 @@ img.flow__canvas {
   width: 100%;
   height: auto;
 }
+
+/* Rasterize repeating gradients, masks and transformed bars as one decoration.
+   Fixed intrinsic dimensions avoid importer rounding and stretching each line. */
+.lines.figma-line-field {
+  display: block;
+  max-width: none;
+  background: none;
+  border: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+  object-fit: fill;
+}

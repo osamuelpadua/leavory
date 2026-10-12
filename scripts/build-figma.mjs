@@ -7,6 +7,7 @@
 import { spawn } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import { chromium } from "@playwright/test";
+import { prepareFigmaImport } from "./prepare-figma-import.mjs";
 
 const base = "http://127.0.0.1:5173";
 const outDir = "site/figma";
@@ -192,6 +193,7 @@ try {
     return "<!doctype html>\n" + doc.documentElement.outerHTML;
   }, WIDTH);
   await writeFile(`${outDir}/index.html`, html);
+  await prepareFigmaImport(page, outDir);
   console.log(`wrote ${outDir}/index.html, sphere.png, wordmark.png`);
 } finally {
   await browser.close();
