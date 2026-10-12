@@ -36,7 +36,6 @@ Upload the contents of `site/` to any static host. No server, environment variab
 - `site/js/hero-flow.js`: the hero flow in plain WebGL2. Two bundles of wires feed a sphere of particles (Leavory): the customer's pipelines (Azure DevOps, GitHub, GitLab, Trivy) and the public sources (OSV, NVD, KEV, EPSS), each entering the steps panel through its own port. Connect and Scan light up the pipeline side; Cross-reference feeds the public sources in and sweeps the sphere, revealing the few findings that matter; Fix sends them, red, to the ranked “Fix first” panel. A drifting dot texture sits behind it and a shade hides the left edge. The sphere turns toward the cursor. The stage spans the grid and its height fits what is left of the first screen. It pauses offscreen; with reduced motion it renders a still frame of the Fix step, and without WebGL2 a dotted CSS sphere stands in.
 - `site/js/lines.js`: line fields. Hairlines every 12px (CSS) with a few solid bars rising along them, one red, seeded and paused offscreen; static with reduced motion. Used beside the hero and across the final call to action.
 - `site/fonts/`: Geist and IBM Plex Mono, both local.
-- `site/linear/`: redirects to `/` (the page used to live there).
 
 ## Figma import copy
 
