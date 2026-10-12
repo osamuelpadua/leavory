@@ -48,6 +48,16 @@ Upload the contents of `site/` to any static host. No server, environment variab
 - `site/fonts/`: Archivo (variable width, used expanded for display), Geist, and IBM Plex Mono (product UI only), all local.
 - `site/img/`: the hero still (`obj-scan`, captured from the scene) and four 3D objects generated with Magnific (orbit, sealed capsule, red cell, and the former hero cluster, now unused), background-removed, served locally as WebP with alpha.
 
+## Linear-inspired version
+
+A second version of the page lives in `site/linear/` (served at `/linear/`), with the same content and palette in a design inspired by linear.app: tight display type, quiet dark surfaces, hairline structure, isometric line figures, and the product window as a large screen.
+
+- `site/linear/index.html`: the page. It reuses the classic page's icon sprite and product window markup, and the shared fonts.
+- `site/linear/linear.css`: tokens, components, sections and breakpoints for this version.
+- `site/linear/linear.js`: mobile menu, scroll reveal, and the front-end-only demo form (it validates the email and never sends anything).
+- `site/linear/hero-flow.js`: the hero flow in plain WebGL2. Results from the pipelines and the vulnerability sources run along the wires into a sphere of particles, which cycles through Connect, Scan, Cross-reference and Fix; the few findings that matter light up red and leave for “Fix first”. The sphere turns toward the cursor and its particles move out of the cursor's way. It pauses offscreen; with reduced motion it renders a still frame of the Fix step, and without WebGL2 a dotted CSS sphere stands in.
+- `tests/linear.spec.ts`: errors and external assets, the step cycle, reduced motion, mobile menu, form, palette, overflow and axe at four widths.
+
 ## Opening
 
 The client-required opening plays before the page: “Vulnerability” and “Quality of Service” appear, their brand letters light up in red and fly into “Leavory”, then two chamfered panels part to reveal the hero (~4 s). It plays once per browser session, never when the URL has a section hash, can be skipped with the button, a click or Escape, and shrinks to a short name-only version for reduced motion.

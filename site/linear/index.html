@@ -1,0 +1,2264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1E1C1B" />
+    <title>Leavory — Know exactly which vulnerabilities to fix first</title>
+    <meta
+      name="description"
+      content="Leavory turns the scan results from your Azure DevOps, GitHub, and GitLab pipelines into a short list of what to fix today."
+    />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link
+      rel="preload"
+      href="../fonts/geist.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="linear.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <script src="linear.js" defer></script>
+    <script src="hero-flow.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <svg class="sprite" width="0" height="0" aria-hidden="true">
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path
+          d="M7 17 17 7M8 7h9v9"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path
+          d="M3 7h18M3 12h18M3 17h18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path
+          d="M5 5l14 14M19 5 5 19"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path
+          d="M12 2.8 19.5 6v6.2c0 4.6-3.3 7.9-7.5 9.2-4.2-1.3-7.5-4.6-7.5-9.2V6Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-code" viewBox="0 0 24 24">
+        <path
+          d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path
+          d="m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <path
+          d="M4 20V4M4 20h16M8 16l4-5 3 3 5-7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-branch" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M6 3v12" />
+          <circle cx="18" cy="6" r="3" />
+          <circle cx="6" cy="18" r="3" />
+          <path d="M18 9a9 9 0 0 1-9 9" />
+        </g>
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"
+        />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </g>
+      </symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24">
+        <path
+          d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-pipe" viewBox="0 0 24 24">
+        <path
+          d="M4 6h10a4 4 0 0 1 0 8H10a4 4 0 0 0 0 8h10"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-box" viewBox="0 0 24 24">
+        <path
+          d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 9 8-4.5M12 12v9M12 12 4 7.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-pulse" viewBox="0 0 24 24">
+        <path
+          d="M3 12h4l3-7 4 14 3-7h4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-azure" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="m2 8 4-3v11l12 4V4l4-2v20l-16-4-4-6Zm4-3 8-3v4L6 9Zm0 11 8 2v4l-8-4Z"
+        />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.84.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.55 9.55 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.69 0 3.85-2.34 4.7-4.58 4.94.36.31.68.92.68 1.86v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+        />
+      </symbol>
+      <symbol id="i-gitlab" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+        >
+          <path d="m12 21 9-7-3-11-3 8H9L6 3 3 14l9 7Z" />
+          <path d="m3 14 6-3 3 10 3-10 6 3M9 11h6" />
+        </g>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="1" />
+          <path d="m3 6 9 7 9-7" />
+        </g>
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.140 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
+        />
+      </symbol>
+    </svg>
+
+    <!-- ============ HEADER ============ -->
+    <header class="nav">
+      <div class="wrap nav__inner">
+        <a href="#top" class="logo" aria-label="Leavory home">
+          <span class="logo__mark"
+            ><svg width="15" height="15" aria-hidden="true">
+              <use href="#i-shield" /></svg
+          ></span>
+          <span>Leavory</span>
+        </a>
+        <nav class="nav__links" aria-label="Main navigation">
+          <a href="#product">Product</a>
+          <a href="#azure">Azure DevOps</a>
+          <a href="#roles">Who it’s for</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#security">Security</a>
+        </nav>
+        <a class="pill pill--light nav__cta" href="#demo">Request a demo</a>
+        <button
+          class="nav__toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-navigation"
+          aria-label="Open navigation"
+        >
+          <svg width="18" height="18" aria-hidden="true">
+            <use href="#i-menu" />
+          </svg>
+        </button>
+      </div>
+      <nav
+        id="mobile-navigation"
+        class="nav__mobile"
+        aria-label="Mobile navigation"
+        hidden
+      >
+        <a href="#product">Product</a>
+        <a href="#azure">Azure DevOps</a>
+        <a href="#roles">Who it’s for</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#security">Security</a>
+        <a class="pill pill--light" href="#demo">Request a demo</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ============ HERO ============ -->
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="wrap">
+          <h1 id="hero-title" class="hero__title">
+            Know exactly which vulnerabilities to fix first.
+          </h1>
+          <div class="hero__row">
+            <p class="hero__lede">
+              Leavory turns the scan results from your Azure DevOps, GitHub, and
+              GitLab pipelines into a short list of what to fix today.
+            </p>
+            <a class="hero__new" href="#azure"
+              ><b>New</b> Built for Azure DevOps
+              <svg width="14" height="14" aria-hidden="true">
+                <use href="#i-arrow" /></svg
+            ></a>
+          </div>
+        </div>
+
+        <figure
+          class="flow"
+          aria-label="How Leavory works: results from your pipelines and vulnerability sources are connected, scanned and cross-referenced, and come out as a short list of what to fix first."
+        >
+          <div class="flow__stage" aria-hidden="true">
+            <svg class="flow__lines" viewBox="0 0 1200 560">
+              <path
+                class="flow__wire"
+                d="M174 112 C 300 112, 330 256.5, 448 256.5"
+              />
+              <path
+                class="flow__wire"
+                d="M174 168 C 300 168, 330 264.3, 448 264.3"
+              />
+              <path
+                class="flow__wire"
+                d="M174 224 C 300 224, 330 272.2, 448 272.2"
+              />
+              <path
+                class="flow__wire"
+                d="M174 280 C 300 280, 330 280.0, 448 280.0"
+              />
+              <path
+                class="flow__wire"
+                d="M174 336 C 300 336, 330 287.8, 448 287.8"
+              />
+              <path
+                class="flow__wire"
+                d="M174 392 C 300 392, 330 295.7, 448 295.7"
+              />
+              <path
+                class="flow__wire"
+                d="M174 448 C 300 448, 330 303.5, 448 303.5"
+              />
+              <g class="flow__exit">
+                <circle cx="864" cy="280" r="1.6" style="opacity: 0.25" />
+                <circle cx="876" cy="280" r="1.6" style="opacity: 0.34" />
+                <circle cx="888" cy="280" r="1.6" style="opacity: 0.43" />
+                <circle cx="900" cy="280" r="1.6" style="opacity: 0.52" />
+                <circle cx="912" cy="280" r="1.6" style="opacity: 0.61" />
+                <circle cx="924" cy="280" r="1.6" style="opacity: 0.7" />
+                <circle cx="936" cy="280" r="1.6" style="opacity: 0.79" />
+                <circle cx="948" cy="280" r="1.6" style="opacity: 0.88" />
+              </g>
+              <path class="flow__lead" data-slot="b" d="M478 304 V452" />
+              <path
+                class="flow__lead"
+                data-slot="c"
+                d="M708 304 V352 L760 404"
+              />
+            </svg>
+            <canvas class="flow__canvas"></canvas>
+            <ul class="flow__tiles">
+              <li class="flow__tile is-faded" style="--x: 64; --y: 89">SBOM</li>
+              <li class="flow__tile is-faded" style="--x: 64; --y: 145">
+                SAST
+              </li>
+              <li class="flow__tile is-faded" style="--x: 64; --y: 201">
+                Sonar
+              </li>
+              <li class="flow__tile is-faded" style="--x: 64; --y: 257">
+                Secrets
+              </li>
+              <li class="flow__tile is-faded" style="--x: 64; --y: 313">
+                GHSA
+              </li>
+              <li class="flow__tile is-faded" style="--x: 64; --y: 369">CVE</li>
+              <li class="flow__tile is-faded" style="--x: 64; --y: 425">
+                EPSS
+              </li>
+              <li class="flow__tile" style="--x: 126; --y: 89">
+                <svg width="20" height="20"><use href="#i-azure" /></svg>
+              </li>
+              <li class="flow__tile" style="--x: 126; --y: 145">
+                <svg width="20" height="20"><use href="#i-github" /></svg>
+              </li>
+              <li class="flow__tile" style="--x: 126; --y: 201">
+                <svg width="20" height="20"><use href="#i-gitlab" /></svg>
+              </li>
+              <li class="flow__tile" style="--x: 126; --y: 257">Trivy</li>
+              <li class="flow__tile" style="--x: 126; --y: 313">OSV</li>
+              <li class="flow__tile" style="--x: 126; --y: 369">NVD</li>
+              <li class="flow__tile" style="--x: 126; --y: 425">KEV</li>
+            </ul>
+            <div class="flow__steps">
+              <span>Connect</span><span>Scan</span><span>Cross-reference</span
+              ><span>Fix</span>
+            </div>
+            <p class="flow__note" data-slot="a" style="--x: 712; --y: 92"></p>
+            <p class="flow__note" data-slot="b" style="--x: 384; --y: 452"></p>
+            <p class="flow__note" data-slot="c" style="--x: 760; --y: 388"></p>
+            <p class="flow__out">Fix first</p>
+          </div>
+        </figure>
+      </section>
+
+      <!-- ============ SOURCES ============ -->
+      <section class="sources" aria-labelledby="sources-title">
+        <div class="wrap">
+          <ul class="sources__list">
+            <li>
+              <svg width="22" height="22" aria-hidden="true">
+                <use href="#i-azure" /></svg
+              >Azure DevOps
+            </li>
+            <li>
+              <svg width="22" height="22" aria-hidden="true">
+                <use href="#i-github" /></svg
+              >GitHub
+            </li>
+            <li>
+              <svg width="22" height="22" aria-hidden="true">
+                <use href="#i-gitlab" /></svg
+              >GitLab
+            </li>
+            <li>Trivy</li>
+            <li>OSV</li>
+            <li>NVD</li>
+            <li>CISA KEV</li>
+            <li>EPSS</li>
+          </ul>
+          <h2 id="sources-title" class="mono">
+            Results from the pipelines you already run, checked against the
+            sources that matter
+          </h2>
+        </div>
+      </section>
+
+      <!-- ============ STATEMENT ============ -->
+      <section id="product" class="statement" aria-label="What Leavory does">
+        <div class="wrap">
+          <p class="statement__text" data-reveal>
+            Leavory replaces tracking spreadsheets and scattered alerts.
+            <span
+              >A single place where risk, context, and recommendation live
+              together.</span
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ CAPABILITIES ============ -->
+      <section class="figs" aria-labelledby="figs-title">
+        <h2 id="figs-title" class="sr-only">
+          Everything your security team needs, without the noise
+        </h2>
+        <div class="wrap figs__grid">
+          <article class="fig" data-reveal>
+            <p class="fig__no mono" aria-hidden="true">Fig 0.1</p>
+            <svg
+              class="iso"
+              viewBox="-139.9 -177.0 279.8 262.0"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <title>Layers of an organization, one repository flagged</title>
+              <path
+                class="base"
+                d="M129.9 0.0 L0.0 75.0 L0.0 68.0 L129.9 -7.0 Z"
+              />
+              <path
+                class="r"
+                d="M129.9 0.0 L0.0 75.0 L0.0 68.0 L129.9 -7.0 Z"
+              />
+              <path
+                class="base"
+                d="M-129.9 0.0 L0.0 75.0 L0.0 68.0 L-129.9 -7.0 Z"
+              />
+              <path
+                class="l"
+                d="M-129.9 0.0 L0.0 75.0 L0.0 68.0 L-129.9 -7.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -82.0 L129.9 -7.0 L0.0 68.0 L-129.9 -7.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -82.0 L129.9 -7.0 L0.0 68.0 L-129.9 -7.0 Z"
+              />
+              <path class="hatch" d="M-8.1 -77.3 L121.8 -2.3" />
+              <path class="hatch" d="M-16.2 -72.6 L113.7 2.4" />
+              <path class="hatch" d="M-24.4 -67.9 L105.5 7.1" />
+              <path class="hatch" d="M-32.5 -63.2 L97.4 11.7" />
+              <path class="hatch" d="M-40.6 -58.6 L89.3 16.4" />
+              <path class="hatch" d="M-48.7 -53.9 L81.2 21.1" />
+              <path class="hatch" d="M-56.8 -49.2 L73.1 25.8" />
+              <path class="hatch" d="M-65.0 -44.5 L65.0 30.5" />
+              <path class="hatch" d="M-73.1 -39.8 L56.8 35.2" />
+              <path class="hatch" d="M-81.2 -35.1 L48.7 39.9" />
+              <path class="hatch" d="M-89.3 -30.4 L40.6 44.6" />
+              <path class="hatch" d="M-97.4 -25.8 L32.5 49.2" />
+              <path class="hatch" d="M-105.5 -21.1 L24.4 53.9" />
+              <path class="hatch" d="M-113.7 -16.4 L16.2 58.6" />
+              <path class="hatch" d="M-121.8 -11.7 L8.1 63.3" />
+              <path class="dash" d="M-129.9 -7.0 L-129.9 -40.0" />
+              <path class="dash" d="M0.0 68.0 L0.0 35.0" />
+              <path class="dash" d="M129.9 -7.0 L129.9 -40.0" />
+              <path
+                class="base"
+                d="M129.9 -40.0 L0.0 35.0 L0.0 28.0 L129.9 -47.0 Z"
+              />
+              <path
+                class="r"
+                d="M129.9 -40.0 L0.0 35.0 L0.0 28.0 L129.9 -47.0 Z"
+              />
+              <path
+                class="base"
+                d="M-129.9 -40.0 L0.0 35.0 L0.0 28.0 L-129.9 -47.0 Z"
+              />
+              <path
+                class="l"
+                d="M-129.9 -40.0 L0.0 35.0 L0.0 28.0 L-129.9 -47.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -122.0 L129.9 -47.0 L0.0 28.0 L-129.9 -47.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -122.0 L129.9 -47.0 L0.0 28.0 L-129.9 -47.0 Z"
+              />
+              <path
+                class="zone"
+                d="M0.0 -110.0 L52.0 -80.0 L-57.2 -17.0 L-109.1 -47.0 Z"
+              />
+              <path
+                class="zone"
+                d="M58.9 -76.0 L109.1 -47.0 L58.9 -18.0 L8.7 -47.0 Z"
+              />
+              <path
+                class="zone"
+                d="M0.0 -42.0 L50.2 -13.0 L0.0 16.0 L-50.2 -13.0 Z"
+              />
+              <path class="dash" d="M-129.9 -47.0 L-129.9 -80.0" />
+              <path class="dash" d="M0.0 28.0 L0.0 -5.0" />
+              <path class="dash" d="M129.9 -47.0 L129.9 -80.0" />
+              <path
+                class="base"
+                d="M129.9 -80.0 L0.0 -5.0 L0.0 -12.0 L129.9 -87.0 Z"
+              />
+              <path
+                class="r"
+                d="M129.9 -80.0 L0.0 -5.0 L0.0 -12.0 L129.9 -87.0 Z"
+              />
+              <path
+                class="base"
+                d="M-129.9 -80.0 L0.0 -5.0 L0.0 -12.0 L-129.9 -87.0 Z"
+              />
+              <path
+                class="l"
+                d="M-129.9 -80.0 L0.0 -5.0 L0.0 -12.0 L-129.9 -87.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -162.0 L129.9 -87.0 L0.0 -12.0 L-129.9 -87.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -162.0 L129.9 -87.0 L0.0 -12.0 L-129.9 -87.0 Z"
+              />
+              <path
+                class="base"
+                d="M19.1 -138.0 L0.0 -127.0 L0.0 -135.0 L19.1 -146.0 Z"
+              />
+              <path
+                class="r"
+                d="M19.1 -138.0 L0.0 -127.0 L0.0 -135.0 L19.1 -146.0 Z"
+              />
+              <path
+                class="base"
+                d="M-19.1 -138.0 L0.0 -127.0 L0.0 -135.0 L-19.1 -146.0 Z"
+              />
+              <path
+                class="l"
+                d="M-19.1 -138.0 L0.0 -127.0 L0.0 -135.0 L-19.1 -146.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -157.0 L19.1 -146.0 L0.0 -135.0 L-19.1 -146.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -157.0 L19.1 -146.0 L0.0 -135.0 L-19.1 -146.0 Z"
+              />
+              <path
+                class="base"
+                d="M-8.7 -122.0 L-27.7 -111.0 L-27.7 -125.0 L-8.7 -136.0 Z"
+              />
+              <path
+                class="r"
+                d="M-8.7 -122.0 L-27.7 -111.0 L-27.7 -125.0 L-8.7 -136.0 Z"
+              />
+              <path
+                class="base"
+                d="M-46.8 -122.0 L-27.7 -111.0 L-27.7 -125.0 L-46.8 -136.0 Z"
+              />
+              <path
+                class="l"
+                d="M-46.8 -122.0 L-27.7 -111.0 L-27.7 -125.0 L-46.8 -136.0 Z"
+              />
+              <path
+                class="base"
+                d="M-27.7 -147.0 L-8.7 -136.0 L-27.7 -125.0 L-46.8 -136.0 Z"
+              />
+              <path
+                class="t"
+                d="M-27.7 -147.0 L-8.7 -136.0 L-27.7 -125.0 L-46.8 -136.0 Z"
+              />
+              <path
+                class="base"
+                d="M46.8 -122.0 L27.7 -111.0 L27.7 -121.0 L46.8 -132.0 Z"
+              />
+              <path
+                class="r"
+                d="M46.8 -122.0 L27.7 -111.0 L27.7 -121.0 L46.8 -132.0 Z"
+              />
+              <path
+                class="base"
+                d="M8.7 -122.0 L27.7 -111.0 L27.7 -121.0 L8.7 -132.0 Z"
+              />
+              <path
+                class="l"
+                d="M8.7 -122.0 L27.7 -111.0 L27.7 -121.0 L8.7 -132.0 Z"
+              />
+              <path
+                class="base"
+                d="M27.7 -143.0 L46.8 -132.0 L27.7 -121.0 L8.7 -132.0 Z"
+              />
+              <path
+                class="t"
+                d="M27.7 -143.0 L46.8 -132.0 L27.7 -121.0 L8.7 -132.0 Z"
+              />
+              <path
+                class="base"
+                d="M-36.4 -106.0 L-55.4 -95.0 L-55.4 -101.0 L-36.4 -112.0 Z"
+              />
+              <path
+                class="r"
+                d="M-36.4 -106.0 L-55.4 -95.0 L-55.4 -101.0 L-36.4 -112.0 Z"
+              />
+              <path
+                class="base"
+                d="M-74.5 -106.0 L-55.4 -95.0 L-55.4 -101.0 L-74.5 -112.0 Z"
+              />
+              <path
+                class="l"
+                d="M-74.5 -106.0 L-55.4 -95.0 L-55.4 -101.0 L-74.5 -112.0 Z"
+              />
+              <path
+                class="base"
+                d="M-55.4 -123.0 L-36.4 -112.0 L-55.4 -101.0 L-74.5 -112.0 Z"
+              />
+              <path
+                class="t"
+                d="M-55.4 -123.0 L-36.4 -112.0 L-55.4 -101.0 L-74.5 -112.0 Z"
+              />
+              <path
+                class="base"
+                d="M19.1 -106.0 L0.0 -95.0 L0.0 -101.0 L19.1 -112.0 Z"
+              />
+              <path
+                class="r"
+                d="M19.1 -106.0 L0.0 -95.0 L0.0 -101.0 L19.1 -112.0 Z"
+              />
+              <path
+                class="base"
+                d="M-19.1 -106.0 L0.0 -95.0 L0.0 -101.0 L-19.1 -112.0 Z"
+              />
+              <path
+                class="l"
+                d="M-19.1 -106.0 L0.0 -95.0 L0.0 -101.0 L-19.1 -112.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -123.0 L19.1 -112.0 L0.0 -101.0 L-19.1 -112.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -123.0 L19.1 -112.0 L0.0 -101.0 L-19.1 -112.0 Z"
+              />
+              <path
+                class="base"
+                d="M74.5 -106.0 L55.4 -95.0 L55.4 -107.0 L74.5 -118.0 Z"
+              />
+              <path
+                class="r"
+                d="M74.5 -106.0 L55.4 -95.0 L55.4 -107.0 L74.5 -118.0 Z"
+              />
+              <path
+                class="base"
+                d="M36.4 -106.0 L55.4 -95.0 L55.4 -107.0 L36.4 -118.0 Z"
+              />
+              <path
+                class="l"
+                d="M36.4 -106.0 L55.4 -95.0 L55.4 -107.0 L36.4 -118.0 Z"
+              />
+              <path
+                class="base"
+                d="M55.4 -129.0 L74.5 -118.0 L55.4 -107.0 L36.4 -118.0 Z"
+              />
+              <path
+                class="t"
+                d="M55.4 -129.0 L74.5 -118.0 L55.4 -107.0 L36.4 -118.0 Z"
+              />
+              <path
+                class="base"
+                d="M-64.1 -90.0 L-83.1 -79.0 L-83.1 -90.0 L-64.1 -101.0 Z"
+              />
+              <path
+                class="r"
+                d="M-64.1 -90.0 L-83.1 -79.0 L-83.1 -90.0 L-64.1 -101.0 Z"
+              />
+              <path
+                class="base"
+                d="M-102.2 -90.0 L-83.1 -79.0 L-83.1 -90.0 L-102.2 -101.0 Z"
+              />
+              <path
+                class="l"
+                d="M-102.2 -90.0 L-83.1 -79.0 L-83.1 -90.0 L-102.2 -101.0 Z"
+              />
+              <path
+                class="base"
+                d="M-83.1 -112.0 L-64.1 -101.0 L-83.1 -90.0 L-102.2 -101.0 Z"
+              />
+              <path
+                class="t"
+                d="M-83.1 -112.0 L-64.1 -101.0 L-83.1 -90.0 L-102.2 -101.0 Z"
+              />
+              <path
+                class="base"
+                d="M-8.7 -90.0 L-27.7 -79.0 L-27.7 -95.0 L-8.7 -106.0 Z"
+              />
+              <path
+                class="r"
+                d="M-8.7 -90.0 L-27.7 -79.0 L-27.7 -95.0 L-8.7 -106.0 Z"
+              />
+              <path
+                class="base"
+                d="M-46.8 -90.0 L-27.7 -79.0 L-27.7 -95.0 L-46.8 -106.0 Z"
+              />
+              <path
+                class="l"
+                d="M-46.8 -90.0 L-27.7 -79.0 L-27.7 -95.0 L-46.8 -106.0 Z"
+              />
+              <path
+                class="base"
+                d="M-27.7 -117.0 L-8.7 -106.0 L-27.7 -95.0 L-46.8 -106.0 Z"
+              />
+              <path
+                class="t"
+                d="M-27.7 -117.0 L-8.7 -106.0 L-27.7 -95.0 L-46.8 -106.0 Z"
+              />
+              <path
+                class="base"
+                d="M46.8 -90.0 L27.7 -79.0 L27.7 -99.0 L46.8 -110.0 Z"
+              />
+              <path
+                class="r red"
+                d="M46.8 -90.0 L27.7 -79.0 L27.7 -99.0 L46.8 -110.0 Z"
+              />
+              <path
+                class="base"
+                d="M8.7 -90.0 L27.7 -79.0 L27.7 -99.0 L8.7 -110.0 Z"
+              />
+              <path
+                class="l red"
+                d="M8.7 -90.0 L27.7 -79.0 L27.7 -99.0 L8.7 -110.0 Z"
+              />
+              <path
+                class="base"
+                d="M27.7 -121.0 L46.8 -110.0 L27.7 -99.0 L8.7 -110.0 Z"
+              />
+              <path
+                class="t red"
+                d="M27.7 -121.0 L46.8 -110.0 L27.7 -99.0 L8.7 -110.0 Z"
+              />
+              <path
+                class="base"
+                d="M102.2 -90.0 L83.1 -79.0 L83.1 -85.0 L102.2 -96.0 Z"
+              />
+              <path
+                class="r"
+                d="M102.2 -90.0 L83.1 -79.0 L83.1 -85.0 L102.2 -96.0 Z"
+              />
+              <path
+                class="base"
+                d="M64.1 -90.0 L83.1 -79.0 L83.1 -85.0 L64.1 -96.0 Z"
+              />
+              <path
+                class="l"
+                d="M64.1 -90.0 L83.1 -79.0 L83.1 -85.0 L64.1 -96.0 Z"
+              />
+              <path
+                class="base"
+                d="M83.1 -107.0 L102.2 -96.0 L83.1 -85.0 L64.1 -96.0 Z"
+              />
+              <path
+                class="t"
+                d="M83.1 -107.0 L102.2 -96.0 L83.1 -85.0 L64.1 -96.0 Z"
+              />
+              <path
+                class="base"
+                d="M-36.4 -74.0 L-55.4 -63.0 L-55.4 -72.0 L-36.4 -83.0 Z"
+              />
+              <path
+                class="r"
+                d="M-36.4 -74.0 L-55.4 -63.0 L-55.4 -72.0 L-36.4 -83.0 Z"
+              />
+              <path
+                class="base"
+                d="M-74.5 -74.0 L-55.4 -63.0 L-55.4 -72.0 L-74.5 -83.0 Z"
+              />
+              <path
+                class="l"
+                d="M-74.5 -74.0 L-55.4 -63.0 L-55.4 -72.0 L-74.5 -83.0 Z"
+              />
+              <path
+                class="base"
+                d="M-55.4 -94.0 L-36.4 -83.0 L-55.4 -72.0 L-74.5 -83.0 Z"
+              />
+              <path
+                class="t"
+                d="M-55.4 -94.0 L-36.4 -83.0 L-55.4 -72.0 L-74.5 -83.0 Z"
+              />
+              <path
+                class="base"
+                d="M19.1 -74.0 L0.0 -63.0 L0.0 -73.0 L19.1 -84.0 Z"
+              />
+              <path
+                class="r"
+                d="M19.1 -74.0 L0.0 -63.0 L0.0 -73.0 L19.1 -84.0 Z"
+              />
+              <path
+                class="base"
+                d="M-19.1 -74.0 L0.0 -63.0 L0.0 -73.0 L-19.1 -84.0 Z"
+              />
+              <path
+                class="l"
+                d="M-19.1 -74.0 L0.0 -63.0 L0.0 -73.0 L-19.1 -84.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -95.0 L19.1 -84.0 L0.0 -73.0 L-19.1 -84.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -95.0 L19.1 -84.0 L0.0 -73.0 L-19.1 -84.0 Z"
+              />
+              <path
+                class="base"
+                d="M74.5 -74.0 L55.4 -63.0 L55.4 -75.0 L74.5 -86.0 Z"
+              />
+              <path
+                class="r"
+                d="M74.5 -74.0 L55.4 -63.0 L55.4 -75.0 L74.5 -86.0 Z"
+              />
+              <path
+                class="base"
+                d="M36.4 -74.0 L55.4 -63.0 L55.4 -75.0 L36.4 -86.0 Z"
+              />
+              <path
+                class="l"
+                d="M36.4 -74.0 L55.4 -63.0 L55.4 -75.0 L36.4 -86.0 Z"
+              />
+              <path
+                class="base"
+                d="M55.4 -97.0 L74.5 -86.0 L55.4 -75.0 L36.4 -86.0 Z"
+              />
+              <path
+                class="t"
+                d="M55.4 -97.0 L74.5 -86.0 L55.4 -75.0 L36.4 -86.0 Z"
+              />
+              <path
+                class="base"
+                d="M-8.7 -58.0 L-27.7 -47.0 L-27.7 -61.0 L-8.7 -72.0 Z"
+              />
+              <path
+                class="r"
+                d="M-8.7 -58.0 L-27.7 -47.0 L-27.7 -61.0 L-8.7 -72.0 Z"
+              />
+              <path
+                class="base"
+                d="M-46.8 -58.0 L-27.7 -47.0 L-27.7 -61.0 L-46.8 -72.0 Z"
+              />
+              <path
+                class="l"
+                d="M-46.8 -58.0 L-27.7 -47.0 L-27.7 -61.0 L-46.8 -72.0 Z"
+              />
+              <path
+                class="base"
+                d="M-27.7 -83.0 L-8.7 -72.0 L-27.7 -61.0 L-46.8 -72.0 Z"
+              />
+              <path
+                class="t"
+                d="M-27.7 -83.0 L-8.7 -72.0 L-27.7 -61.0 L-46.8 -72.0 Z"
+              />
+              <path
+                class="base"
+                d="M46.8 -58.0 L27.7 -47.0 L27.7 -55.0 L46.8 -66.0 Z"
+              />
+              <path
+                class="r"
+                d="M46.8 -58.0 L27.7 -47.0 L27.7 -55.0 L46.8 -66.0 Z"
+              />
+              <path
+                class="base"
+                d="M8.7 -58.0 L27.7 -47.0 L27.7 -55.0 L8.7 -66.0 Z"
+              />
+              <path
+                class="l"
+                d="M8.7 -58.0 L27.7 -47.0 L27.7 -55.0 L8.7 -66.0 Z"
+              />
+              <path
+                class="base"
+                d="M27.7 -77.0 L46.8 -66.0 L27.7 -55.0 L8.7 -66.0 Z"
+              />
+              <path
+                class="t"
+                d="M27.7 -77.0 L46.8 -66.0 L27.7 -55.0 L8.7 -66.0 Z"
+              />
+              <path
+                class="base"
+                d="M19.1 -42.0 L0.0 -31.0 L0.0 -41.0 L19.1 -52.0 Z"
+              />
+              <path
+                class="r"
+                d="M19.1 -42.0 L0.0 -31.0 L0.0 -41.0 L19.1 -52.0 Z"
+              />
+              <path
+                class="base"
+                d="M-19.1 -42.0 L0.0 -31.0 L0.0 -41.0 L-19.1 -52.0 Z"
+              />
+              <path
+                class="l"
+                d="M-19.1 -42.0 L0.0 -31.0 L0.0 -41.0 L-19.1 -52.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -63.0 L19.1 -52.0 L0.0 -41.0 L-19.1 -52.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -63.0 L19.1 -52.0 L0.0 -41.0 L-19.1 -52.0 Z"
+              />
+              <path class="beam" d="M27.7 -110.0 L27.7 -156.0" />
+              <path
+                class="mark"
+                d="M27.7 -167.0 L32.7 -162.0 L27.7 -157.0 L22.7 -162.0 Z"
+              />
+            </svg>
+            <h3>Automatic discovery</h3>
+            <p>
+              Connect once and Leavory maps projects, repositories, and
+              pipelines on its own, in the background.
+            </p>
+          </article>
+          <article class="fig" data-reveal>
+            <p class="fig__no mono" aria-hidden="true">Fig 0.2</p>
+            <svg
+              class="iso"
+              viewBox="-127.8 -190.0 327.9 270.0"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <title>
+                A cube lifted out of a cluster, with an explanation card
+              </title>
+              <path
+                class="base"
+                d="M38.1 -44.0 L0.0 -22.0 L0.0 -66.0 L38.1 -88.0 Z"
+              />
+              <path
+                class="r"
+                d="M38.1 -44.0 L0.0 -22.0 L0.0 -66.0 L38.1 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M-38.1 -44.0 L0.0 -22.0 L0.0 -66.0 L-38.1 -88.0 Z"
+              />
+              <path
+                class="l"
+                d="M-38.1 -44.0 L0.0 -22.0 L0.0 -66.0 L-38.1 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -110.0 L38.1 -88.0 L0.0 -66.0 L-38.1 -88.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -110.0 L38.1 -88.0 L0.0 -66.0 L-38.1 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M-1.7 -21.0 L-39.8 1.0 L-39.8 -43.0 L-1.7 -65.0 Z"
+              />
+              <path
+                class="r"
+                d="M-1.7 -21.0 L-39.8 1.0 L-39.8 -43.0 L-1.7 -65.0 Z"
+              />
+              <path
+                class="base"
+                d="M-77.9 -21.0 L-39.8 1.0 L-39.8 -43.0 L-77.9 -65.0 Z"
+              />
+              <path
+                class="l"
+                d="M-77.9 -21.0 L-39.8 1.0 L-39.8 -43.0 L-77.9 -65.0 Z"
+              />
+              <path
+                class="base"
+                d="M-39.8 -87.0 L-1.7 -65.0 L-39.8 -43.0 L-77.9 -65.0 Z"
+              />
+              <path
+                class="t"
+                d="M-39.8 -87.0 L-1.7 -65.0 L-39.8 -43.0 L-77.9 -65.0 Z"
+              />
+              <path
+                class="base"
+                d="M77.9 -21.0 L39.8 1.0 L39.8 -43.0 L77.9 -65.0 Z"
+              />
+              <path
+                class="r"
+                d="M77.9 -21.0 L39.8 1.0 L39.8 -43.0 L77.9 -65.0 Z"
+              />
+              <path
+                class="base"
+                d="M1.7 -21.0 L39.8 1.0 L39.8 -43.0 L1.7 -65.0 Z"
+              />
+              <path
+                class="l"
+                d="M1.7 -21.0 L39.8 1.0 L39.8 -43.0 L1.7 -65.0 Z"
+              />
+              <path
+                class="base"
+                d="M39.8 -87.0 L77.9 -65.0 L39.8 -43.0 L1.7 -65.0 Z"
+              />
+              <path
+                class="t"
+                d="M39.8 -87.0 L77.9 -65.0 L39.8 -43.0 L1.7 -65.0 Z"
+              />
+              <path
+                class="base"
+                d="M38.1 -90.0 L0.0 -68.0 L0.0 -112.0 L38.1 -134.0 Z"
+              />
+              <path
+                class="r"
+                d="M38.1 -90.0 L0.0 -68.0 L0.0 -112.0 L38.1 -134.0 Z"
+              />
+              <path
+                class="base"
+                d="M-38.1 -90.0 L0.0 -68.0 L0.0 -112.0 L-38.1 -134.0 Z"
+              />
+              <path
+                class="l"
+                d="M-38.1 -90.0 L0.0 -68.0 L0.0 -112.0 L-38.1 -134.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -156.0 L38.1 -134.0 L0.0 -112.0 L-38.1 -134.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -156.0 L38.1 -134.0 L0.0 -112.0 L-38.1 -134.0 Z"
+              />
+              <path
+                class="base"
+                d="M-41.6 2.0 L-79.7 24.0 L-79.7 -20.0 L-41.6 -42.0 Z"
+              />
+              <path
+                class="r"
+                d="M-41.6 2.0 L-79.7 24.0 L-79.7 -20.0 L-41.6 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M-117.8 2.0 L-79.7 24.0 L-79.7 -20.0 L-117.8 -42.0 Z"
+              />
+              <path
+                class="l"
+                d="M-117.8 2.0 L-79.7 24.0 L-79.7 -20.0 L-117.8 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M-79.7 -64.0 L-41.6 -42.0 L-79.7 -20.0 L-117.8 -42.0 Z"
+              />
+              <path
+                class="t"
+                d="M-79.7 -64.0 L-41.6 -42.0 L-79.7 -20.0 L-117.8 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M38.1 2.0 L0.0 24.0 L0.0 -20.0 L38.1 -42.0 Z"
+              />
+              <path
+                class="r"
+                d="M38.1 2.0 L0.0 24.0 L0.0 -20.0 L38.1 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M-38.1 2.0 L0.0 24.0 L0.0 -20.0 L-38.1 -42.0 Z"
+              />
+              <path
+                class="l"
+                d="M-38.1 2.0 L0.0 24.0 L0.0 -20.0 L-38.1 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -64.0 L38.1 -42.0 L0.0 -20.0 L-38.1 -42.0 Z"
+              />
+              <path
+                class="t"
+                d="M0.0 -64.0 L38.1 -42.0 L0.0 -20.0 L-38.1 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M117.8 2.0 L79.7 24.0 L79.7 -20.0 L117.8 -42.0 Z"
+              />
+              <path
+                class="r"
+                d="M117.8 2.0 L79.7 24.0 L79.7 -20.0 L117.8 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M41.6 2.0 L79.7 24.0 L79.7 -20.0 L41.6 -42.0 Z"
+              />
+              <path
+                class="l"
+                d="M41.6 2.0 L79.7 24.0 L79.7 -20.0 L41.6 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M79.7 -64.0 L117.8 -42.0 L79.7 -20.0 L41.6 -42.0 Z"
+              />
+              <path
+                class="t"
+                d="M79.7 -64.0 L117.8 -42.0 L79.7 -20.0 L41.6 -42.0 Z"
+              />
+              <path
+                class="base"
+                d="M77.9 -67.0 L39.8 -45.0 L39.8 -89.0 L77.9 -111.0 Z"
+              />
+              <path
+                class="r"
+                d="M77.9 -67.0 L39.8 -45.0 L39.8 -89.0 L77.9 -111.0 Z"
+              />
+              <path
+                class="base"
+                d="M1.7 -67.0 L39.8 -45.0 L39.8 -89.0 L1.7 -111.0 Z"
+              />
+              <path
+                class="l"
+                d="M1.7 -67.0 L39.8 -45.0 L39.8 -89.0 L1.7 -111.0 Z"
+              />
+              <path
+                class="base"
+                d="M39.8 -133.0 L77.9 -111.0 L39.8 -89.0 L1.7 -111.0 Z"
+              />
+              <path
+                class="t"
+                d="M39.8 -133.0 L77.9 -111.0 L39.8 -89.0 L1.7 -111.0 Z"
+              />
+              <path
+                class="base"
+                d="M-1.7 -67.0 L-39.8 -45.0 L-39.8 -89.0 L-1.7 -111.0 Z"
+              />
+              <path
+                class="r"
+                d="M-1.7 -67.0 L-39.8 -45.0 L-39.8 -89.0 L-1.7 -111.0 Z"
+              />
+              <path
+                class="base"
+                d="M-77.9 -67.0 L-39.8 -45.0 L-39.8 -89.0 L-77.9 -111.0 Z"
+              />
+              <path
+                class="l"
+                d="M-77.9 -67.0 L-39.8 -45.0 L-39.8 -89.0 L-77.9 -111.0 Z"
+              />
+              <path
+                class="base"
+                d="M-39.8 -133.0 L-1.7 -111.0 L-39.8 -89.0 L-77.9 -111.0 Z"
+              />
+              <path
+                class="t"
+                d="M-39.8 -133.0 L-1.7 -111.0 L-39.8 -89.0 L-77.9 -111.0 Z"
+              />
+              <path
+                class="base"
+                d="M-1.7 25.0 L-39.8 47.0 L-39.8 3.0 L-1.7 -19.0 Z"
+              />
+              <path
+                class="r"
+                d="M-1.7 25.0 L-39.8 47.0 L-39.8 3.0 L-1.7 -19.0 Z"
+              />
+              <path
+                class="base"
+                d="M-77.9 25.0 L-39.8 47.0 L-39.8 3.0 L-77.9 -19.0 Z"
+              />
+              <path
+                class="l"
+                d="M-77.9 25.0 L-39.8 47.0 L-39.8 3.0 L-77.9 -19.0 Z"
+              />
+              <path
+                class="base"
+                d="M-39.8 -41.0 L-1.7 -19.0 L-39.8 3.0 L-77.9 -19.0 Z"
+              />
+              <path
+                class="t"
+                d="M-39.8 -41.0 L-1.7 -19.0 L-39.8 3.0 L-77.9 -19.0 Z"
+              />
+              <path
+                class="base"
+                d="M77.9 25.0 L39.8 47.0 L39.8 3.0 L77.9 -19.0 Z"
+              />
+              <path
+                class="r"
+                d="M77.9 25.0 L39.8 47.0 L39.8 3.0 L77.9 -19.0 Z"
+              />
+              <path
+                class="base"
+                d="M1.7 25.0 L39.8 47.0 L39.8 3.0 L1.7 -19.0 Z"
+              />
+              <path class="l" d="M1.7 25.0 L39.8 47.0 L39.8 3.0 L1.7 -19.0 Z" />
+              <path
+                class="base"
+                d="M39.8 -41.0 L77.9 -19.0 L39.8 3.0 L1.7 -19.0 Z"
+              />
+              <path
+                class="t"
+                d="M39.8 -41.0 L77.9 -19.0 L39.8 3.0 L1.7 -19.0 Z"
+              />
+              <path
+                class="base"
+                d="M-41.6 -44.0 L-79.7 -22.0 L-79.7 -66.0 L-41.6 -88.0 Z"
+              />
+              <path
+                class="r"
+                d="M-41.6 -44.0 L-79.7 -22.0 L-79.7 -66.0 L-41.6 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M-117.8 -44.0 L-79.7 -22.0 L-79.7 -66.0 L-117.8 -88.0 Z"
+              />
+              <path
+                class="l"
+                d="M-117.8 -44.0 L-79.7 -22.0 L-79.7 -66.0 L-117.8 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M-79.7 -110.0 L-41.6 -88.0 L-79.7 -66.0 L-117.8 -88.0 Z"
+              />
+              <path
+                class="t"
+                d="M-79.7 -110.0 L-41.6 -88.0 L-79.7 -66.0 L-117.8 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M117.8 -44.0 L79.7 -22.0 L79.7 -66.0 L117.8 -88.0 Z"
+              />
+              <path
+                class="r"
+                d="M117.8 -44.0 L79.7 -22.0 L79.7 -66.0 L117.8 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M41.6 -44.0 L79.7 -22.0 L79.7 -66.0 L41.6 -88.0 Z"
+              />
+              <path
+                class="l"
+                d="M41.6 -44.0 L79.7 -22.0 L79.7 -66.0 L41.6 -88.0 Z"
+              />
+              <path
+                class="base"
+                d="M79.7 -110.0 L117.8 -88.0 L79.7 -66.0 L41.6 -88.0 Z"
+              />
+              <path
+                class="t"
+                d="M79.7 -110.0 L117.8 -88.0 L79.7 -66.0 L41.6 -88.0 Z"
+              />
+              <path
+                class="slot"
+                d="M0.0 -66.0 L38.1 -44.0 L0.0 -22.0 L-38.1 -44.0 Z"
+              />
+              <path class="dash" d="M0.0 -44.0 L0.0 -78.0" />
+              <path
+                class="base"
+                d="M38.1 -78.0 L0.0 -56.0 L0.0 -100.0 L38.1 -122.0 Z"
+              />
+              <path
+                class="r red"
+                d="M38.1 -78.0 L0.0 -56.0 L0.0 -100.0 L38.1 -122.0 Z"
+              />
+              <path
+                class="base"
+                d="M-38.1 -78.0 L0.0 -56.0 L0.0 -100.0 L-38.1 -122.0 Z"
+              />
+              <path
+                class="l red"
+                d="M-38.1 -78.0 L0.0 -56.0 L0.0 -100.0 L-38.1 -122.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -144.0 L38.1 -122.0 L0.0 -100.0 L-38.1 -122.0 Z"
+              />
+              <path
+                class="t red"
+                d="M0.0 -144.0 L38.1 -122.0 L0.0 -100.0 L-38.1 -122.0 Z"
+              />
+              <path
+                class="base"
+                d="M38.1 48.0 L0.0 70.0 L0.0 26.0 L38.1 4.0 Z"
+              />
+              <path class="r" d="M38.1 48.0 L0.0 70.0 L0.0 26.0 L38.1 4.0 Z" />
+              <path
+                class="base"
+                d="M-38.1 48.0 L0.0 70.0 L0.0 26.0 L-38.1 4.0 Z"
+              />
+              <path
+                class="l"
+                d="M-38.1 48.0 L0.0 70.0 L0.0 26.0 L-38.1 4.0 Z"
+              />
+              <path
+                class="base"
+                d="M0.0 -18.0 L38.1 4.0 L0.0 26.0 L-38.1 4.0 Z"
+              />
+              <path class="t" d="M0.0 -18.0 L38.1 4.0 L0.0 26.0 L-38.1 4.0 Z" />
+              <path class="lead" d="M38.1 -122.0 L56.1 -144.0 L78.1 -144.0" />
+              <rect
+                class="card"
+                x="78.1051177665153"
+                y="-180"
+                width="112"
+                height="64"
+                rx="7"
+              />
+              <rect
+                class="mark"
+                x="90.1051177665153"
+                y="-167"
+                width="22"
+                height="5"
+                rx="2.5"
+              />
+              <path class="txt" d="M90.1 -150.0 L176.1 -150.0" />
+              <path class="txt" d="M90.1 -139.0 L160.1 -139.0" />
+              <path class="txt" d="M90.1 -128.0 L142.1 -128.0" />
+            </svg>
+            <h3>AI that explains every finding</h3>
+            <p>
+              A plain-language read on whether it’s exploitable in practice and
+              what to change first.
+            </p>
+          </article>
+          <article class="fig" data-reveal>
+            <p class="fig__no mono" aria-hidden="true">Fig 0.3</p>
+            <svg
+              class="iso"
+              viewBox="-134.7 -162.0 266.0 236.0"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <title>A stream of advisory cards, the newest in red</title>
+              <path class="dash" d="M-90.1 -52.0 L102.2 59.0" />
+              <path
+                class="base"
+                d="M-39.0 -70.5 L-122.1 -22.5 L-122.1 -102.5 L-39.0 -150.5 Z"
+              />
+              <path
+                class="r"
+                d="M-39.0 -70.5 L-122.1 -22.5 L-122.1 -102.5 L-39.0 -150.5 Z"
+                style="opacity: 0.35"
+              />
+              <path
+                class="base"
+                d="M-124.7 -24.0 L-122.1 -22.5 L-122.1 -102.5 L-124.7 -104.0 Z"
+              />
+              <path
+                class="l"
+                d="M-124.7 -24.0 L-122.1 -22.5 L-122.1 -102.5 L-124.7 -104.0 Z"
+                style="opacity: 0.35"
+              />
+              <path
+                class="base"
+                d="M-41.6 -152.0 L-39.0 -150.5 L-122.1 -102.5 L-124.7 -104.0 Z"
+              />
+              <path
+                class="t"
+                d="M-41.6 -152.0 L-39.0 -150.5 L-122.1 -102.5 L-124.7 -104.0 Z"
+                style="opacity: 0.35"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.35"
+                d="M-51.1 -125.5 L-104.8 -94.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.35"
+                d="M-51.1 -114.5 L-92.7 -90.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.35"
+                d="M-51.1 -103.5 L-99.6 -75.5"
+              />
+              <path
+                class="base"
+                d="M-22.5 -61.0 L-105.7 -13.0 L-105.7 -93.0 L-22.5 -141.0 Z"
+              />
+              <path
+                class="r"
+                d="M-22.5 -61.0 L-105.7 -13.0 L-105.7 -93.0 L-22.5 -141.0 Z"
+                style="opacity: 0.43"
+              />
+              <path
+                class="base"
+                d="M-108.3 -14.5 L-105.7 -13.0 L-105.7 -93.0 L-108.3 -94.5 Z"
+              />
+              <path
+                class="l"
+                d="M-108.3 -14.5 L-105.7 -13.0 L-105.7 -93.0 L-108.3 -94.5 Z"
+                style="opacity: 0.43"
+              />
+              <path
+                class="base"
+                d="M-25.1 -142.5 L-22.5 -141.0 L-105.7 -93.0 L-108.3 -94.5 Z"
+              />
+              <path
+                class="t"
+                d="M-25.1 -142.5 L-22.5 -141.0 L-105.7 -93.0 L-108.3 -94.5 Z"
+                style="opacity: 0.43"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.43"
+                d="M-34.6 -116.0 L-88.3 -85.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.43"
+                d="M-34.6 -105.0 L-76.2 -81.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.43"
+                d="M-34.6 -94.0 L-83.1 -66.0"
+              />
+              <path
+                class="base"
+                d="M-6.1 -51.5 L-89.2 -3.5 L-89.2 -83.5 L-6.1 -131.5 Z"
+              />
+              <path
+                class="r"
+                d="M-6.1 -51.5 L-89.2 -3.5 L-89.2 -83.5 L-6.1 -131.5 Z"
+                style="opacity: 0.51"
+              />
+              <path
+                class="base"
+                d="M-91.8 -5.0 L-89.2 -3.5 L-89.2 -83.5 L-91.8 -85.0 Z"
+              />
+              <path
+                class="l"
+                d="M-91.8 -5.0 L-89.2 -3.5 L-89.2 -83.5 L-91.8 -85.0 Z"
+                style="opacity: 0.51"
+              />
+              <path
+                class="base"
+                d="M-8.7 -133.0 L-6.1 -131.5 L-89.2 -83.5 L-91.8 -85.0 Z"
+              />
+              <path
+                class="t"
+                d="M-8.7 -133.0 L-6.1 -131.5 L-89.2 -83.5 L-91.8 -85.0 Z"
+                style="opacity: 0.51"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.51"
+                d="M-18.2 -106.5 L-71.9 -75.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.51"
+                d="M-18.2 -95.5 L-59.8 -71.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.51"
+                d="M-18.2 -84.5 L-66.7 -56.5"
+              />
+              <path
+                class="base"
+                d="M10.4 -42.0 L-72.7 6.0 L-72.7 -74.0 L10.4 -122.0 Z"
+              />
+              <path
+                class="r"
+                d="M10.4 -42.0 L-72.7 6.0 L-72.7 -74.0 L10.4 -122.0 Z"
+                style="opacity: 0.59"
+              />
+              <path
+                class="base"
+                d="M-75.3 4.5 L-72.7 6.0 L-72.7 -74.0 L-75.3 -75.5 Z"
+              />
+              <path
+                class="l"
+                d="M-75.3 4.5 L-72.7 6.0 L-72.7 -74.0 L-75.3 -75.5 Z"
+                style="opacity: 0.59"
+              />
+              <path
+                class="base"
+                d="M7.8 -123.5 L10.4 -122.0 L-72.7 -74.0 L-75.3 -75.5 Z"
+              />
+              <path
+                class="t"
+                d="M7.8 -123.5 L10.4 -122.0 L-72.7 -74.0 L-75.3 -75.5 Z"
+                style="opacity: 0.59"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.59"
+                d="M-1.7 -97.0 L-55.4 -66.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.59"
+                d="M-1.7 -86.0 L-43.3 -62.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.59"
+                d="M-1.7 -75.0 L-50.2 -47.0"
+              />
+              <path
+                class="base"
+                d="M26.8 -32.5 L-56.3 15.5 L-56.3 -64.5 L26.8 -112.5 Z"
+              />
+              <path
+                class="r"
+                d="M26.8 -32.5 L-56.3 15.5 L-56.3 -64.5 L26.8 -112.5 Z"
+                style="opacity: 0.68"
+              />
+              <path
+                class="base"
+                d="M-58.9 14.0 L-56.3 15.5 L-56.3 -64.5 L-58.9 -66.0 Z"
+              />
+              <path
+                class="l"
+                d="M-58.9 14.0 L-56.3 15.5 L-56.3 -64.5 L-58.9 -66.0 Z"
+                style="opacity: 0.68"
+              />
+              <path
+                class="base"
+                d="M24.2 -114.0 L26.8 -112.5 L-56.3 -64.5 L-58.9 -66.0 Z"
+              />
+              <path
+                class="t"
+                d="M24.2 -114.0 L26.8 -112.5 L-56.3 -64.5 L-58.9 -66.0 Z"
+                style="opacity: 0.68"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.68"
+                d="M14.7 -87.5 L-39.0 -56.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.68"
+                d="M14.7 -76.5 L-26.8 -52.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.68"
+                d="M14.7 -65.5 L-33.8 -37.5"
+              />
+              <path
+                class="base"
+                d="M43.3 -23.0 L-39.8 25.0 L-39.8 -55.0 L43.3 -103.0 Z"
+              />
+              <path
+                class="r"
+                d="M43.3 -23.0 L-39.8 25.0 L-39.8 -55.0 L43.3 -103.0 Z"
+                style="opacity: 0.76"
+              />
+              <path
+                class="base"
+                d="M-42.4 23.5 L-39.8 25.0 L-39.8 -55.0 L-42.4 -56.5 Z"
+              />
+              <path
+                class="l"
+                d="M-42.4 23.5 L-39.8 25.0 L-39.8 -55.0 L-42.4 -56.5 Z"
+                style="opacity: 0.76"
+              />
+              <path
+                class="base"
+                d="M40.7 -104.5 L43.3 -103.0 L-39.8 -55.0 L-42.4 -56.5 Z"
+              />
+              <path
+                class="t"
+                d="M40.7 -104.5 L43.3 -103.0 L-39.8 -55.0 L-42.4 -56.5 Z"
+                style="opacity: 0.76"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.76"
+                d="M31.2 -78.0 L-22.5 -47.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.76"
+                d="M31.2 -67.0 L-10.4 -43.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.76"
+                d="M31.2 -56.0 L-17.3 -28.0"
+              />
+              <path
+                class="base"
+                d="M59.8 -13.5 L-23.4 34.5 L-23.4 -45.5 L59.8 -93.5 Z"
+              />
+              <path
+                class="r"
+                d="M59.8 -13.5 L-23.4 34.5 L-23.4 -45.5 L59.8 -93.5 Z"
+                style="opacity: 0.84"
+              />
+              <path
+                class="base"
+                d="M-26.0 33.0 L-23.4 34.5 L-23.4 -45.5 L-26.0 -47.0 Z"
+              />
+              <path
+                class="l"
+                d="M-26.0 33.0 L-23.4 34.5 L-23.4 -45.5 L-26.0 -47.0 Z"
+                style="opacity: 0.84"
+              />
+              <path
+                class="base"
+                d="M57.2 -95.0 L59.8 -93.5 L-23.4 -45.5 L-26.0 -47.0 Z"
+              />
+              <path
+                class="t"
+                d="M57.2 -95.0 L59.8 -93.5 L-23.4 -45.5 L-26.0 -47.0 Z"
+                style="opacity: 0.84"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.84"
+                d="M47.6 -68.5 L-6.1 -37.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.84"
+                d="M47.6 -57.5 L6.1 -33.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.84"
+                d="M47.6 -46.5 L-0.9 -18.5"
+              />
+              <path
+                class="base"
+                d="M76.2 -4.0 L-6.9 44.0 L-6.9 -36.0 L76.2 -84.0 Z"
+              />
+              <path
+                class="r"
+                d="M76.2 -4.0 L-6.9 44.0 L-6.9 -36.0 L76.2 -84.0 Z"
+                style="opacity: 0.92"
+              />
+              <path
+                class="base"
+                d="M-9.5 42.5 L-6.9 44.0 L-6.9 -36.0 L-9.5 -37.5 Z"
+              />
+              <path
+                class="l"
+                d="M-9.5 42.5 L-6.9 44.0 L-6.9 -36.0 L-9.5 -37.5 Z"
+                style="opacity: 0.92"
+              />
+              <path
+                class="base"
+                d="M73.6 -85.5 L76.2 -84.0 L-6.9 -36.0 L-9.5 -37.5 Z"
+              />
+              <path
+                class="t"
+                d="M73.6 -85.5 L76.2 -84.0 L-6.9 -36.0 L-9.5 -37.5 Z"
+                style="opacity: 0.92"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.92"
+                d="M64.1 -59.0 L10.4 -28.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.92"
+                d="M64.1 -48.0 L22.5 -24.0"
+              />
+              <path
+                class="txt"
+                style="opacity: 0.92"
+                d="M64.1 -37.0 L15.6 -9.0"
+              />
+              <path
+                class="base"
+                d="M92.7 5.5 L9.5 53.5 L9.5 -26.5 L92.7 -74.5 Z"
+              />
+              <path
+                class="r"
+                d="M92.7 5.5 L9.5 53.5 L9.5 -26.5 L92.7 -74.5 Z"
+              />
+              <path
+                class="base"
+                d="M6.9 52.0 L9.5 53.5 L9.5 -26.5 L6.9 -28.0 Z"
+              />
+              <path class="l" d="M6.9 52.0 L9.5 53.5 L9.5 -26.5 L6.9 -28.0 Z" />
+              <path
+                class="base"
+                d="M90.1 -76.0 L92.7 -74.5 L9.5 -26.5 L6.9 -28.0 Z"
+              />
+              <path
+                class="t"
+                d="M90.1 -76.0 L92.7 -74.5 L9.5 -26.5 L6.9 -28.0 Z"
+              />
+              <path
+                class="txt"
+                style="opacity: 1"
+                d="M80.5 -49.5 L26.8 -18.5"
+              />
+              <path
+                class="txt"
+                style="opacity: 1"
+                d="M80.5 -38.5 L39.0 -14.5"
+              />
+              <path class="txt" style="opacity: 1" d="M80.5 -27.5 L32.0 0.5" />
+              <path
+                class="base"
+                d="M121.2 16.0 L38.1 64.0 L38.1 -16.0 L121.2 -64.0 Z"
+              />
+              <path
+                class="r red"
+                d="M121.2 16.0 L38.1 64.0 L38.1 -16.0 L121.2 -64.0 Z"
+              />
+              <path
+                class="base"
+                d="M35.5 62.5 L38.1 64.0 L38.1 -16.0 L35.5 -17.5 Z"
+              />
+              <path
+                class="l red"
+                d="M35.5 62.5 L38.1 64.0 L38.1 -16.0 L35.5 -17.5 Z"
+              />
+              <path
+                class="base"
+                d="M118.6 -65.5 L121.2 -64.0 L38.1 -16.0 L35.5 -17.5 Z"
+              />
+              <path
+                class="t red"
+                d="M118.6 -65.5 L121.2 -64.0 L38.1 -16.0 L35.5 -17.5 Z"
+              />
+              <path class="txt red" d="M109.1 -39.0 L55.4 -8.0" />
+              <path class="txt red" d="M109.1 -28.0 L67.5 -4.0" />
+              <path class="txt red" d="M109.1 -17.0 L60.6 11.0" />
+              <circle class="mark pulse" cx="79.7" cy="-56.0" r="3.5" />
+              <path class="beam" d="M79.7 -40.0 L79.7 -52.0" />
+            </svg>
+            <h3>An always up-to-date base</h3>
+            <p>
+              Continuous updates make sure no new CVE slips by unnoticed in your
+              code.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ INTELLIGENCE ============ -->
+      <section
+        id="intelligence"
+        class="feature"
+        aria-labelledby="intelligence-title"
+      >
+        <div class="wrap feature__head" data-reveal>
+          <h2 id="intelligence-title">From a new CVE<br />to the fix</h2>
+          <div>
+            <p>
+              Vulnerability intelligence, impact analysis across every project,
+              and AI-drafted remediation, in one view. CISA KEV flags active
+              exploitation. EPSS adds exploitation probability.
+            </p>
+            <a class="more" href="#how-it-works"
+              >See how it works
+              <svg width="14" height="14" aria-hidden="true">
+                <use href="#i-arrow" /></svg
+            ></a>
+          </div>
+        </div>
+        <div class="wrap">
+          <div class="screen" data-reveal>
+            <figure
+              class="app"
+              aria-label="Example of the Leavory workspace: findings ranked by priority, with the selected finding explained in plain language and a recommended fix."
+            >
+              <div class="app__top">
+                <span class="app__mark"
+                  ><svg width="13" height="13" aria-hidden="true">
+                    <use href="#i-shield" /></svg
+                ></span>
+                <span class="app__crumb"
+                  >Your organization <span aria-hidden="true">/</span>
+                  <strong>Vulnerability intelligence</strong></span
+                >
+                <span class="app__search"
+                  ><svg width="14" height="14" aria-hidden="true">
+                    <use href="#i-search" /></svg
+                  >Search findings</span
+                >
+              </div>
+              <div class="app__body">
+                <div class="app__nav" aria-hidden="true">
+                  <p>Platform</p>
+                  <ul>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-grid" /></svg
+                      >Dashboard
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-layers" /></svg
+                      >Projects &amp; DORA
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-pulse" /></svg
+                      >Repository health
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-pipe" /></svg
+                      >Pipelines
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-box" /></svg
+                      >Images
+                    </li>
+                  </ul>
+                  <p>Intelligence</p>
+                  <ul>
+                    <li class="is-on">
+                      <svg width="15" height="15"><use href="#i-shield" /></svg
+                      >Vulnerabilities
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-branch" /></svg
+                      >Impact analysis
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-spark" /></svg
+                      >AI remediation
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="app__list">
+                  <div class="app__head">
+                    <div>
+                      <p class="app__title">Fix first</p>
+                      <p class="app__sub">
+                        Ranked by active exploitation and exploitation
+                        probability
+                      </p>
+                    </div>
+                    <div class="app__tabs" aria-hidden="true">
+                      <span class="is-on">All <b>6</b></span>
+                      <span>New <b>3</b></span>
+                      <span>AI analyzed <b>3</b></span>
+                    </div>
+                  </div>
+                  <table class="ftable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Finding</th>
+                        <th scope="col">Severity</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="is-selected">
+                        <td>
+                          <span class="ftable__name"
+                            >JWT token without expiration</span
+                          ><span class="ftable__repo">auth-service</span>
+                        </td>
+                        <td><span class="sev sev--critical">Critical</span></td>
+                        <td><span class="status">New</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >Secret in environment variable</span
+                          ><span class="ftable__repo">payments-api</span>
+                        </td>
+                        <td><span class="sev sev--critical">Critical</span></td>
+                        <td>
+                          <span class="status status--ai">AI analyzed</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >AWS access key committed</span
+                          ><span class="ftable__repo">infra-terraform</span>
+                        </td>
+                        <td><span class="sev sev--secret">Secret</span></td>
+                        <td>
+                          <span class="status status--ai">AI analyzed</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >SQL injection in /orders</span
+                          ><span class="ftable__repo">mobile-gateway</span>
+                        </td>
+                        <td><span class="sev sev--high">High</span></td>
+                        <td><span class="status">New</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >Dependency with unpatched CVE</span
+                          ><span class="ftable__repo">checkout-web</span>
+                        </td>
+                        <td><span class="sev sev--high">High</span></td>
+                        <td><span class="status">New</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >Missing security header (CSP)</span
+                          ><span class="ftable__repo">billing-service</span>
+                        </td>
+                        <td><span class="sev sev--medium">Medium</span></td>
+                        <td>
+                          <span class="status status--ai">AI analyzed</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="app__detail">
+                  <div class="app__detail-head">
+                    <span class="sev sev--critical">Critical</span>
+                    <span class="status">New</span>
+                  </div>
+                  <p class="app__detail-title">JWT token without expiration</p>
+                  <p class="app__detail-meta">
+                    <svg width="13" height="13" aria-hidden="true">
+                      <use href="#i-branch" /></svg
+                    >auth-service
+                  </p>
+                  <div class="app__detail-tabs" aria-hidden="true">
+                    <span class="is-on">AI explanation</span><span>Fix</span>
+                  </div>
+                  <p class="app__label">
+                    <svg width="12" height="12" aria-hidden="true">
+                      <use href="#i-spark" /></svg
+                    >Why it matters
+                  </p>
+                  <p class="app__text">
+                    Tokens issued by this service never expire. If one leaks, it
+                    stays valid indefinitely and can be replayed against the
+                    API.
+                  </p>
+                  <p class="app__label">What to change first</p>
+                  <ol class="app__steps">
+                    <li>
+                      Add a short-lived <code>exp</code> claim when tokens are
+                      issued.
+                    </li>
+                    <li>Reject any token that arrives without one.</li>
+                  </ol>
+                  <span class="app__open"
+                    >Open in Azure DevOps
+                    <svg width="12" height="12" aria-hidden="true">
+                      <use href="#i-arrow" /></svg
+                  ></span>
+                </div>
+              </div>
+            </figure>
+          </div>
+          <p class="screen__caption mono">Example findings</p>
+          <ul class="feature__list">
+            <li>Vulnerability intelligence</li>
+            <li>Impact analysis</li>
+            <li>AI-drafted remediation</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ AZURE DEVOPS ============ -->
+      <section id="azure" class="feature" aria-labelledby="azure-title">
+        <div class="wrap feature__head" data-reveal>
+          <h2 id="azure-title">Built for<br />Azure DevOps</h2>
+          <div>
+            <p>
+              See the risk across your whole organization. Leavory maps every
+              project, repository, and pipeline, and a ready-made Azure
+              Pipelines template scans each build. Only the results reach
+              Leavory. Your code stays in Azure DevOps.
+            </p>
+          </div>
+        </div>
+        <div class="wrap">
+          <ol class="cells" data-reveal>
+            <li>
+              <span class="mono">01</span>
+              <h3>Mirrors your organization</h3>
+              <p>
+                Projects, repositories, and pipelines are discovered in the
+                hierarchy you already use. Nothing to recreate or tag by hand.
+              </p>
+            </li>
+            <li>
+              <span class="mono">02</span>
+              <h3>Ready for Azure Pipelines</h3>
+              <p>
+                A ready-to-use template runs Trivy and publishes the SBOM and
+                scan artifacts. No agents to install.
+              </p>
+            </li>
+            <li>
+              <span class="mono">03</span>
+              <h3>One click back to Azure DevOps</h3>
+              <p>
+                Every project, repository, and pipeline links straight back to
+                where your team already works.
+              </p>
+            </li>
+          </ol>
+          <p class="feature__aside">
+            <span class="feature__logos" aria-hidden="true"
+              ><svg width="20" height="20"><use href="#i-github" /></svg
+              ><svg width="20" height="20"><use href="#i-gitlab" /></svg></span
+            ><span
+              ><strong>Also on GitHub or GitLab?</strong> They connect the same
+              way and land in the same view, which helps mid-migration or after
+              an acquisition.</span
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ PLATFORM ============ -->
+      <section id="platform" class="feature" aria-labelledby="platform-title">
+        <div class="wrap feature__head" data-reveal>
+          <h2 id="platform-title">Your whole estate<br />in one view</h2>
+          <div>
+            <p>
+              Every project, repository, and pipeline mapped on its own, from
+              the dashboard down to the images running in production.
+            </p>
+          </div>
+        </div>
+        <div class="wrap">
+          <ul class="tiles" data-reveal>
+            <li>
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="#i-grid" /></svg
+              >Dashboard
+            </li>
+            <li>
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="#i-layers" /></svg
+              >Projects and DORA metrics
+            </li>
+            <li>
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="#i-pulse" /></svg
+              >Repository health
+            </li>
+            <li>
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="#i-pipe" /></svg
+              >Pipelines
+            </li>
+            <li>
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="#i-box" /></svg
+              >Images running in production
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ ROLES ============ -->
+      <section id="roles" class="roles" aria-labelledby="roles-title">
+        <div class="wrap">
+          <h2 id="roles-title" class="big" data-reveal>
+            One platform.
+            <span>A different answer for each role.</span>
+          </h2>
+          <ul class="roles__grid" data-reveal>
+            <li>
+              <svg width="20" height="20" aria-hidden="true">
+                <use href="#i-shield" />
+              </svg>
+              <h3>Security teams</h3>
+              <p>
+                Stop triaging thousands of CVEs. See only what hits your
+                packages and is being exploited, and where a new CVE lands the
+                moment it drops.
+              </p>
+            </li>
+            <li>
+              <svg width="20" height="20" aria-hidden="true">
+                <use href="#i-code" />
+              </svg>
+              <h3>Developers</h3>
+              <p>
+                Open your repository, see what is failing, and get the fix
+                drafted down to the dependency and version to change.
+              </p>
+            </li>
+            <li>
+              <svg width="20" height="20" aria-hidden="true">
+                <use href="#i-layers" />
+              </svg>
+              <h3>Platform and engineering managers</h3>
+              <p>
+                Every project, repository, and pipeline mapped on its own, with
+                DORA metrics and health scores per team.
+              </p>
+            </li>
+            <li>
+              <svg width="20" height="20" aria-hidden="true">
+                <use href="#i-chart" />
+              </svg>
+              <h3>Leadership and compliance</h3>
+              <p>
+                Know in one screen whether you are safer than last week, with an
+                executive summary and evidence ready for the next audit.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ HOW IT WORKS ============ -->
+      <section id="how-it-works" class="feature" aria-labelledby="steps-title">
+        <div class="wrap feature__head" data-reveal>
+          <h2 id="steps-title">From connected<br />to fixed</h2>
+          <div>
+            <p>
+              Four steps, built on Trivy, the industry-standard scanner. The
+              scanning stays in your pipeline; the intelligence starts here.
+            </p>
+          </div>
+        </div>
+        <div class="wrap">
+          <ol class="timeline" data-reveal>
+            <li>
+              <span class="mono">01</span>
+              <h3>Connect</h3>
+              <p>
+                Authorize your Azure DevOps organization in a few clicks, no
+                agents to install. GitHub and GitLab connect the same way.
+              </p>
+            </li>
+            <li>
+              <span class="mono">02</span>
+              <h3>Scan with Trivy</h3>
+              <p>
+                Leavory runs Trivy in your pipeline. Never used Trivy? We hand
+                you a ready-to-use Azure Pipelines template (or GitHub Actions
+                and GitLab CI) that generates the SBOM and scan artifacts.
+              </p>
+            </li>
+            <li>
+              <span class="mono">03</span>
+              <h3>Cross-reference</h3>
+              <p>
+                Every component is correlated against OSV, NVD, GitHub
+                Advisories, CVE.org, CISA KEV, and EPSS using the SBOM and
+                artifact metadata, no source code involved.
+              </p>
+            </li>
+            <li class="is-fix">
+              <span class="mono">04</span>
+              <h3>Fix</h3>
+              <p>
+                Findings ranked by active exploitation (CISA KEV) and
+                exploitation probability (EPSS), with exactly what to change:
+                dependency, version, and manifest.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ SECURITY ============ -->
+      <section id="security" class="security" aria-labelledby="security-title">
+        <div class="wrap security__inner" data-reveal>
+          <div>
+            <h2 id="security-title" class="big">
+              Leavory never reads your source code.
+            </h2>
+            <p>
+              Trivy, SAST, Sonar, and secret scanning run inside your own
+              pipeline. Leavory only collects their results, SBOM, and scan
+              artifacts. In SaaS, it never touches your repositories at all.
+            </p>
+          </div>
+          <div class="boundary" aria-hidden="true">
+            <div class="boundary__org">
+              <span class="mono">Your organization</span>
+              <div class="boundary__box">
+                <span>Your pipeline</span>
+                <strong>Trivy · SAST · Sonar · Secret scanning</strong>
+              </div>
+              <div class="boundary__box is-muted">
+                <span>Your repositories</span>
+                <strong>Source code stays here</strong>
+              </div>
+            </div>
+            <span class="boundary__arrow"></span>
+            <div class="boundary__box is-out">
+              <span>Leavory receives</span>
+              <strong>Results · SBOM · Scan artifacts</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DEMO ============ -->
+      <section id="demo" class="cta" aria-labelledby="demo-title">
+        <div class="wrap cta__inner" data-reveal>
+          <h2 id="demo-title">See Leavory in action.</h2>
+          <p>
+            Tell us which platform you use, and an engineer, not a sales bot,
+            will reach out to schedule a demo.
+          </p>
+          <form class="cta__form" novalidate>
+            <fieldset>
+              <legend class="sr-only">Which platform do you use?</legend>
+              <label class="chip">
+                <input
+                  type="radio"
+                  name="platform"
+                  value="azure-devops"
+                  checked
+                />
+                <svg width="16" height="16" aria-hidden="true">
+                  <use href="#i-azure" /></svg
+                ><span>Azure DevOps</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="platform" value="github" />
+                <svg width="16" height="16" aria-hidden="true">
+                  <use href="#i-github" /></svg
+                ><span>GitHub</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="platform" value="gitlab" />
+                <svg width="16" height="16" aria-hidden="true">
+                  <use href="#i-gitlab" /></svg
+                ><span>GitLab</span>
+              </label>
+            </fieldset>
+            <div class="cta__row">
+              <label for="demo-email" class="sr-only">Work email</label>
+              <input
+                id="demo-email"
+                name="email"
+                type="email"
+                placeholder="you@yourcompany.com"
+                autocomplete="email"
+                required
+              />
+              <button type="submit" class="pill pill--light">
+                Request a demo
+              </button>
+            </div>
+            <p class="cta__error" role="alert" hidden>
+              Enter a valid work email.
+            </p>
+            <p class="cta__note">A real conversation with an engineer.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="wrap footer__grid">
+        <a href="#top" class="logo" aria-label="Leavory home">
+          <span class="logo__mark"
+            ><svg width="15" height="15" aria-hidden="true">
+              <use href="#i-shield" /></svg
+          ></span>
+        </a>
+        <nav aria-label="Product">
+          <h3>Product</h3>
+          <a href="#intelligence">Intelligence</a>
+          <a href="#platform">Platform</a>
+          <a href="#azure">Azure DevOps</a>
+        </nav>
+        <nav aria-label="Learn">
+          <h3>Learn</h3>
+          <a href="#roles">Who it’s for</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#security">Security</a>
+        </nav>
+        <nav aria-label="Connect">
+          <h3>Connect</h3>
+          <a href="#demo">Request a demo</a>
+          <a
+            href="https://www.linkedin.com/company/leavory-security/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+          <a href="../">Classic version</a>
+        </nav>
+      </div>
+      <div class="wrap footer__bottom">
+        <small>© 2026 Leavory. All rights reserved.</small>
+        <small>Vulnerability meets Quality of Service</small>
+      </div>
+    </footer>
+  </body>
+</html>
