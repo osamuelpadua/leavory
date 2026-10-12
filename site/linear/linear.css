@@ -216,12 +216,13 @@ input {
   font-weight: 540;
   letter-spacing: -0.04em;
 }
-/* The isotype: a solid shield cut by three thin diagonal lines. */
+/* The isotype, in brand red: a shield cut by three diagonal lines that
+   stop short of a solid right edge. */
 .logo__mark {
   flex: none;
   width: 24px;
   height: 24px;
-  color: var(--white);
+  color: var(--red);
 }
 .nav__links {
   display: flex;
