@@ -60,6 +60,10 @@ A second version of the page lives in `site/linear/` (served at `/linear/`), wit
 - Footer: brand, big numbered links and small mono links, over the Leavory wordmark drawn in stripes with one red bar running through the L.
 - `tests/linear.spec.ts`: errors and external assets, the step cycle, reduced motion, mobile menu, form, palette, overflow and axe at four widths.
 
+## Figma import copy
+
+`site/figma/` (served at `/figma/`) is a frozen, script-free copy of `/linear/` at 1440px, made for importing into Figma with the html.to.design plugin. The WebGL sphere and the striped wordmark are images, icons are inlined, the flow is pinned at the Fix step, and `figma.css` removes motion, backdrop blur and non-standard font weights. Regenerate it after changing `/linear/`: `node scripts/build-figma.mjs` (then `npm run format`).
+
 ## Opening
 
 The client-required opening plays before the page: “Vulnerability” and “Quality of Service” appear, their brand letters light up in red and fly into “Leavory”, then two chamfered panels part to reveal the hero (~4 s). It plays once per browser session, never when the URL has a section hash, can be skipped with the button, a click or Escape, and shrinks to a short name-only version for reduced motion.
