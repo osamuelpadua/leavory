@@ -1,8 +1,8 @@
 // Leavory — the hero flow. Connect and Scan happen in the customer's pipeline
 // (Trivy runs there; only results and the SBOM travel); Cross-reference
 // happens in Leavory, against the public advisories; the few findings that
-// matter light up red and leave for "Fix first". The sphere turns toward the cursor and
-// its particles move out of the cursor's way. Plain WebGL2, no dependencies.
+// matter light up red and leave for "Fix first". The sphere turns toward the
+// cursor. Plain WebGL2, no dependencies.
 // With reduced motion it renders one still frame of the Fix step.
 (() => {
   const flow = document.querySelector(".flow");
@@ -216,8 +216,6 @@
   const tone = new Float32Array(N);
   const phase = new Float32Array(N);
   const red = new Uint8Array(N);
-  const off = new Float32Array(N * 2); // pushed aside by the cursor
-  const vel = new Float32Array(N * 2);
   const golden = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < N; i++) {
     const y = 1 - (2 * (i + 0.5)) / N;
@@ -368,16 +366,6 @@
     [yaw, yawV] = spring(yaw, yawV, time * 0.16 + nx * 0.7, 2.6, dt);
     [pitch, pitchV] = spring(pitch, pitchV, 0.18 + ny * 0.45, 2.6, dt);
 
-    // Particles step out of the cursor's way, then spring back.
-    const damping = Math.exp(-7 * dt);
-    for (let i = 0; i < N; i++) {
-      const o = i * 2;
-      vel[o] = (vel[o] - off[o] * 38 * dt) * damping;
-      vel[o + 1] = (vel[o + 1] - off[o + 1] * 38 * dt) * damping;
-      off[o] += vel[o] * dt;
-      off[o + 1] += vel[o + 1] * dt;
-    }
-
     // Results arrive from the pipelines while connecting and scanning; the
     // advisories feed in while cross-referencing.
     spawnWire += dt * (stageIndex === 3 ? 1.5 : 9);
@@ -435,23 +423,8 @@
       const breathe = 1 + 0.014 * Math.sin(time * 0.9 + phase[i]);
       const k = 4 / (4 - z2 * shell[i]);
       const rr = R * shell[i] * breathe * k;
-      let px = CX + x1 * rr;
-      let py = CY - y2 * rr;
-
-      // Push away from the cursor.
-      if (pointer.active) {
-        const o = i * 2;
-        const ex = px + off[o] - pointer.x;
-        const ey = py + off[o + 1] - pointer.y;
-        const dist = Math.hypot(ex, ey);
-        if (dist < 90 && dist > 0.01) {
-          const f = (1 - dist / 90) ** 2 * 2600 * (1 / 60);
-          vel[o] += (ex / dist) * f;
-          vel[o + 1] += (ey / dist) * f;
-        }
-      }
-      px += off[i * 2];
-      py += off[i * 2 + 1];
+      const px = CX + x1 * rr;
+      const py = CY - y2 * rr;
 
       const depth = (z2 + 1) / 2;
       let s = size[i] * (0.55 + 0.65 * depth);

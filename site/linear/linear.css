@@ -805,7 +805,7 @@ input {
 }
 
 .statement {
-  padding: clamp(56px, 8vw, 120px) 0 clamp(80px, 10vw, 150px);
+  padding: clamp(56px, 8vw, 120px) 0 clamp(64px, 8vw, 112px);
 }
 .statement__text {
   max-width: 24em;
@@ -821,10 +821,31 @@ input {
 }
 
 /* ---------- Figures ---------- */
+.figs__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 64px;
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+.figs__head h2 {
+  max-width: 18em;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 540;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+.figs__head p {
+  max-width: 32rem;
+  justify-self: end;
+  font-size: 16px;
+  color: var(--text-2);
+}
 .figs {
-  border-block: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .figs__grid {
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -2085,6 +2106,12 @@ input {
   }
   .figs__grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .figs__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .figs__head p {
+    justify-self: start;
   }
   .fig,
   .fig:first-child {
