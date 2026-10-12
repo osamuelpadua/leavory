@@ -276,7 +276,7 @@ test.describe("landing page", () => {
   test("the design system, the Figma copy and the rationale load cleanly and stay out of search", async ({
     page,
   }) => {
-    for (const path of ["/styleguide/", "/figma/", "/rationale/"]) {
+    for (const path of ["/ds/", "/figma/", "/rationale/"]) {
       const errors: string[] = [];
       const failed: string[] = [];
       page.on("pageerror", (error) => errors.push(error.message));

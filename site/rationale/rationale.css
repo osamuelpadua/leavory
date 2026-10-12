@@ -192,28 +192,30 @@ html {
 }
 .rt-goals,
 .rt-annot,
-.rt-timeline {
+.rt-rules {
   display: grid;
   grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
   gap: 40px 32px;
 }
-.rt-annot,
-.rt-timeline {
+.rt-annot {
   --n: 4;
+}
+.rt-rules {
+  --n: 5;
 }
 .rt-annot {
   margin-top: clamp(40px, 5vw, 56px);
 }
 .rt-goals li,
 .rt-annot li,
-.rt-timeline li {
+.rt-rules li {
   position: relative;
   padding-top: 24px;
   border-top: 1px solid var(--line-2);
 }
 .rt-goals h3,
 .rt-annot h3,
-.rt-timeline h3 {
+.rt-rules h3 {
   margin-top: 14px;
   font-size: 20px;
   font-weight: 540;
@@ -221,27 +223,14 @@ html {
 }
 .rt-goals p,
 .rt-annot p,
-.rt-timeline p {
+.rt-rules p {
   margin-top: 8px;
   font-size: 15px;
   color: var(--text-2);
 }
-.rt-timeline li::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 0;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--white);
-}
-.rt-timeline li.is-fix {
+/* The first rule is the red one. */
+.rt-rules li:first-child {
   border-top-color: var(--red);
-}
-.rt-timeline li.is-fix::before {
-  background-color: var(--red);
-  box-shadow: 0 0 12px rgb(var(--red-rgb) / 0.8);
 }
 
 /* ---------- Decisions ---------- */
@@ -564,9 +553,11 @@ html {
   .rt-concept {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .rt-annot,
-  .rt-timeline {
+  .rt-annot {
     --n: 2;
+  }
+  .rt-rules {
+    --n: 3;
   }
   .rt-toc,
   .rt-sections {
@@ -622,7 +613,7 @@ html {
     gap: 16px;
   }
   .rt-annot,
-  .rt-timeline {
+  .rt-rules {
     --n: 1;
   }
   .rt-toc,

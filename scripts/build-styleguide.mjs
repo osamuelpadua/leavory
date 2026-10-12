@@ -1,4 +1,4 @@
-// Builds site/styleguide/index.html: the design system of the landing page, as one
+// Builds site/ds/index.html: the design system of the landing page, as one
 // static page made for importing into Figma with html.to.design. Real
 // markup (icons, isotype, figures, product window) is copied from
 // site/index.html with every <use> inlined, so the guide always
@@ -800,6 +800,6 @@ const html = `<!doctype html>
 `;
 if (/<use\b|<script|<canvas/.test(html))
   throw new Error("leftover <use>, <script> or <canvas>");
-mkdirSync("site/styleguide", { recursive: true });
-writeFileSync("site/styleguide/index.html", html);
-console.log("wrote site/styleguide/index.html");
+mkdirSync("site/ds", { recursive: true });
+writeFileSync("site/ds/index.html", html);
+console.log("wrote site/ds/index.html");
