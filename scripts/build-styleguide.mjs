@@ -737,12 +737,12 @@ const icons = section(
       "Hero sphere and wordmark",
       [
         tile(
-          `<div class="sg-center sg-pad"><img src="../ds/sphere.png" alt="" style="width:100%;max-width:560px" /></div>`,
+          `<div class="sg-center sg-pad"><img src="../ds/sphere.svg" alt="" style="width:100%;max-width:560px" /></div>`,
           "Particle sphere",
           "Hero animation · key frame",
         ),
         tile(
-          `<div class="sg-pad"><img src="../ds/wordmark.png" alt="" style="width:100%" /></div>`,
+          `<div class="sg-pad"><img src="../ds/wordmark.svg" alt="" style="width:100%" /></div>`,
           "Striped wordmark",
           "Footer · stripes every 8px, white 42%",
         ),

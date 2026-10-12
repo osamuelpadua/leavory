@@ -13,6 +13,7 @@
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
     "fontkit": "^2.0.4",
-    "prettier": "^3.9.9"
+    "prettier": "^3.9.9",
+    "wawoff2": "^2.0.1"
   }
 }
