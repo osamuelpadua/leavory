@@ -77,7 +77,7 @@ const lockup = (size = 20, color = "") =>
 const logo = section(
   "01",
   "Logo",
-  "A shield cut by three diagonal lines that stop short of a solid right edge, in brand red, next to the wordmark set in the headline type.",
+  "A shield cut through by three diagonal lines, in brand red, next to the wordmark set in the headline type.",
   group(
     "Lockup and isotype",
     [
