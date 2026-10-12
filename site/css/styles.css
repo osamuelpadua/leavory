@@ -345,9 +345,14 @@ input {
 .flow__stage {
   --u: calc(100cqh / 560);
   --side: clamp(24px, 4vw, 56px); /* breathing room at both sides */
-  --dx-left: calc(var(--side) - var(--u) * 150);
+  /* On a wide, short stage the sides stay near the sphere: at most this
+     far from the centre (the design, plus 120 units). */
+  --spread: calc(var(--u) * 570);
+  --dx-left: calc(max(var(--side), 50% - var(--spread)) - var(--u) * 150);
   --dx-mid: calc(50% - var(--u) * 600);
-  --dx-end: calc(100% - var(--side) - var(--u) * 1050);
+  --dx-end: calc(
+    min(100% - var(--side), 50% + var(--spread)) - var(--u) * 1050
+  );
   position: absolute;
   inset: 0;
 }
@@ -436,14 +441,11 @@ input {
   position: absolute;
   left: calc(var(--u) * var(--x) + var(--dx, 0px));
   top: calc(var(--u) * var(--y));
-  font: 500 max(10px, calc(var(--u) * 12)) / 1 var(--mono);
+  font: 500 max(9px, calc(var(--u) * 9.5)) / 1 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--text-3);
-}
-.flow__label--center {
-  transform: translateX(-50%);
 }
 .flow__port {
   fill: rgb(var(--white-rgb) / 0.35);
@@ -696,11 +698,12 @@ input {
   transform: translateY(-50%);
   transition: box-shadow 0.5s;
 }
+/* At Fix the panel takes a red rim, without a glow around it. */
 .flow__out.is-hot {
   box-shadow:
     inset 0 1px 0 rgb(var(--white-rgb) / 0.18),
     inset 0 0 0 1px rgb(var(--red-rgb) / 0.55),
-    0 0 calc(var(--u) * 40) rgb(var(--red-rgb) / 0.3);
+    0 calc(var(--u) * 10) calc(var(--u) * 30) rgb(var(--ink-rgb) / 0.4);
 }
 .flow__out-title {
   padding: 0 calc(var(--u) * 4) calc(var(--u) * 10);
@@ -819,10 +822,10 @@ input {
 .flow:not(.is-live) .flow__stage::before {
   content: "";
   position: absolute;
-  left: calc(var(--u) * 395 + var(--dx-mid));
-  top: calc(var(--u) * 75);
-  width: calc(var(--u) * 410);
-  height: calc(var(--u) * 410);
+  left: calc(var(--u) * 352 + var(--dx-mid));
+  top: calc(var(--u) * 32);
+  width: calc(var(--u) * 496);
+  height: calc(var(--u) * 496);
   border-radius: 50%;
   background: radial-gradient(
       circle,
@@ -840,7 +843,14 @@ input {
   padding: clamp(40px, 4vw, 56px) 0;
   border-bottom: 1px solid var(--line-2);
 }
+.sources > .wrap {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 3vw, 48px);
+}
 .sources__grid {
+  flex: 1;
+  min-width: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.5fr) minmax(0, 2.1fr);
 }
@@ -1341,14 +1351,13 @@ input {
   padding: 0 18px;
   border-bottom: 1px solid var(--line);
 }
+/* The isotype, in brand red, as in the header. */
 .app__mark {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  background-color: var(--red);
-  color: var(--white);
+  flex: none;
+  width: auto;
+  height: 20px;
+  aspect-ratio: 18 / 21.5;
+  color: var(--red);
 }
 .app__crumb {
   font-size: 13.5px;
@@ -1777,24 +1786,21 @@ input {
 
 /* ---------- Stamp ----------
    A circular line of text around the isotype; the ring turns as the page
-   scrolls (js/main.js sets --turn). */
+   scrolls (js/main.js). */
 .stamp {
   position: relative;
   width: 132px;
   height: 132px;
   border-radius: 50%;
-  background-color: var(--ink);
-  box-shadow: 0 0 0 6px var(--ink);
-  pointer-events: none;
+  pointer-events: none; /* filled with liquid glass, below */
 }
-/* The whole ring turns, as a plain box around its centre. Turning the
-   <text> inside instead relied on transform-box: view-box, which Safari
-   resolves to a different origin, so the ring drifted off the mark. */
+/* The ring text turns through its SVG transform attribute (js/main.js).
+   A CSS transform needed transform-box: view-box, which Safari resolves to
+   another origin, and turning the whole box widened the page. */
 .stamp__ring {
   width: 100%;
   height: 100%;
   overflow: visible;
-  transform: rotate(var(--turn, 0deg));
 }
 .stamp__ring text {
   fill: rgb(var(--white-rgb) / 0.78);
@@ -1821,11 +1827,17 @@ input {
   top: -60px;
   right: -44px;
 }
-/* Call to action: the signature above the title. */
-.stamp--cta {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 36px;
+/* Sources: the signature beside the integrations, tying them to the
+   promise in the hero. */
+.stamp--sources {
+  flex: none;
+}
+/* Here it is only the mark and its ring: no glass fill. */
+.stamp.stamp--sources {
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 @media (max-width: 1100px) {
   .stamp--seal {
@@ -2134,7 +2146,8 @@ input {
 .boundary__box,
 .chip,
 .cta__row input,
-.app__open {
+.app__open,
+.stamp {
   background:
     linear-gradient(
       135deg,
@@ -2374,6 +2387,10 @@ input {
   /* Stacked, the input keeps its own height instead of growing from 0. */
   .cta__row input {
     flex: none;
+  }
+  .sources > .wrap {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .sources__grid {
     grid-template-columns: minmax(0, 1fr);

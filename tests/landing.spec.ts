@@ -218,7 +218,7 @@ test.describe("landing page", () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(URL);
-    for (const stamp of [".stamp--seal", ".stamp--cta"]) {
+    for (const stamp of [".stamp--seal", ".stamp--sources"]) {
       await page.locator(stamp).scrollIntoViewIfNeeded();
       await page.mouse.wheel(0, 300);
       await page.waitForTimeout(300);
@@ -234,6 +234,26 @@ test.describe("landing page", () => {
       expect(offset).toBeLessThan(2);
     }
   });
+
+  for (const width of [1280, 1440]) {
+    test(`nothing widens the page while scrolling at ${width}px`, async ({
+      page,
+    }) => {
+      // The stamps turn with the scroll: no angle may push the page wider.
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(URL);
+      const widest = await page.evaluate(async () => {
+        let max = 0;
+        for (let y = 0; y < document.documentElement.scrollHeight; y += 150) {
+          window.scrollTo({ top: y, behavior: "instant" });
+          await new Promise((r) => requestAnimationFrame(() => r(null)));
+          max = Math.max(max, document.documentElement.scrollWidth);
+        }
+        return max;
+      });
+      expect(widest).toBeLessThanOrEqual(width);
+    });
+  }
 
   test("the page carries its canonical URL and sharing metadata", async ({
     page,

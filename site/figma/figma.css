@@ -28,14 +28,16 @@ body {
 .boundary__box,
 .chip,
 .cta__row input,
-.app__open {
+.app__open,
+.stamp {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 .nav,
 .flow__steps,
 .flow__note,
-.flow__out {
+.flow__out,
+.stamp {
   background:
     linear-gradient(
       135deg,

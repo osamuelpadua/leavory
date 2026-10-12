@@ -152,25 +152,48 @@
     layout(location = 0) in vec2 aPos;
     layout(location = 1) in float aSize;
     layout(location = 2) in vec4 aColor;
+    layout(location = 3) in float aMode;
     uniform vec2 uScale;
     uniform float uPx;
     out vec4 vColor;
     out float vPx;
+    out float vMode;
     void main() {
       gl_Position = vec4(aPos.x * uScale.x - 1.0, 1.0 - aPos.y * uScale.y, 0.0, 1.0);
       float px = max(aSize * uPx, 1.0);
       gl_PointSize = px + 1.0;
       vPx = px;
       vColor = aColor;
+      vMode = aMode;
     }`;
   const fragment = `#version 300 es
     precision mediump float;
     in vec4 vColor;
     in float vPx;
+    in float vMode;
     out vec4 outColor;
+    // Modes: 0 a crisp dot, 1 a soft halo, 2 a target, 3 a line.
     void main() {
-      float d = length(gl_PointCoord - 0.5) * (vPx + 1.0);
-      float a = clamp(vPx * 0.5 - d + 0.5, 0.0, 1.0) * vColor.a;
+      float a;
+      if (vMode > 2.5) {
+        a = vColor.a;
+      } else if (vMode > 1.5) {
+        // A ring with four ticks on the axes, about 1.5px wide.
+        vec2 p = (gl_PointCoord - 0.5) * (vPx + 1.0);
+        float r0 = vPx * 0.5;
+        float ring = clamp(1.0 - abs(length(p) - r0 * 0.62) / 0.75, 0.0, 1.0);
+        float tx = clamp(1.0 - abs(p.y) / 0.75, 0.0, 1.0) *
+          step(r0 * 0.8, abs(p.x)) * step(abs(p.x), r0);
+        float ty = clamp(1.0 - abs(p.x) / 0.75, 0.0, 1.0) *
+          step(r0 * 0.8, abs(p.y)) * step(abs(p.y), r0);
+        a = max(ring, max(tx, ty)) * vColor.a;
+      } else if (vMode > 0.5) {
+        float r = length(gl_PointCoord - 0.5) * 2.0;
+        a = exp(-r * r * 5.0) * (1.0 - smoothstep(0.75, 1.0, r)) * vColor.a;
+      } else {
+        float d = length(gl_PointCoord - 0.5) * (vPx + 1.0);
+        a = clamp(vPx * 0.5 - d + 0.5, 0.0, 1.0) * vColor.a;
+      }
       outColor = vec4(vColor.rgb * a, a);
     }`;
   const compile = (type, source) => {
@@ -208,7 +231,7 @@
   };
   let CX = 600;
   const CY = 280;
-  const R = 205;
+  const R = 248;
   const N = 2200;
   const dir = new Float32Array(N * 3);
   const shell = new Float32Array(N);
@@ -233,13 +256,89 @@
     tone[i] = 0.35 + 0.65 * rand();
     phase[i] = rand() * Math.PI * 2;
   }
-  // The findings that matter: few, small, and hidden inside the sphere.
-  for (let k = 0; k < 16; k++) {
-    const i = Math.floor(rand() * N);
+  // The findings, hidden inside the sphere, mirror the "Fix first" card:
+  // its five rows (two Critical, one Secret, two High) and a few minor
+  // ones. The Cross-reference sweep finds each with a flash; at Fix the
+  // five light up with their rows, Critical the largest and brightest,
+  // while the minor ones only blink now and then.
+  const RANKED = ["critical", "critical", "secret", "high", "high"];
+  const MINOR = 11;
+  const LOOK = {
+    critical: { dot: 2.4, halo: 46, glow: 0.8, white: false },
+    secret: { dot: 2, halo: 34, glow: 0.5, white: true },
+    high: { dot: 1.6, halo: 26, glow: 0.4, white: false },
+    minor: { dot: 1.1, halo: 14, glow: 0.22, white: false },
+  };
+  const FLASH_TIME = 1.2;
+  const look = [];
+  const row = new Int8Array(N).fill(-1);
+  const flash = new Float32Array(N); // 1 when found, fading to 0
+  const found = new Uint8Array(N);
+  const findings = [];
+  const mark = (i, kind) => {
     red[i] = 1;
+    look[i] = LOOK[kind];
+    findings.push(i);
+  };
+  // Spiral order runs top to bottom: these spots spread the ranked ones
+  // over the sphere, clear of the steps bar across its middle, and the
+  // sweep finds them in card order.
+  const SPOTS = [0.12, 0.26, 0.7, 0.8, 0.9];
+  RANKED.forEach((kind, r) => {
+    const i = Math.floor(N * SPOTS[r]);
+    mark(i, kind);
+    row[i] = r;
+    shell[i] = 0.5 + rand() * 0.3;
+    size[i] = 1.8 + rand() * 0.4;
+  });
+  for (let k = 0; k < MINOR; k++) {
+    let i;
+    do i = Math.floor(rand() * N);
+    while (red[i]);
+    mark(i, "minor");
     shell[i] = 0.45 + rand() * 0.4;
-    size[i] = 1.6 + rand() * 1.2;
+    size[i] = 1.4 + rand() * 0.8;
   }
+  const foundAt = new Float32Array(N); // when the sweep found it
+  const TARGET_TIME = 1.6; // how long the target stays on a new finding
+
+  // A sparse data network across the sphere: some particles, every finding
+  // among them, each linked to its two nearest neighbours. Packets of data
+  // run along a few links.
+  const NODES = 90;
+  const nodes = [...findings];
+  while (nodes.length < NODES) {
+    const i = Math.floor(rand() * N);
+    if (!nodes.includes(i)) nodes.push(i);
+  }
+  const spot = (i) => [0, 1, 2].map((k) => dir[i * 3 + k] * shell[i]);
+  const edges = [];
+  const linked = new Set();
+  for (const a of nodes) {
+    const pa = spot(a);
+    const nearest = nodes
+      .filter((b) => b !== a)
+      .map((b) => [b, Math.hypot(...spot(b).map((v, k) => v - pa[k]))])
+      .sort((p, q) => p[1] - q[1])
+      .slice(0, 2);
+    for (const [b] of nearest) {
+      const key = Math.min(a, b) * N + Math.max(a, b);
+      if (linked.has(key)) continue;
+      linked.add(key);
+      edges.push([a, b]);
+    }
+  }
+  const PACKETS = 14;
+  const packets = Array.from({ length: PACKETS }, () => ({
+    edge: edges[Math.floor(rand() * edges.length)],
+    t: rand(),
+    speed: 0.35 + rand() * 0.4,
+  }));
+  // Where each particle lands on screen this frame, for the links.
+  const projX = new Float32Array(N);
+  const projY = new Float32Array(N);
+  const projD = new Float32Array(N);
+  const glowNow = new Float32Array(N);
 
   // Wires: sampled from the SVG paths (they share the design units), and
   // again whenever they are re-routed.
@@ -292,19 +391,22 @@
     const d = hash(xi + 1, yi + 1);
     return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
   };
-  const MAX = N + 200 + MAX_DOTS;
-  const data = new Float32Array(MAX * 7);
+  const MAX =
+    N + 2 * findings.length + PACKETS + 2 * edges.length + 200 + MAX_DOTS;
+  const data = new Float32Array(MAX * 8);
   const vao = gl.createVertexArray();
   gl.bindVertexArray(vao);
   const buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
   gl.bufferData(gl.ARRAY_BUFFER, data.byteLength, gl.DYNAMIC_DRAW);
   gl.enableVertexAttribArray(0);
-  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 28, 0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 32, 0);
   gl.enableVertexAttribArray(1);
-  gl.vertexAttribPointer(1, 1, gl.FLOAT, false, 28, 8);
+  gl.vertexAttribPointer(1, 1, gl.FLOAT, false, 32, 8);
   gl.enableVertexAttribArray(2);
-  gl.vertexAttribPointer(2, 4, gl.FLOAT, false, 28, 12);
+  gl.vertexAttribPointer(2, 4, gl.FLOAT, false, 32, 12);
+  gl.enableVertexAttribArray(3);
+  gl.vertexAttribPointer(3, 1, gl.FLOAT, false, 32, 28);
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
@@ -375,6 +477,7 @@
       stageTime = 0;
       stageIndex = (stageIndex + 1) % STAGES.length;
       setStage(stageIndex);
+      if (stageIndex === 2) found.fill(0); // a new sweep finds them again
     }
 
     // Turn: a slow drift, plus a lean toward the cursor.
@@ -418,9 +521,22 @@
     }
     for (const p of leavers) p.t += dt * 0.9;
     while (leavers.length && leavers[0].t >= 1) leavers.shift();
+
+    for (const i of findings)
+      flash[i] = Math.max(0, flash[i] - dt / FLASH_TIME);
+
+    for (const p of packets) {
+      p.t += p.speed * dt;
+      if (p.t >= 1) {
+        p.t = 0;
+        p.edge = edges[Math.floor(rand() * edges.length)];
+      }
+    }
   };
 
   const RED = [0.776, 0.165, 0.239];
+  const glows = [];
+  const targets = [];
   const draw = () => {
     const cy = Math.cos(yaw);
     const sy = Math.sin(yaw);
@@ -429,8 +545,8 @@
     const progress = stageTime / STAGE_TIME;
     const band = CY - R + 2 * R * progress; // the scan line, during Scan
     let n = 0;
-    const put = (x, y, s, r, g, b, a) => {
-      data.set([x, y, s, r, g, b, a], n * 7);
+    const put = (x, y, s, r, g, b, a, mode = 0) => {
+      data.set([x, y, s, r, g, b, a, mode], n * 8);
       n++;
     };
 
@@ -465,6 +581,9 @@
       const py = CY - y2 * rr;
 
       const depth = (z2 + 1) / 2;
+      projX[i] = px;
+      projY[i] = py;
+      projD[i] = depth;
       let s = size[i] * (0.55 + 0.65 * depth);
       let a = (0.14 + 0.78 * depth) * tone[i];
       let col = [1, 1, 1];
@@ -480,18 +599,95 @@
       }
 
       if (red[i]) {
-        // Barely there until the sweep passes them; then they burn.
-        const heat =
-          stageIndex === 3
-            ? 0.75 + 0.25 * Math.sin(time * 6 + phase[i])
-            : stageIndex === 2 && py < band
-              ? 0.5
-              : 0.12;
-        col = RED;
-        a = Math.max(a * 0.6, heat);
-        s *= 1 + heat * 0.9;
+        const kind = look[i];
+        // Found: the sweep line just reached it.
+        if (stageIndex === 2 && py < band && !found[i]) {
+          found[i] = 1;
+          flash[i] = 1;
+          foundAt[i] = time;
+        }
+        // How much it stands out right now, from 0 to 1.
+        let glow = flash[i] * flash[i]; // bright at once, then easing out
+        let heat = stageIndex === 2 && found[i] ? 0.5 : 0.12;
+        if (stageIndex === 3 && row[i] >= 0) {
+          // Lights up with its row in the card, then breathes.
+          const on = Math.min(
+            1,
+            Math.max(0, (stageTime - 0.3 - row[i] * 0.18) / 0.35),
+          );
+          glow = Math.max(
+            glow,
+            on * (0.85 + 0.15 * Math.sin(time * 3 + phase[i])),
+          );
+          heat = 0.5 + 0.5 * on;
+        } else if (row[i] < 0 && stageIndex >= 2 && found[i]) {
+          // Minor: a brief blink every few seconds.
+          const blink = Math.max(0, Math.sin(time * 1.7 + phase[i] * 3)) ** 12;
+          glow = Math.max(glow, blink);
+          heat = Math.max(heat, 0.35 + 0.3 * blink);
+        }
+        col = kind.white ? [1, 1, 1] : RED;
+        // Ranked findings keep their size on the far side of the sphere.
+        if (row[i] >= 0) s = size[i] * (0.85 + 0.3 * depth);
+        a = Math.max(a * 0.6, heat, glow);
+        s *= (1 + heat * 0.6) * (1 + (kind.dot - 1) * glow);
+        glowNow[i] = glow;
+        if (glow > 0.02) glows.push([px, py, depth, glow, kind]);
+        // A target locks onto a finding as the sweep finds it.
+        const since = time - foundAt[i];
+        if (found[i] && since < TARGET_TIME)
+          targets.push([px, py, since, kind, row[i] >= 0]);
       }
       put(px, py, s, col[0], col[1], col[2], a);
+    }
+    // Halos under the findings that stand out; the ones on the far side of
+    // the sphere glow a little less.
+    for (const [x, y, depth, glow, kind] of glows) {
+      const tint = kind.white ? [1, 1, 1] : RED;
+      put(
+        x,
+        y,
+        kind.halo * (0.75 + 0.25 * glow),
+        tint[0],
+        tint[1],
+        tint[2],
+        kind.glow * glow * (0.75 + 0.25 * depth),
+        1,
+      );
+    }
+    glows.length = 0;
+    // Targets: they close in from a little wider, hold, then fade.
+    for (const [x, y, since, kind, ranked] of targets) {
+      const lock = Math.min(1, since / 0.35);
+      const ease = 1 - (1 - lock) ** 3;
+      const out = Math.min(1, (TARGET_TIME - since) / 0.4);
+      const tint = kind.white ? [1, 1, 1] : RED;
+      put(
+        x,
+        y,
+        (ranked ? 26 : 17) * (1 + 0.7 * (1 - ease)),
+        tint[0],
+        tint[1],
+        tint[2],
+        (ranked ? 0.9 : 0.5) * Math.min(1, lock * 1.5) * out,
+        2,
+      );
+    }
+    targets.length = 0;
+    // Data packets along the links.
+    for (const p of packets) {
+      const [a, b] = p.edge;
+      const fade = Math.min(p.t * 5, 1, (1 - p.t) * 5);
+      const depth = projD[a] + (projD[b] - projD[a]) * p.t;
+      put(
+        projX[a] + (projX[b] - projX[a]) * p.t,
+        projY[a] + (projY[b] - projY[a]) * p.t,
+        1.7,
+        1,
+        1,
+        1,
+        (0.25 + 0.6 * depth) * fade,
+      );
     }
 
     for (const p of travellers) {
@@ -505,11 +701,25 @@
       put(x, p.y, p.size, RED[0], RED[1], RED[2], fade);
     }
 
+    // The links, hairlines fainter on the far side; an end at a finding
+    // that stands out takes its colour.
+    const points = n;
+    for (const [a, b] of edges) {
+      const depth = (projD[a] + projD[b]) / 2;
+      const base = 0.03 + 0.13 * depth * depth;
+      for (const i of [a, b]) {
+        const lit = red[i] && glowNow[i] > 0.05 ? glowNow[i] : 0;
+        const tint = lit && !look[i].white ? RED : [1, 1, 1];
+        put(projX[i], projY[i], 1, ...tint, base + 0.4 * lit, 3);
+      }
+    }
+
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferSubData(gl.ARRAY_BUFFER, 0, data, 0, n * 7);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, data, 0, n * 8);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.POINTS, 0, n);
+    gl.drawArrays(gl.LINES, points, n - points); // under the particles
+    gl.drawArrays(gl.POINTS, 0, points);
   };
 
   /* ---------- Loop ---------- */

@@ -95,13 +95,18 @@
   }
 
   /* ---------- Stamps turn with the scroll ---------- */
-  const rings = document.querySelectorAll(".stamp__ring");
+  // The SVG transform attribute names the centre of the turn (the ring
+  // circle, 100 100), so every engine agrees on it, and the layout box of
+  // the stamp never changes: it cannot widen the page as it turns.
+  const rings = document.querySelectorAll(".stamp__ring text");
   if (rings.length && motionOK.matches) {
     let frame = null;
     const turn = () => {
       frame = null;
-      const angle = (window.scrollY * 0.12) % 360;
-      rings.forEach((ring) => ring.style.setProperty("--turn", `${angle}deg`));
+      const angle = ((window.scrollY * 0.12) % 360).toFixed(2);
+      rings.forEach((ring) =>
+        ring.setAttribute("transform", `rotate(${angle} 100 100)`),
+      );
     };
     window.addEventListener(
       "scroll",

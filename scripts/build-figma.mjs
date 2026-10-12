@@ -85,9 +85,9 @@ try {
     flow.style.cssText = `width:${fr.width}px;height:${fr.height}px;container-type:normal`;
     stage.style.cssText = [
       `--u:${u}px`,
-      `--dx-left:${side - 150 * u}px`,
+      `--dx-left:${Math.max(side, fr.width / 2 - 570 * u) - 150 * u}px`,
       `--dx-mid:${fr.width / 2 - 600 * u}px`,
-      `--dx-end:${fr.width - side - 1050 * u}px`,
+      `--dx-end:${Math.min(fr.width - side, fr.width / 2 + 570 * u) - 1050 * u}px`,
     ].join(";");
     const canvas = stage.querySelector(".flow__canvas");
     const sphere = doc.createElement("img");

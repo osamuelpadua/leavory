@@ -93,7 +93,7 @@
               --delay: -3.79s;
               --rest: 60%;
               left: 36px;
-              transform: matrix(1, 0, 0, 1, 0, 650.645);
+              transform: matrix(1, 0, 0, 1, 0, 619.397);
             "
           ></span
           ><span
@@ -105,7 +105,7 @@
               --delay: -0.4s;
               --rest: 50%;
               left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 935.49);
+              transform: matrix(1, 0, 0, 1, 0, 898.997);
             "
           ></span
           ><span
@@ -117,7 +117,7 @@
               --delay: -6.7s;
               --rest: 28%;
               left: 36px;
-              transform: matrix(1, 0, 0, 1, 0, 182.487);
+              transform: matrix(1, 0, 0, 1, 0, 144.523);
             "
           ></span
           ><span
@@ -129,7 +129,7 @@
               --delay: -5.67s;
               --rest: 22%;
               left: 12px;
-              transform: matrix(1, 0, 0, 1, 0, 467.367);
+              transform: matrix(1, 0, 0, 1, 0, 438.102);
             "
           ></span>
         </div>
@@ -149,7 +149,7 @@
               --delay: -0.04s;
               --rest: 60%;
               left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 448.137);
+              transform: matrix(1, 0, 0, 1, 0, 418.065);
             "
           ></span
           ><span
@@ -161,7 +161,7 @@
               --delay: -5.56s;
               --rest: 30%;
               left: 24px;
-              transform: matrix(1, 0, 0, 1, 0, 874.136);
+              transform: matrix(1, 0, 0, 1, 0, 847.496);
             "
           ></span
           ><span
@@ -173,7 +173,7 @@
               --delay: -1.02s;
               --rest: 24%;
               left: 37px;
-              transform: matrix(1, 0, 0, 1, 0, -79.7451);
+              transform: matrix(1, 0, 0, 1, 0, 992.623);
             "
           ></span
           ><span
@@ -185,7 +185,7 @@
               --delay: -1.17s;
               --rest: 35%;
               left: 12px;
-              transform: matrix(1, 0, 0, 1, 0, 442.926);
+              transform: matrix(1, 0, 0, 1, 0, 415.864);
             "
           ></span>
         </div>
@@ -401,13 +401,6 @@
             <p class="flow__label" data-side="left" style="--x: 150; --y: 322">
               Public sources
             </p>
-            <p
-              class="flow__label flow__label--center"
-              data-side="mid"
-              style="--x: 600; --y: 30"
-            >
-              Leavory
-            </p>
             <ul class="flow__tiles" style="">
               <li
                 class="flow__tile"
@@ -530,7 +523,7 @@
             <p
               class="flow__label flow__label--out"
               data-side="end"
-              style="--x: 856; --y: 132"
+              style="--x: 856; --y: 150"
             >
               What to fix today
             </p>
@@ -572,6 +565,52 @@
           <h2 id="sources-title" class="sr-only">
             What Leavory connects to and checks against
           </h2>
+          <div class="stamp stamp--sources" aria-hidden="true">
+            <svg class="stamp__ring" viewBox="0 0 200 200">
+              <path
+                id="stamp-sources"
+                fill="none"
+                d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"
+              ></path>
+              <text transform="rotate(215.04 100 100)">
+                <textPath
+                  href="#stamp-sources"
+                  textLength="486"
+                  lengthAdjust="spacing"
+                >
+                  Your pipelines • Public advisories • One list to fix •
+                </textPath>
+              </text>
+            </svg>
+            <svg class="stamp__mark" viewBox="3 1.5 18 21.5">
+              <mask
+                id="i-mark-m"
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="24"
+                height="24"
+              >
+                <path
+                  d="M3 1.5H21V11.2C21 16.6 17.3 20.6 12 23 6.7 20.6 3 16.6 3 11.2Z"
+                  fill="#fff"
+                ></path>
+                <path d="M15 -6 L-6 15" stroke="#000" stroke-width="1.6"></path>
+                <path
+                  d="M21.5 -6 L-6 21.5"
+                  stroke="#000"
+                  stroke-width="1.6"
+                ></path>
+                <path d="M28 -6 L-6 28" stroke="#000" stroke-width="1.6"></path>
+              </mask>
+              <rect
+                width="24"
+                height="24"
+                fill="currentColor"
+                mask="url(#i-mark-m)"
+              ></rect>
+            </svg>
+          </div>
           <div class="sources__grid">
             <div class="sources__group">
               <p class="mono">Connects to</p>
@@ -2414,21 +2453,48 @@
               aria-label="Example of the Leavory workspace: findings ranked by priority, with the selected finding explained in plain language and a recommended fix."
             >
               <div class="app__top">
-                <span class="app__mark"
-                  ><svg
-                    width="13"
-                    height="13"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
+                <svg
+                  class="app__mark"
+                  width="17"
+                  height="20"
+                  aria-hidden="true"
+                  viewBox="3 1.5 18 21.5"
+                >
+                  <mask
+                    id="i-mark-m"
+                    maskUnits="userSpaceOnUse"
+                    x="0"
+                    y="0"
+                    width="24"
+                    height="24"
                   >
                     <path
-                      d="M12 2.8 19.5 6v6.2c0 4.6-3.3 7.9-7.5 9.2-4.2-1.3-7.5-4.6-7.5-9.2V6Z"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linejoin="round"
-                    ></path></svg
-                ></span>
+                      d="M3 1.5H21V11.2C21 16.6 17.3 20.6 12 23 6.7 20.6 3 16.6 3 11.2Z"
+                      fill="#fff"
+                    ></path>
+                    <path
+                      d="M15 -6 L-6 15"
+                      stroke="#000"
+                      stroke-width="1.6"
+                    ></path>
+                    <path
+                      d="M21.5 -6 L-6 21.5"
+                      stroke="#000"
+                      stroke-width="1.6"
+                    ></path>
+                    <path
+                      d="M28 -6 L-6 28"
+                      stroke="#000"
+                      stroke-width="1.6"
+                    ></path>
+                  </mask>
+                  <rect
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    mask="url(#i-mark-m)"
+                  ></rect>
+                </svg>
                 <span class="app__crumb"
                   >Your organization <span aria-hidden="true">/</span>
                   <strong>Vulnerability intelligence</strong></span
@@ -3811,17 +3877,13 @@
           </div>
           <div class="boundary" aria-hidden="true">
             <div class="stamp stamp--seal" aria-hidden="true">
-              <svg
-                class="stamp__ring"
-                viewBox="0 0 200 200"
-                style="--turn: 226.19999999999993deg"
-              >
+              <svg class="stamp__ring" viewBox="0 0 200 200">
                 <path
                   id="stamp-trust"
                   fill="none"
                   d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"
                 ></path>
-                <text>
+                <text transform="rotate(215.04 100 100)">
                   <textPath
                     href="#stamp-trust"
                     textLength="486"
@@ -3895,7 +3957,7 @@
           data-bars="7"
           data-zones="0.03-0.28,0.72-0.97"
           aria-hidden="true"
-          style="--travel: 837px"
+          style="--travel: 681px"
         >
           <span
             class="lines__bar"
@@ -3906,7 +3968,7 @@
               --delay: -0s;
               --rest: 27%;
               left: 132px;
-              transform: matrix(1, 0, 0, 1, 0, 795.212);
+              transform: matrix(1, 0, 0, 1, 0, 667.29);
             "
           ></span
           ><span
@@ -3918,7 +3980,7 @@
               --delay: -0.39s;
               --rest: 10%;
               left: 1260px;
-              transform: matrix(1, 0, 0, 1, 0, 734.929);
+              transform: matrix(1, 0, 0, 1, 0, 617.475);
             "
           ></span
           ><span
@@ -3930,7 +3992,7 @@
               --delay: -4.8s;
               --rest: 66%;
               left: 180px;
-              transform: matrix(1, 0, 0, 1, 0, 41.1858);
+              transform: matrix(1, 0, 0, 1, 0, 42.6097);
             "
           ></span
           ><span
@@ -3942,7 +4004,7 @@
               --delay: -1.35s;
               --rest: 50%;
               left: 1200px;
-              transform: matrix(1, 0, 0, 1, 0, 562.115);
+              transform: matrix(1, 0, 0, 1, 0, 475.926);
             "
           ></span
           ><span
@@ -3954,7 +4016,7 @@
               --delay: -2.09s;
               --rest: 17%;
               left: 264px;
-              transform: matrix(1, 0, 0, 1, 0, 478.539);
+              transform: matrix(1, 0, 0, 1, 0, 404.813);
             "
           ></span
           ><span
@@ -3966,7 +4028,7 @@
               --delay: -6.35s;
               --rest: 65%;
               left: 1080px;
-              transform: matrix(1, 0, 0, 1, 0, 144.708);
+              transform: matrix(1, 0, 0, 1, 0, 143.978);
             "
           ></span
           ><span
@@ -3978,61 +4040,11 @@
               --delay: -0.42s;
               --rest: 5%;
               left: 48px;
-              transform: matrix(1, 0, 0, 1, 0, 681.171);
+              transform: matrix(1, 0, 0, 1, 0, 583.705);
             "
           ></span>
         </div>
         <div class="wrap cta__inner is-visible" data-reveal="">
-          <div class="stamp stamp--cta" aria-hidden="true">
-            <svg
-              class="stamp__ring"
-              viewBox="0 0 200 200"
-              style="--turn: 226.19999999999993deg"
-            >
-              <path
-                id="stamp-brand"
-                fill="none"
-                d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"
-              ></path>
-              <text>
-                <textPath
-                  href="#stamp-brand"
-                  textLength="486"
-                  lengthAdjust="spacing"
-                >
-                  Vulnerability meets Quality of Service •
-                </textPath>
-              </text>
-            </svg>
-            <svg class="stamp__mark" viewBox="3 1.5 18 21.5">
-              <mask
-                id="i-mark-m"
-                maskUnits="userSpaceOnUse"
-                x="0"
-                y="0"
-                width="24"
-                height="24"
-              >
-                <path
-                  d="M3 1.5H21V11.2C21 16.6 17.3 20.6 12 23 6.7 20.6 3 16.6 3 11.2Z"
-                  fill="#fff"
-                ></path>
-                <path d="M15 -6 L-6 15" stroke="#000" stroke-width="1.6"></path>
-                <path
-                  d="M21.5 -6 L-6 21.5"
-                  stroke="#000"
-                  stroke-width="1.6"
-                ></path>
-                <path d="M28 -6 L-6 28" stroke="#000" stroke-width="1.6"></path>
-              </mask>
-              <rect
-                width="24"
-                height="24"
-                fill="currentColor"
-                mask="url(#i-mark-m)"
-              ></rect>
-            </svg>
-          </div>
           <h2 id="demo-title">See Leavory in action.</h2>
           <p>
             Tell us which platform you use, and an engineer, not a sales bot,

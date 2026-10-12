@@ -56,10 +56,10 @@ if (figs.length !== 3 || steps.length !== 4 || caps.length !== 5)
 
 const stampEl = inline(
   pick(
-    /<div class="stamp stamp--cta"[\s\S]*?<svg class="stamp__mark">[\s\S]*?<\/svg>\s*<\/div>/,
+    /<div class="stamp stamp--sources"[\s\S]*?<svg class="stamp__mark">[\s\S]*?<\/svg>\s*<\/div>/,
     "stamp",
   ),
-).replace(" stamp--cta", "");
+).replace(" stamp--sources", "");
 
 /* ---------- Doc helpers ---------- */
 const section = (no, title, lede, body) => `
@@ -620,11 +620,11 @@ const components = section(
         tile(
           `<div class="sg-center sg-pad">${stampEl}</div>`,
           "Stamp",
-          "Isotype + ring text, Plex Mono Medium 14 · uppercase · 12%",
+          "Liquid glass disc · isotype + ring text, Plex Mono Medium 14 · uppercase · 12%",
           "Ring turns with the page scroll",
         ),
         tile(
-          `<div class="sg-center sg-pad" style="flex-direction:column;align-items:flex-start;gap:12px"><p class="t-body">Security — seal on the corner of the diagram</p><p class="t-body">Demo — signature above the title</p></div>`,
+          `<div class="sg-center sg-pad" style="flex-direction:column;align-items:flex-start;gap:12px"><p class="t-body">Security — seal on the corner of the diagram</p><p class="t-body">Sources — signature beside the integrations</p></div>`,
           "Placement",
           "Two uses per page at most",
         ),
