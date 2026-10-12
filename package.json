@@ -1,0 +1,17 @@
+{
+  "name": "leavory",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test:e2e": "playwright test",
+    "format": "prettier --write site tests scripts playwright.config.ts package.json README.md docs",
+    "format:check": "prettier --check site tests scripts playwright.config.ts package.json README.md docs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "prettier": "^3.9.9"
+  }
+}

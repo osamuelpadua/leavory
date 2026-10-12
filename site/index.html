@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1E1C1B" />
+    <title>Leavory — Know exactly which vulnerabilities to fix first</title>
+    <meta
+      name="description"
+      content="Leavory turns the scan results from your Azure DevOps, GitHub, and GitLab pipelines into a short list of what to fix today."
+    />
+    <meta
+      property="og:title"
+      content="Leavory — Know exactly which vulnerabilities to fix first"
+    />
+    <meta
+      property="og:description"
+      content="Your pipeline results, the context that matters, and a clear path to the fix."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link
+      rel="preload"
+      href="fonts/archivo-wdth.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      // Decide before first paint: play the opening once per session, and
+      // never when the visitor arrives on a specific section.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          if (!sessionStorage.getItem("leavory-intro") && !location.hash)
+            root.classList.add("has-intro");
+        } catch (e) {}
+      })();
+    </script>
+    <script src="js/main.js" defer></script>
+    <script src="js/hero-scan.js" defer></script>
+  </head>
+  <body>
+    <svg class="sprite" width="0" height="0" aria-hidden="true">
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path
+          d="M7 17 17 7M8 7h9v9"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path
+          d="M3 7h18M3 12h18M3 17h18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path
+          d="M5 5l14 14M19 5 5 19"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path
+          d="M12 2.8 19.5 6v6.2c0 4.6-3.3 7.9-7.5 9.2-4.2-1.3-7.5-4.6-7.5-9.2V6Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-code" viewBox="0 0 24 24">
+        <path
+          d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path
+          d="m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <path
+          d="M4 20V4M4 20h16M8 16l4-5 3 3 5-7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-branch" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M6 3v12" />
+          <circle cx="18" cy="6" r="3" />
+          <circle cx="6" cy="18" r="3" />
+          <path d="M18 9a9 9 0 0 1-9 9" />
+        </g>
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"
+        />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </g>
+      </symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24">
+        <path
+          d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        />
+      </symbol>
+      <symbol id="i-pipe" viewBox="0 0 24 24">
+        <path
+          d="M4 6h10a4 4 0 0 1 0 8H10a4 4 0 0 0 0 8h10"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-box" viewBox="0 0 24 24">
+        <path
+          d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 9 8-4.5M12 12v9M12 12 4 7.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="i-pulse" viewBox="0 0 24 24">
+        <path
+          d="M3 12h4l3-7 4 14 3-7h4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        />
+      </symbol>
+      <symbol id="i-azure" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="m2 8 4-3v11l12 4V4l4-2v20l-16-4-4-6Zm4-3 8-3v4L6 9Zm0 11 8 2v4l-8-4Z"
+        />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.84.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.55 9.55 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.69 0 3.85-2.34 4.7-4.58 4.94.36.31.68.92.68 1.86v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+        />
+      </symbol>
+      <symbol id="i-gitlab" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+        >
+          <path d="m12 21 9-7-3-11-3 8H9L6 3 3 14l9 7Z" />
+          <path d="m3 14 6-3 3 10 3-10 6 3M9 11h6" />
+        </g>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="1" />
+          <path d="m3 6 9 7 9-7" />
+        </g>
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.140 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
+        />
+      </symbol>
+    </svg>
+
+    <!-- ============ OPENING ============ -->
+    <div class="intro" id="intro">
+      <div class="intro__panel intro__panel--a"></div>
+      <div class="intro__panel intro__panel--b"></div>
+      <div class="intro__stage" aria-hidden="true">
+        <p class="intro__word intro__word--v" data-word="Vulnerability"></p>
+        <p
+          class="intro__word intro__word--q"
+          data-word="Quality of Service"
+        ></p>
+        <p class="intro__brand" data-word="Leavory"></p>
+        <p class="intro__caption">Vulnerability meets Quality of Service</p>
+      </div>
+      <button class="intro__skip" type="button">Skip intro</button>
+    </div>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+      <div class="wrap header__inner">
+        <a href="#" class="logo" aria-label="Leavory home">
+          <span class="logo__mark"
+            ><svg width="17" height="17" aria-hidden="true">
+              <use href="#i-shield" /></svg
+          ></span>
+          <span class="logo__word">Leavory</span>
+        </a>
+        <nav class="header__nav" aria-label="Main navigation">
+          <a href="#product">Product</a>
+          <a href="#roles">Who it’s for</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#platform">Platform</a>
+          <a href="#intelligence">Intelligence</a>
+        </nav>
+        <a class="btn btn--red btn--sm header__cta" href="#demo"
+          >Request a demo</a
+        >
+        <button
+          class="header__toggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="mobile-navigation"
+        >
+          <svg class="icon-open" width="22" height="22" aria-hidden="true">
+            <use href="#i-menu" />
+          </svg>
+          <svg class="icon-close" width="22" height="22" aria-hidden="true">
+            <use href="#i-close" />
+          </svg>
+        </button>
+      </div>
+      <nav
+        id="mobile-navigation"
+        class="mobile-nav"
+        aria-label="Mobile navigation"
+        hidden
+      >
+        <a href="#product">Product</a>
+        <a href="#roles">Who it’s for</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#platform">Platform</a>
+        <a href="#intelligence">Intelligence</a>
+        <a href="#demo" class="btn btn--red">Request a demo</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ============ HERO ============ -->
+      <section class="hero dark" aria-labelledby="hero-title">
+        <div class="hero__stage">
+          <div class="wrap hero__inner">
+            <div class="hero__copy" data-enter>
+              <h1 id="hero-title" class="hero__title">
+                Know exactly which vulnerabilities to fix first.
+              </h1>
+              <p class="hero__lede">
+                Leavory turns the scan results from your Azure DevOps, GitHub,
+                and GitLab pipelines into a short list of what to fix today.
+              </p>
+              <div class="hero__actions">
+                <a class="btn btn--red" href="#demo">Request a demo</a>
+                <a class="btn btn--line-light" href="#how-it-works"
+                  >See how it works</a
+                >
+              </div>
+              <p class="hero__note">
+                A short walkthrough with an engineer, not a sales bot.
+              </p>
+            </div>
+            <div class="hero__object obj" data-enter aria-hidden="true">
+              <picture>
+                <source
+                  media="(max-width: 760px)"
+                  srcset="img/obj-scan-640.webp"
+                  width="640"
+                  height="640"
+                />
+                <img
+                  src="img/obj-scan-1000.webp"
+                  width="1000"
+                  height="1000"
+                  alt=""
+                  fetchpriority="high"
+                />
+              </picture>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product window: the protagonist -->
+        <div class="hero__product">
+          <div class="wrap">
+            <figure
+              class="app"
+              data-enter
+              aria-label="Example of the Leavory workspace: findings ranked by priority, with the selected finding explained in plain language and a recommended fix."
+            >
+              <div class="app__top">
+                <span class="app__mark"
+                  ><svg width="13" height="13" aria-hidden="true">
+                    <use href="#i-shield" /></svg
+                ></span>
+                <span class="app__crumb"
+                  >Your organization <span aria-hidden="true">/</span>
+                  <strong>Vulnerability intelligence</strong></span
+                >
+                <span class="app__search"
+                  ><svg width="14" height="14" aria-hidden="true">
+                    <use href="#i-search" /></svg
+                  >Search findings</span
+                >
+              </div>
+              <div class="app__body">
+                <div class="app__nav" aria-hidden="true">
+                  <p>Platform</p>
+                  <ul>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-grid" /></svg
+                      >Dashboard
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-layers" /></svg
+                      >Projects &amp; DORA
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-pulse" /></svg
+                      >Repository health
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-pipe" /></svg
+                      >Pipelines
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-box" /></svg
+                      >Images
+                    </li>
+                  </ul>
+                  <p>Intelligence</p>
+                  <ul>
+                    <li class="is-on">
+                      <svg width="15" height="15"><use href="#i-shield" /></svg
+                      >Vulnerabilities
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-branch" /></svg
+                      >Impact analysis
+                    </li>
+                    <li>
+                      <svg width="15" height="15"><use href="#i-spark" /></svg
+                      >AI remediation
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="app__list">
+                  <div class="app__head">
+                    <div>
+                      <p class="app__title">Fix first</p>
+                      <p class="app__sub">
+                        Ranked by active exploitation and exploitation
+                        probability
+                      </p>
+                    </div>
+                    <div class="app__tabs" aria-hidden="true">
+                      <span class="is-on">All <b>6</b></span>
+                      <span>New <b>3</b></span>
+                      <span>AI analyzed <b>3</b></span>
+                    </div>
+                  </div>
+                  <table class="ftable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Finding</th>
+                        <th scope="col">Severity</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="is-selected">
+                        <td>
+                          <span class="ftable__name"
+                            >JWT token without expiration</span
+                          ><span class="ftable__repo">auth-service</span>
+                        </td>
+                        <td><span class="sev sev--critical">Critical</span></td>
+                        <td><span class="status">New</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >Secret in environment variable</span
+                          ><span class="ftable__repo">payments-api</span>
+                        </td>
+                        <td><span class="sev sev--critical">Critical</span></td>
+                        <td>
+                          <span class="status status--ai">AI analyzed</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >AWS access key committed</span
+                          ><span class="ftable__repo">infra-terraform</span>
+                        </td>
+                        <td><span class="sev sev--secret">Secret</span></td>
+                        <td>
+                          <span class="status status--ai">AI analyzed</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >SQL injection in /orders</span
+                          ><span class="ftable__repo">mobile-gateway</span>
+                        </td>
+                        <td><span class="sev sev--high">High</span></td>
+                        <td><span class="status">New</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >Dependency with unpatched CVE</span
+                          ><span class="ftable__repo">checkout-web</span>
+                        </td>
+                        <td><span class="sev sev--high">High</span></td>
+                        <td><span class="status">New</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="ftable__name"
+                            >Missing security header (CSP)</span
+                          ><span class="ftable__repo">billing-service</span>
+                        </td>
+                        <td><span class="sev sev--medium">Medium</span></td>
+                        <td>
+                          <span class="status status--ai">AI analyzed</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="app__detail">
+                  <div class="app__detail-head">
+                    <span class="sev sev--critical">Critical</span>
+                    <span class="status">New</span>
+                  </div>
+                  <p class="app__detail-title">JWT token without expiration</p>
+                  <p class="app__detail-meta">
+                    <svg width="13" height="13" aria-hidden="true">
+                      <use href="#i-branch" /></svg
+                    >auth-service
+                  </p>
+                  <div class="app__detail-tabs" aria-hidden="true">
+                    <span class="is-on">AI explanation</span><span>Fix</span>
+                  </div>
+                  <p class="app__label">
+                    <svg width="12" height="12" aria-hidden="true">
+                      <use href="#i-spark" /></svg
+                    >Why it matters
+                  </p>
+                  <p class="app__text">
+                    Tokens issued by this service never expire. If one leaks, it
+                    stays valid indefinitely and can be replayed against the
+                    API.
+                  </p>
+                  <p class="app__label">What to change first</p>
+                  <ol class="app__steps">
+                    <li>
+                      Add a short-lived <code>exp</code> claim when tokens are
+                      issued.
+                    </li>
+                    <li>Reject any token that arrives without one.</li>
+                  </ol>
+                  <span class="app__open"
+                    >Open in Azure DevOps
+                    <svg width="12" height="12" aria-hidden="true">
+                      <use href="#i-arrow" /></svg
+                  ></span>
+                </div>
+              </div>
+            </figure>
+            <p class="hero__caption">Example findings</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MANIFESTO ============ -->
+      <section
+        id="product"
+        class="manifesto dark"
+        aria-label="What Leavory does"
+      >
+        <div class="wrap manifesto__inner" data-reveal>
+          <p class="manifesto__text">
+            Leavory replaces tracking spreadsheets and scattered alerts with a
+            single place where
+            <em>risk, context, and recommendation</em> live together.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ INTEGRATIONS ============ -->
+      <section
+        id="integrations"
+        class="integrations dark"
+        aria-labelledby="integrations-title"
+      >
+        <div class="wrap integrations__inner">
+          <div class="integrations__copy" data-reveal>
+            <h2 id="integrations-title" class="kicker">Azure DevOps</h2>
+            <p class="integrations__sub">
+              See the risk across your whole organization.
+            </p>
+            <p class="integrations__text">
+              Leavory maps every project, repository, and pipeline, and a
+              ready-made Azure Pipelines template scans each build. Only the
+              results reach Leavory. Your code stays in Azure DevOps.
+            </p>
+            <ul class="rings">
+              <li>
+                <strong>Mirrors your organization.</strong> Projects,
+                repositories, and pipelines are discovered in the hierarchy you
+                already use. Nothing to recreate or tag by hand.
+              </li>
+              <li>
+                <strong>Ready for Azure Pipelines.</strong> A ready-to-use
+                template runs Trivy and publishes the SBOM and scan artifacts.
+                No agents to install.
+              </li>
+              <li>
+                <strong>One click back to Azure DevOps.</strong> Every project,
+                repository, and pipeline links straight back to where your team
+                already works.
+              </li>
+            </ul>
+          </div>
+          <div class="integrations__stage">
+            <div
+              class="outline-type"
+              data-line1="Built for"
+              data-line2="Azure DevOps"
+              aria-hidden="true"
+            ></div>
+            <div class="integrations__object obj" aria-hidden="true">
+              <picture>
+                <source
+                  media="(max-width: 760px)"
+                  srcset="img/obj-orbit-560.webp"
+                  width="560"
+                  height="560"
+                />
+                <img
+                  src="img/obj-orbit-900.webp"
+                  width="900"
+                  height="900"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </div>
+          </div>
+          <div class="integrations__also" data-reveal>
+            <span class="integrations__marks" aria-hidden="true"
+              ><svg width="26" height="26"><use href="#i-github" /></svg
+              ><svg width="26" height="26"><use href="#i-gitlab" /></svg
+            ></span>
+            <p>
+              <strong>Also on GitHub or GitLab?</strong> They connect the same
+              way and land in the same view, which helps mid-migration or after
+              an acquisition.
+            </p>
+            <a class="btn btn--line-light" href="#how-it-works"
+              >See how it works</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WHO IT'S FOR ============ -->
+      <section id="roles" class="roles paper" aria-labelledby="roles-title">
+        <div class="wrap">
+          <div class="roles__head" data-reveal>
+            <h2 id="roles-title">Who it’s for</h2>
+            <div>
+              <p class="statement">
+                One platform, a different answer for each role.
+              </p>
+              <p class="roles__lede">
+                Pick your role and jump straight to the parts of Leavory built
+                for you.
+              </p>
+            </div>
+          </div>
+
+          <div class="folder" data-reveal>
+            <div class="roles__select">
+              <label for="role-select">Choose your role</label>
+              <select id="role-select">
+                <option value="0">Security teams</option>
+                <option value="1">Developers</option>
+                <option value="2">Platform and engineering managers</option>
+                <option value="3">Leadership and compliance</option>
+              </select>
+            </div>
+
+            <div
+              class="roles__tabs"
+              role="tablist"
+              aria-label="Choose your role"
+              aria-orientation="vertical"
+            >
+              <button
+                type="button"
+                role="tab"
+                id="tab-security"
+                aria-controls="panel-security"
+                aria-selected="true"
+                tabindex="0"
+              >
+                <span class="roles__icon"
+                  ><svg width="22" height="22" aria-hidden="true">
+                    <use href="#i-shield" /></svg></span
+                ><span class="roles__label">Security</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="tab-developers"
+                aria-controls="panel-developers"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <span class="roles__icon"
+                  ><svg width="22" height="22" aria-hidden="true">
+                    <use href="#i-code" /></svg></span
+                ><span class="roles__label">Developers</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="tab-platform"
+                aria-controls="panel-platform"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <span class="roles__icon"
+                  ><svg width="22" height="22" aria-hidden="true">
+                    <use href="#i-layers" /></svg></span
+                ><span class="roles__label">Platform</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="tab-leadership"
+                aria-controls="panel-leadership"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <span class="roles__icon"
+                  ><svg width="22" height="22" aria-hidden="true">
+                    <use href="#i-chart" /></svg></span
+                ><span class="roles__label">Leadership</span>
+              </button>
+            </div>
+
+            <div
+              class="role"
+              role="tabpanel"
+              id="panel-security"
+              aria-labelledby="tab-security"
+              tabindex="0"
+            >
+              <div class="role__copy">
+                <h3>Security teams</h3>
+                <p>
+                  Stop triaging thousands of CVEs. See only what hits your
+                  packages and is being exploited, and where a new CVE lands the
+                  moment it drops.
+                </p>
+                <ul class="rings rings--compact">
+                  <li>Vulnerability intelligence</li>
+                  <li>Impact analysis</li>
+                  <li>Image monitoring</li>
+                </ul>
+              </div>
+              <div class="mini" aria-hidden="true">
+                <p class="mini__title">Show findings that…</p>
+                <ul class="mini__checks">
+                  <li class="is-on">Hit your packages</li>
+                  <li class="is-on">Are actively exploited · CISA KEV</li>
+                  <li class="is-on">Are likely to be exploited · EPSS</li>
+                  <li>Everything else</li>
+                </ul>
+                <p class="mini__foot">
+                  New CVE? See every project it lands in.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="role"
+              role="tabpanel"
+              id="panel-developers"
+              aria-labelledby="tab-developers"
+              tabindex="0"
+              hidden
+            >
+              <div class="role__copy">
+                <h3>Developers</h3>
+                <p>
+                  Open your repository, see what is failing, and get the fix
+                  drafted down to the dependency and version to change.
+                </p>
+                <ul class="rings rings--compact">
+                  <li>Repository health</li>
+                  <li>AI remediation</li>
+                  <li>Pipelines</li>
+                </ul>
+              </div>
+              <div class="mini" aria-hidden="true">
+                <p class="mini__repo">
+                  <svg width="13" height="13"><use href="#i-branch" /></svg
+                  >checkout-web <span class="sev sev--high">High</span>
+                </p>
+                <p class="mini__title">Dependency with unpatched CVE</p>
+                <p class="mini__label">
+                  <svg width="11" height="11"><use href="#i-spark" /></svg
+                  >AI-drafted fix
+                </p>
+                <ol class="mini__steps">
+                  <li>Which dependency to change</li>
+                  <li>The version that resolves it</li>
+                  <li>The manifest to update</li>
+                </ol>
+              </div>
+            </div>
+
+            <div
+              class="role"
+              role="tabpanel"
+              id="panel-platform"
+              aria-labelledby="tab-platform"
+              tabindex="0"
+              hidden
+            >
+              <div class="role__copy">
+                <h3>Platform and engineering managers</h3>
+                <p>
+                  Every project, repository, and pipeline mapped on its own,
+                  with DORA metrics and health scores per team.
+                </p>
+                <ul class="rings rings--compact">
+                  <li>Projects and DORA metrics</li>
+                  <li>Pipelines</li>
+                  <li>Repository health</li>
+                </ul>
+              </div>
+              <div class="mini" aria-hidden="true">
+                <p class="mini__title">Your organization</p>
+                <ul class="mini__tree">
+                  <li>
+                    Project
+                    <ul>
+                      <li>auth-service</li>
+                      <li>checkout-web</li>
+                      <li>payments-api</li>
+                    </ul>
+                  </li>
+                </ul>
+                <p class="mini__tags">
+                  <span>DORA metrics</span><span>Health score per team</span>
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="role"
+              role="tabpanel"
+              id="panel-leadership"
+              aria-labelledby="tab-leadership"
+              tabindex="0"
+              hidden
+            >
+              <div class="role__copy">
+                <h3>Leadership and compliance</h3>
+                <p>
+                  Know in one screen whether you are safer than last week, with
+                  an executive summary and evidence ready for the next audit.
+                </p>
+                <ul class="rings rings--compact">
+                  <li>Dashboard</li>
+                  <li>Impact analysis</li>
+                  <li>AI remediation</li>
+                </ul>
+              </div>
+              <div class="mini" aria-hidden="true">
+                <p class="mini__title">Executive summary</p>
+                <p class="mini__question">Safer than last week?</p>
+                <svg
+                  class="mini__chart"
+                  viewBox="0 0 240 70"
+                  preserveAspectRatio="none"
+                >
+                  <path class="grid" d="M0 23H240M0 46H240" />
+                  <path
+                    class="line"
+                    d="M0 18 40 24 80 22 120 38 160 42 200 54 240 58"
+                  />
+                </svg>
+                <ul class="mini__checks">
+                  <li class="is-on">Evidence ready for the audit</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PRODUCT ============ -->
+      <section class="product dark" aria-labelledby="product-title">
+        <div class="wrap">
+          <div class="split" data-reveal>
+            <h2 id="product-title">
+              Everything your security team needs, without the noise.
+            </h2>
+            <p>
+              Each capability below shares the same context, so a finding moves
+              from detection to the right fix without changing tools.
+            </p>
+          </div>
+
+          <ul class="cards">
+            <li class="card cut" data-reveal>
+              <span class="card__icon"
+                ><svg width="22" height="22" aria-hidden="true">
+                  <use href="#i-branch" /></svg
+              ></span>
+              <h3>Automatic discovery</h3>
+              <p>
+                Connect once and Leavory maps projects, repositories, and
+                pipelines on its own, in the background.
+              </p>
+            </li>
+            <li class="card cut" data-reveal>
+              <span class="card__icon"
+                ><svg width="22" height="22" aria-hidden="true">
+                  <use href="#i-spark" /></svg
+              ></span>
+              <h3>AI that explains every finding</h3>
+              <p>
+                A plain-language read on whether it’s exploitable in practice
+                and what to change first, so you don’t dig through technical
+                reports.
+              </p>
+            </li>
+            <li class="card cut" data-reveal>
+              <span class="card__icon"
+                ><svg width="22" height="22" aria-hidden="true">
+                  <use href="#i-pulse" /></svg
+              ></span>
+              <h3>An always up-to-date vulnerability base</h3>
+              <p>
+                Continuous updates make sure no new CVE slips by unnoticed in
+                your code.
+              </p>
+            </li>
+          </ul>
+
+          <div class="modules">
+            <article id="platform" class="module cut" data-reveal>
+              <p class="module__eyebrow">Platform</p>
+              <h3>Your whole estate in one view.</h3>
+              <ul class="module__list">
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-grid" /></svg
+                  >Dashboard
+                </li>
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-layers" /></svg
+                  >Projects and DORA metrics
+                </li>
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-pulse" /></svg
+                  >Repository health
+                </li>
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-pipe" /></svg
+                  >Pipelines
+                </li>
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-box" /></svg
+                  >Images running in production
+                </li>
+              </ul>
+            </article>
+            <article
+              id="intelligence"
+              class="module module--red cut"
+              data-reveal
+            >
+              <p class="module__eyebrow">Intelligence</p>
+              <h3>From a new CVE to the fix.</h3>
+              <ul class="module__list">
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-shield" /></svg
+                  >Vulnerability intelligence
+                </li>
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-branch" /></svg
+                  >Impact analysis across every project
+                </li>
+                <li>
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href="#i-spark" /></svg
+                  >AI-drafted remediation
+                </li>
+              </ul>
+              <p class="module__note">
+                CISA KEV flags active exploitation. EPSS adds exploitation
+                probability.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ HOW IT WORKS ============ -->
+      <section
+        id="how-it-works"
+        class="flow paper"
+        aria-labelledby="flow-title"
+      >
+        <div class="wrap">
+          <div class="flow__head" data-reveal>
+            <h2 id="flow-title">From connected to fixed, in four steps.</h2>
+            <p>
+              Built on Trivy, the industry-standard scanner. The scanning stays
+              in your pipeline; the intelligence starts here.
+            </p>
+          </div>
+
+          <ol class="steps">
+            <li class="step cut" data-reveal>
+              <span class="step__no" aria-hidden="true">01</span>
+              <h3>Connect</h3>
+              <p>
+                Authorize your Azure DevOps organization in a few clicks, no
+                agents to install. GitHub and GitLab connect the same way.
+              </p>
+            </li>
+            <li class="step cut" data-reveal>
+              <span class="step__no" aria-hidden="true">02</span>
+              <h3>Scan with Trivy</h3>
+              <p>
+                Leavory runs Trivy in your pipeline. Never used Trivy? We hand
+                you a ready-to-use Azure Pipelines template (or GitHub Actions
+                and GitLab CI) that generates the SBOM and scan artifacts.
+              </p>
+            </li>
+            <li class="step cut" data-reveal>
+              <span class="step__no" aria-hidden="true">03</span>
+              <h3>Cross-reference</h3>
+              <p>
+                Every component is correlated against OSV, NVD, GitHub
+                Advisories, CVE.org, CISA KEV, and EPSS using the SBOM and
+                artifact metadata, no source code involved.
+              </p>
+            </li>
+            <li class="step step--fix cut" data-reveal>
+              <span class="step__no" aria-hidden="true">04</span>
+              <h3>Fix</h3>
+              <p>
+                Findings ranked by active exploitation (CISA KEV) and
+                exploitation probability (EPSS), with exactly what to change:
+                dependency, version, and manifest.
+              </p>
+            </li>
+          </ol>
+
+          <div
+            id="architecture"
+            class="trust cut"
+            data-reveal
+            role="region"
+            aria-labelledby="trust-title"
+          >
+            <div class="trust__copy">
+              <h3 id="trust-title">Leavory never reads your source code.</h3>
+              <p>
+                Trivy, SAST, Sonar, and secret scanning run inside your own
+                pipeline. Leavory only collects their results, SBOM, and scan
+                artifacts. In SaaS, it never touches your repositories at all.
+              </p>
+              <div class="trust__flow" aria-hidden="true">
+                <div class="trust__box">
+                  <span>Your pipeline</span>
+                  <strong>Trivy · SAST · Sonar · Secret scanning</strong>
+                </div>
+                <span class="trust__arrow"></span>
+                <div class="trust__box trust__box--out">
+                  <span>Leavory receives</span>
+                  <strong>Results · SBOM · Scan artifacts</strong>
+                </div>
+              </div>
+            </div>
+            <div class="trust__object obj" aria-hidden="true">
+              <img
+                src="img/obj-seal-700.webp"
+                width="700"
+                height="700"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DEMO ============ -->
+      <section id="demo" class="demo dark" aria-labelledby="demo-title">
+        <div class="wrap demo__inner">
+          <div class="demo__copy" data-reveal>
+            <h2 id="demo-title">See Leavory in action.</h2>
+            <p>
+              Tell us which platform you use, and an engineer, not a sales bot,
+              will reach out to schedule a demo.
+            </p>
+            <div class="demo__object obj" aria-hidden="true">
+              <img
+                src="img/obj-red-700.webp"
+                width="700"
+                height="700"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <form class="demo__form cut" data-reveal>
+            <fieldset>
+              <legend>Which platform do you use?</legend>
+              <label class="pick">
+                <input
+                  type="radio"
+                  name="platform"
+                  value="azure-devops"
+                  checked
+                />
+                <svg width="20" height="20" aria-hidden="true">
+                  <use href="#i-azure" /></svg
+                ><span>Azure DevOps</span>
+              </label>
+              <label class="pick">
+                <input type="radio" name="platform" value="github" />
+                <svg width="20" height="20" aria-hidden="true">
+                  <use href="#i-github" /></svg
+                ><span>GitHub</span>
+              </label>
+              <label class="pick">
+                <input type="radio" name="platform" value="gitlab" />
+                <svg width="20" height="20" aria-hidden="true">
+                  <use href="#i-gitlab" /></svg
+                ><span>GitLab</span>
+              </label>
+            </fieldset>
+            <label for="demo-email" class="demo__label">Work email</label>
+            <div class="demo__email">
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="#i-mail" />
+              </svg>
+              <input
+                id="demo-email"
+                name="email"
+                type="email"
+                placeholder="you@yourcompany.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn--red btn--block">
+              Request a demo
+            </button>
+            <p class="demo__note">A real conversation with an engineer.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer dark">
+      <div class="wrap footer__inner">
+        <a href="#" class="logo" aria-label="Leavory home">
+          <span class="logo__mark"
+            ><svg width="17" height="17" aria-hidden="true">
+              <use href="#i-shield" /></svg
+          ></span>
+          <span class="logo__word">Leavory</span>
+        </a>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="#product">Product</a>
+          <a href="#roles">Who it’s for</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#platform">Platform</a>
+          <a href="#intelligence">Intelligence</a>
+        </nav>
+        <a
+          class="footer__social"
+          href="https://www.linkedin.com/company/leavory-security/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><svg width="16" height="16" aria-hidden="true">
+            <use href="#i-linkedin" /></svg
+          >Follow us on LinkedIn</a
+        >
+      </div>
+      <div class="wrap footer__bottom">
+        <small>© 2026 Leavory. All rights reserved.</small>
+        <small>Vulnerability meets Quality of Service</small>
+      </div>
+    </footer>
+  </body>
+</html>
