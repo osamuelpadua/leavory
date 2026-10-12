@@ -216,7 +216,7 @@ input {
   font-weight: 540;
   letter-spacing: -0.04em;
 }
-/* The isotype: a shield cut by the site's hairlines, one segment red. */
+/* The isotype: a solid shield cut by three thin diagonal lines. */
 .logo__mark {
   flex: none;
   width: 24px;
