@@ -829,7 +829,7 @@ input {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .fig {
-  padding: 18px 32px 56px;
+  padding: 48px 32px 56px;
 }
 .fig:first-child {
   padding-left: 0;
@@ -837,13 +837,10 @@ input {
 .fig + .fig {
   border-left: 1px solid var(--line);
 }
-.fig__no {
-  font-size: 11px;
-}
 .iso {
   width: 100%;
   height: clamp(200px, 21vw, 260px);
-  margin: 24px 0 36px;
+  margin: 0 0 36px;
   overflow: visible;
 }
 /* Tonal shapes, no outlines: each face is opaque ink under a white or red
@@ -901,7 +898,7 @@ input {
   font-size: 15px;
   font-weight: 600;
 }
-.fig p:not(.fig__no) {
+.fig p {
   max-width: 30ch;
   margin-top: 8px;
   font-size: 15px;
@@ -2091,7 +2088,7 @@ input {
   }
   .fig,
   .fig:first-child {
-    padding: 18px 0 48px;
+    padding: 40px 0 48px;
   }
   .fig + .fig {
     border-left: 0;
