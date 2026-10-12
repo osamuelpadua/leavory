@@ -273,10 +273,10 @@ test.describe("landing page", () => {
     );
   });
 
-  test("the design system and the Figma copy load cleanly and stay out of search", async ({
+  test("the design system, the Figma copy and the rationale load cleanly and stay out of search", async ({
     page,
   }) => {
-    for (const path of ["/styleguide/", "/figma/"]) {
+    for (const path of ["/styleguide/", "/figma/", "/rationale/"]) {
       const errors: string[] = [];
       const failed: string[] = [];
       page.on("pageerror", (error) => errors.push(error.message));
@@ -291,7 +291,7 @@ test.describe("landing page", () => {
       );
       expect(errors).toEqual([]);
       expect(failed).toEqual([]);
-      if (path === "/styleguide/") {
+      if (path !== "/figma/") {
         const audit = await new AxeBuilder({ page })
           .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
           .analyze();

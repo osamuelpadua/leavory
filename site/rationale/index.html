@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1E1C1B" />
+    <meta name="robots" content="noindex" />
+    <title>Leavory — Creative rationale</title>
+    <meta
+      name="description"
+      content="Why the new Leavory home page looks the way it does: the problem, the decisions, the references and the mark."
+    />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link
+      rel="preload"
+      href="../fonts/geist.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="rationale.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <svg class="sprite" width="0" height="0" aria-hidden="true">
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path
+          d="M7 17 17 7M8 7h9v9"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        />
+      </symbol>
+      <symbol id="i-mark" viewBox="3 1.5 18 21.5">
+        <mask
+          id="i-mark-m"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="24"
+          height="24"
+        >
+          <path
+            d="M3 1.5H21V11.2C21 16.6 17.3 20.6 12 23 6.7 20.6 3 16.6 3 11.2Z"
+            fill="#fff"
+          />
+          <path d="M15 -6 L-6 15" stroke="#000" stroke-width="1.6" />
+          <path d="M21.5 -6 L-6 21.5" stroke="#000" stroke-width="1.6" />
+          <path d="M28 -6 L-6 28" stroke="#000" stroke-width="1.6" />
+        </mask>
+        <rect
+          width="24"
+          height="24"
+          fill="currentColor"
+          mask="url(#i-mark-m)"
+        />
+      </symbol>
+    </svg>
+
+    <header class="rt-bar">
+      <div class="wrap rt-bar__inner">
+        <a href="../" class="logo" aria-label="Leavory home page">
+          <svg class="logo__mark" width="24" height="24" aria-hidden="true">
+            <use href="#i-mark" />
+          </svg>
+          <span>Leavory</span>
+        </a>
+        <p class="mono rt-bar__title">Creative rationale</p>
+        <nav class="rt-bar__links" aria-label="Project pages">
+          <a href="../">Home page</a>
+          <a href="../styleguide/">Design system</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ============ COVER ============ -->
+      <section class="rt-cover" aria-labelledby="cover-title">
+        <div class="wrap rt-cover__inner">
+          <div>
+            <p class="eyebrow">Creative rationale · Home page</p>
+            <h1 id="cover-title">A site only Leavory could have.</h1>
+            <p class="rt-lede">
+              Why the new home page looks the way it does: what was wrong with
+              the current site, the decisions behind the new one, where the
+              references came from, and what the mark means.
+            </p>
+            <ol class="rt-toc">
+              <li>
+                <a href="#problem"><span>01</span>The problem</a>
+              </li>
+              <li>
+                <a href="#goal"><span>02</span>The goal</a>
+              </li>
+              <li>
+                <a href="#decisions"><span>03</span>The decisions</a>
+              </li>
+              <li>
+                <a href="#references"><span>04</span>References</a>
+              </li>
+              <li>
+                <a href="#hero"><span>05</span>The hero</a>
+              </li>
+              <li>
+                <a href="#mark"><span>06</span>The mark</a>
+              </li>
+              <li>
+                <a href="#home"><span>07</span>The home page</a>
+              </li>
+              <li>
+                <a href="#next"><span>08</span>Next steps</a>
+              </li>
+            </ol>
+          </div>
+          <div class="stamp rt-cover__stamp" aria-hidden="true">
+            <svg class="stamp__ring" viewBox="0 0 200 200">
+              <path
+                id="stamp-rationale"
+                fill="none"
+                d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"
+              />
+              <text>
+                <textPath
+                  href="#stamp-rationale"
+                  textLength="486"
+                  lengthAdjust="spacing"
+                >
+                  Personality • Consistency • One system • Leavory •
+                </textPath>
+              </text>
+            </svg>
+            <svg class="stamp__mark"><use href="#i-mark" /></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 01 PROBLEM ============ -->
+      <section id="problem" class="rt-section" aria-labelledby="problem-title">
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">01</p>
+            <div>
+              <h2 id="problem-title">
+                The current site could belong to anyone.
+              </h2>
+              <p class="rt-lede">
+                Today’s leavory.com is built from the defaults of AI-generated
+                SaaS pages. Each piece works on its own; together they read as a
+                template, what people now call <em>AI slop</em>. And blue is the
+                default colour of security software, so next to the rest of the
+                category the site simply disappears.
+              </p>
+            </div>
+          </header>
+
+          <div class="rt-shots">
+            <figure class="rt-shot">
+              <img
+                src="img/old-hero.jpg"
+                width="1440"
+                height="900"
+                alt="The current Leavory site: a blue gradient hero with a white headline, a blue button and a list of findings on the right."
+                loading="lazy"
+              />
+              <figcaption class="mono">Current site · first screen</figcaption>
+            </figure>
+            <figure class="rt-shot">
+              <img
+                src="img/old-cards.jpg"
+                width="1440"
+                height="900"
+                alt="The current site's role section: four identical dark cards, each with an icon in a rounded tile and a list of blue arrow links."
+                loading="lazy"
+              />
+              <figcaption class="mono">
+                Current site · the icon-card grid that repeats down the page
+              </figcaption>
+            </figure>
+          </div>
+
+          <h3 class="rt-sub">The signs of a template</h3>
+          <ul class="rt-list rt-list--cols">
+            <li>
+              <b>A blue gradient hero.</b> The colour, and the composition, of
+              most of the category.
+            </li>
+            <li>
+              <b>A shield icon in a rounded square.</b> It reads as an app icon,
+              not as a mark.
+            </li>
+            <li>
+              <b>Icon tiles on identical cards.</b> The same card, four times
+              per section, in every section.
+            </li>
+            <li>
+              <b>Blue arrow links everywhere.</b> Every card points somewhere
+              else, so nothing stands out.
+            </li>
+            <li>
+              <b>Glowing blue buttons and a theme toggle.</b> Features of the
+              template, not of the product.
+            </li>
+            <li>
+              <b>No idea of its own.</b> Take the name off and it could sell any
+              security product.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ 02 GOAL ============ -->
+      <section id="goal" class="rt-section" aria-labelledby="goal-title">
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">02</p>
+            <div>
+              <h2 id="goal-title">Personality, held together by a system.</h2>
+              <p class="rt-lede">
+                The brief was not a new coat of paint. It was a site that could
+                only be Leavory’s, and that stays that way as it grows.
+              </p>
+            </div>
+          </header>
+          <ol class="rt-goals">
+            <li>
+              <span class="mono">01</span>
+              <h3>Personality</h3>
+              <p>
+                A look that is recognisably Leavory’s, built from the product’s
+                own story instead of the category’s habits.
+              </p>
+            </li>
+            <li>
+              <span class="mono">02</span>
+              <h3>Consistency</h3>
+              <p>
+                One colour logic, one type pairing, one line language, used the
+                same way in every section.
+              </p>
+            </li>
+            <li>
+              <span class="mono">03</span>
+              <h3>One system</h3>
+              <p>
+                Everything documented in a design system generated from the page
+                itself, so the next pages start from the same parts.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ 03 DECISIONS ============ -->
+      <section
+        id="decisions"
+        class="rt-section"
+        aria-labelledby="decisions-title"
+      >
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">03</p>
+            <div>
+              <h2 id="decisions-title">The decisions.</h2>
+              <p class="rt-lede">
+                Four choices carry the identity. Each one comes from what
+                Leavory does.
+              </p>
+            </div>
+          </header>
+
+          <article class="rt-decision">
+            <div>
+              <h3>Red, black and white. Nothing else.</h3>
+              <p>
+                In security, red already means <em>act on this</em>. Leavory’s
+                whole job is telling a team what to fix first, so red is
+                reserved for exactly that: critical findings, the Fix step, the
+                mark. The background is a warm ink, not the navy of the
+                category, and white carries the reading.
+              </p>
+              <p>
+                Every other tone on the page is one of these four with
+                transparency. An automated test fails if any other colour
+                reaches the screen.
+              </p>
+            </div>
+            <ul class="rt-swatches" aria-label="Palette">
+              <li>
+                <span class="rt-chip" style="background: #c62a3d"></span
+                ><b>Red</b><span class="mono">#C62A3D</span>
+              </li>
+              <li>
+                <span class="rt-chip" style="background: #d21e38"></span
+                ><b>Red type</b><span class="mono">#D21E38</span>
+              </li>
+              <li>
+                <span class="rt-chip rt-chip--ink"></span><b>Ink</b
+                ><span class="mono">#1E1C1B</span>
+              </li>
+              <li>
+                <span class="rt-chip" style="background: #ffffff"></span
+                ><b>White</b><span class="mono">#FFFFFF</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="rt-decision">
+            <div>
+              <h3>A reading face and a data face.</h3>
+              <p>
+                Geist sets everything you read, tight and confident in the
+                headlines. IBM Plex Mono sets labels, numbers and data: the
+                repository names, severities and steps that are the product’s
+                own language. Large headlines split into two tones, grey then
+                white, so the point lands on the second half.
+              </p>
+            </div>
+            <div class="rt-type">
+              <p class="rt-type__display">
+                <span>Know exactly which vulnerabilities</span> to fix first.
+              </p>
+              <p class="rt-type__mono">auth-service · Critical · Step 04</p>
+            </div>
+          </article>
+
+          <article class="rt-decision">
+            <div>
+              <h3>Lines instead of boxes.</h3>
+              <p>
+                Structure comes from hairlines and rules, not from cards. Fields
+                of vertical lines frame the hero and the call to action. Glass
+                is kept for what floats or responds, like the header and the
+                controls. Icon tiles gave way to custom isometric figures, lit
+                from above, with one red piece each.
+              </p>
+            </div>
+            <div class="rt-lines" aria-hidden="true">
+              <span style="left: 18%; top: 22%; height: 34%"></span>
+              <span
+                class="is-red"
+                style="left: 42%; top: 46%; height: 30%"
+              ></span>
+              <span style="left: 66%; top: 12%; height: 42%"></span>
+              <span style="left: 84%; top: 58%; height: 24%"></span>
+            </div>
+          </article>
+
+          <article class="rt-decision">
+            <div>
+              <h3>Motion that explains.</h3>
+              <p>
+                Every animation tells part of the story: results travel from the
+                pipelines, a sweep finds the vulnerabilities, the ones that
+                matter leave for the list. A button in the hero pauses
+                everything, and with reduced motion turned on the page shows a
+                still frame instead.
+              </p>
+            </div>
+            <ol class="rt-steps" aria-label="The four steps">
+              <li>Connect</li>
+              <li>Scan</li>
+              <li>Cross-reference</li>
+              <li class="is-fix">Fix</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ 04 REFERENCES ============ -->
+      <section
+        id="references"
+        class="rt-section"
+        aria-labelledby="references-title"
+      >
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">04</p>
+            <div>
+              <h2 id="references-title">References, made our own.</h2>
+              <p class="rt-lede">
+                Two sites pointed the way for the hero and the motion. Nothing
+                was copied: the layout, the code and the content are original.
+              </p>
+            </div>
+          </header>
+          <div class="rt-refs">
+            <article class="rt-ref">
+              <p class="mono">Hero component</p>
+              <h3>
+                <a href="https://torq.io/" target="_blank" rel="noopener"
+                  >torq.io
+                  <svg width="14" height="14" aria-hidden="true">
+                    <use href="#i-arrow" /></svg
+                ></a>
+              </h3>
+              <dl>
+                <dt>What we took</dt>
+                <dd>
+                  A dark field with particles in depth and tonal tiles floating
+                  in it: a living system on the first screen instead of a
+                  screenshot of the product.
+                </dd>
+                <dt>What we made ours</dt>
+                <dd>
+                  The particles form a sphere, which is Leavory. The tiles are
+                  the customer’s pipelines and the public sources, wired into
+                  it. The four steps run live until the findings that matter
+                  leave, red, for the Fix first list.
+                </dd>
+              </dl>
+            </article>
+            <article class="rt-ref">
+              <p class="mono">Lines and motion</p>
+              <h3>
+                <a href="https://serro.ai/" target="_blank" rel="noopener"
+                  >serro.ai
+                  <svg width="14" height="14" aria-hidden="true">
+                    <use href="#i-arrow" /></svg
+                ></a>
+              </h3>
+              <dl>
+                <dt>What we took</dt>
+                <dd>
+                  Lines as the structure of the page, and motion that runs along
+                  them.
+                </dd>
+                <dt>What we made ours</dt>
+                <dd>
+                  Vertical hairlines every 12px with short bars drifting along
+                  them, one red per field. The same line comes back in the
+                  striped wordmark of the footer and in the cuts of the mark.
+                </dd>
+              </dl>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 05 HERO ============ -->
+      <section id="hero" class="rt-section" aria-labelledby="hero-title">
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">05</p>
+            <div>
+              <h2 id="hero-title">The hero is the product, in four steps.</h2>
+              <p class="rt-lede">
+                Instead of a picture of a dashboard, the first screen shows what
+                Leavory does, live, in the time it takes to read the headline.
+              </p>
+            </div>
+          </header>
+          <figure class="rt-shot rt-shot--wide">
+            <img
+              src="img/new-hero.jpg"
+              width="1440"
+              height="900"
+              alt="The new home page hero: pipelines and public sources on the left wired into a particle sphere, the four steps across it with Fix active in red, and the Fix first list on the right."
+              loading="lazy"
+            />
+            <figcaption class="mono">New home page · the Fix step</figcaption>
+          </figure>
+          <ol class="rt-annot">
+            <li>
+              <span class="mono">01</span>
+              <h3>Your pipelines and public sources</h3>
+              <p>
+                Azure DevOps, GitHub, GitLab and Trivy on top; OSV, NVD, KEV and
+                EPSS below. Each group enters through its own port.
+              </p>
+            </li>
+            <li>
+              <span class="mono">02</span>
+              <h3>Leavory</h3>
+              <p>
+                A sphere of particles, linked by a network of data. The findings
+                hide inside it until the Cross-reference sweep finds them, and a
+                target locks onto each one.
+              </p>
+            </li>
+            <li>
+              <span class="mono">03</span>
+              <h3>The four steps</h3>
+              <p>
+                Connect, Scan, Cross-reference, Fix, with live status notes. Fix
+                is the only step that turns red.
+              </p>
+            </li>
+            <li>
+              <span class="mono">04</span>
+              <h3>Fix first</h3>
+              <p>
+                The sphere mirrors the list: the two Critical findings shine the
+                brightest, then Secret and High, while minor ones only blink.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ 06 MARK ============ -->
+      <section id="mark" class="rt-section" aria-labelledby="mark-title">
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">06</p>
+            <div>
+              <h2 id="mark-title">A shield that lets results through.</h2>
+              <p class="rt-lede">
+                The current mark is a shield icon in a blue tile. The new one
+                keeps the shield, so it still reads as security at a glance, and
+                cuts it open to say what Leavory does differently.
+              </p>
+            </div>
+          </header>
+
+          <div class="rt-mark">
+            <div class="rt-mark__stage" aria-hidden="true">
+              <svg class="rt-mark__big">
+                <use href="#i-mark" />
+              </svg>
+            </div>
+            <figure class="rt-mark__build">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <defs>
+                  <clipPath id="build-clip">
+                    <rect x="1" y="0" width="22" height="24" />
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#build-clip)">
+                  <path
+                    class="rt-build__cut"
+                    d="M15 -6 L-6 15M21.5 -6 L-6 21.5M28 -6 L-6 28"
+                  />
+                </g>
+                <path
+                  class="rt-build__shield"
+                  d="M3 1.5H21V11.2C21 16.6 17.3 20.6 12 23 6.7 20.6 3 16.6 3 11.2Z"
+                />
+              </svg>
+              <figcaption class="mono">
+                Construction · shield + three cuts at 45°
+              </figcaption>
+            </figure>
+          </div>
+
+          <ol class="rt-concept">
+            <li>
+              <h3>The shield</h3>
+              <p>
+                The most familiar sign in security, kept on purpose. A new
+                visitor knows the category before reading a word.
+              </p>
+            </li>
+            <li>
+              <h3>The cuts</h3>
+              <p>
+                Leavory never reads your source code: only results, the SBOM and
+                scan artifacts leave the pipeline. The mark draws that promise.
+                It is not a closed wall but a shield with a way through. The
+                name carries the same idea: <em>leave</em>.
+              </p>
+            </li>
+            <li>
+              <h3>The diagonal</h3>
+              <p>
+                Rising lines give the mark a direction, from finding to fix.
+                They are the same line that structures the whole site, from the
+                hairlines to the striped wordmark, so the mark and the system
+                share one gesture.
+              </p>
+            </li>
+            <li>
+              <h3>Three</h3>
+              <p>
+                The fewest lines that make a rhythm, and the three platforms
+                Leavory connects: Azure DevOps, GitHub and GitLab.
+              </p>
+            </li>
+            <li>
+              <h3>The red</h3>
+              <p>
+                The mark is the one red that is always on screen. Everything
+                else red on the page is something to act on.
+              </p>
+            </li>
+          </ol>
+
+          <div class="rt-lockups">
+            <figure class="rt-lockup">
+              <span class="logo rt-lockup__logo">
+                <svg class="logo__mark" aria-hidden="true">
+                  <use href="#i-mark" />
+                </svg>
+                <span>Leavory</span>
+              </span>
+              <figcaption class="mono">
+                Lockup · Geist Medium, tracking −4% · mark at 1.2× the type
+              </figcaption>
+            </figure>
+            <figure class="rt-lockup rt-lockup--light">
+              <span class="logo rt-lockup__logo">
+                <svg class="logo__mark" aria-hidden="true">
+                  <use href="#i-mark" />
+                </svg>
+                <span>Leavory</span>
+              </span>
+              <figcaption class="mono">On light · single colour ink</figcaption>
+            </figure>
+            <figure class="rt-lockup">
+              <span class="rt-sizes">
+                <img src="../favicon.svg" width="48" height="48" alt="" />
+                <svg class="logo__mark" style="height: 32px" aria-hidden="true">
+                  <use href="#i-mark" />
+                </svg>
+                <svg class="logo__mark" style="height: 20px" aria-hidden="true">
+                  <use href="#i-mark" />
+                </svg>
+                <svg class="logo__mark" style="height: 16px" aria-hidden="true">
+                  <use href="#i-mark" />
+                </svg>
+              </span>
+              <figcaption class="mono">
+                Favicon and sizes · legible down to 16px
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 07 HOME ============ -->
+      <section id="home" class="rt-section" aria-labelledby="home-title">
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">07</p>
+            <div>
+              <h2 id="home-title">The home page.</h2>
+              <p class="rt-lede">
+                The same story as the current site, told in the new language,
+                from the promise in the hero to the demo request.
+              </p>
+            </div>
+          </header>
+          <div class="rt-compare">
+            <figure class="rt-shot">
+              <img
+                src="img/old-hero.jpg"
+                width="1440"
+                height="900"
+                alt="Before: the current site's blue gradient hero."
+                loading="lazy"
+              />
+              <figcaption class="mono">Before</figcaption>
+            </figure>
+            <figure class="rt-shot">
+              <img
+                src="img/new-hero.jpg"
+                width="1440"
+                height="900"
+                alt="After: the new hero with the live flow around the particle sphere."
+                loading="lazy"
+              />
+              <figcaption class="mono">After</figcaption>
+            </figure>
+          </div>
+          <ol class="rt-sections">
+            <li><span class="mono">01</span>Hero, with the live flow</li>
+            <li><span class="mono">02</span>Integrations and sources</li>
+            <li><span class="mono">03</span>Statement</li>
+            <li><span class="mono">04</span>Capabilities</li>
+            <li><span class="mono">05</span>From a new CVE to the fix</li>
+            <li><span class="mono">06</span>Built for Azure DevOps</li>
+            <li><span class="mono">07</span>Platform</li>
+            <li><span class="mono">08</span>Who it’s for</li>
+            <li><span class="mono">09</span>How it works</li>
+            <li><span class="mono">10</span>Security</li>
+            <li><span class="mono">11</span>Request a demo</li>
+          </ol>
+          <div class="rt-actions">
+            <a class="pill pill--light" href="../"
+              >Open the home page
+              <svg width="14" height="14" aria-hidden="true">
+                <use href="#i-arrow" /></svg
+            ></a>
+            <a class="rt-link" href="../styleguide/"
+              >Open the design system
+              <svg width="14" height="14" aria-hidden="true">
+                <use href="#i-arrow" /></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 08 NEXT ============ -->
+      <section
+        id="next"
+        class="rt-section rt-next"
+        aria-labelledby="next-title"
+      >
+        <div class="wrap">
+          <header class="rt-head">
+            <p class="rt-no">08</p>
+            <div>
+              <h2 id="next-title">Next steps.</h2>
+              <p class="rt-lede">
+                Once the home page is approved, after the next round of
+                adjustments, the work moves on to the inner pages, if they are
+                part of the scope, built from the same design system.
+              </p>
+            </div>
+          </header>
+          <ol class="rt-timeline">
+            <li>
+              <span class="mono">01</span>
+              <h3>Your feedback</h3>
+              <p>Comments on the direction, the hero and the mark.</p>
+            </li>
+            <li>
+              <span class="mono">02</span>
+              <h3>Adjustments</h3>
+              <p>A round of refinements on the home page.</p>
+            </li>
+            <li>
+              <span class="mono">03</span>
+              <h3>Approval</h3>
+              <p>The home page and the design system are signed off.</p>
+            </li>
+            <li class="is-fix">
+              <span class="mono">04</span>
+              <h3>Inner pages</h3>
+              <p>
+                If they are in scope, the next pages are built on the approved
+                system.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rt-footer">
+      <div class="wrap rt-footer__inner">
+        <span class="logo">
+          <svg class="logo__mark" width="24" height="24" aria-hidden="true">
+            <use href="#i-mark" />
+          </svg>
+          <span>Leavory</span>
+        </span>
+        <p class="mono">Creative rationale · Home page · October 2026</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -48,6 +48,10 @@ Below 961px the header keeps a compact “Request a demo” button beside the me
 
 `site/styleguide/` (served at `/styleguide/`) documents the design system on one static 1440px page for importing into Figma: logo, colour, typography, grid and breakpoints, spacing, radius and lines, surfaces and effects, components in their states, icons and illustrations, and motion. It carries `noindex`. It is generated from the page markup, so regenerate it after changing the page: `node scripts/build-styleguide.mjs` (then `npm run format`).
 
+## Creative rationale
+
+`site/rationale/` (served at `/rationale/`) presents the work to the client: the problem with the current site, the goal, the decisions (colour, type, lines, motion), the references (torq.io for the hero component, serro.ai for the lines and motion), the hero explained, the concept of the mark, the home page, and the next steps. It is a static page on the same stylesheet, with `noindex`. The screenshots in `site/rationale/img/` are the current leavory.com (from the local mirror in `leavory-old`) and the new hero at the Fix step; retake them if the hero changes.
+
 ## Palette
 
 | Token        | Value     | Use                                            |
