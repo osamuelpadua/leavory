@@ -12,7 +12,9 @@ const run = font.layout("Leavory");
 const scaleY = 330 / font.unitsPerEm;
 const scaleX = 1160 / run.positions.reduce((sum, p) => sum + p.xAdvance, 0);
 let advance = 0;
-const outlines = run.glyphs
+// One path for the whole word: Chrome fills the "e" counter when a clipPath
+// unions one <path> per glyph.
+const outlines = `<path d="${run.glyphs
   .map((glyph, i) => {
     const p = run.positions[i];
     const d = font
@@ -21,9 +23,9 @@ const outlines = run.glyphs
       .translate(20 + (advance + p.xOffset) * scaleX, 300 - p.yOffset * scaleY)
       .toSVG();
     advance += p.xAdvance;
-    return `<path d="${d}"/>`;
+    return d;
   })
-  .join("\n");
+  .join("")}"/>`;
 const stripes = (width, opacity) =>
   Array.from(
     { length: 150 },
