@@ -1,14 +1,8 @@
-/* Static overrides for importing /figma/ into Figma (html.to.design).
-   The page is a frozen copy of the landing page at 1440px; these rules remove what
-   the importer handles poorly: motion, backdrop blur, sticky positioning,
-   and non-standard font weights. Generated alongside scripts/build-figma.mjs. */
-
-*,
-*::before,
-*::after {
-  animation: none !important;
-  transition: none !important;
-}
+/* Overrides for the design system page, from scripts/figma-import.css: they
+   remove what html.to.design handles poorly (backdrop blur, sticky
+   positioning, non-standard font weights). Unlike the Figma copy, motion and
+   hover stay on so the components show how they behave; with reduced motion
+   turned on, every loop stops. */
 
 body {
   min-width: 1440px;

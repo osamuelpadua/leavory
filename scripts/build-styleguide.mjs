@@ -26,6 +26,7 @@ const symbols = new Map(
   ),
 );
 let uid = 0;
+let fieldBars = 0;
 const inline = (html) =>
   html.replace(
     /(<svg\b[^>]*>)(\s*)<use href="#([\w-]+)"\s*\/>/g,
@@ -95,13 +96,13 @@ const logo = section(
     "Lockup and isotype",
     [
       tile(
-        `<div class="sg-center sg-pad">${lockup(56)}</div>`,
+        `<div class="sg-center sg-pad">${lockup(38)}</div>`,
         "Primary lockup",
         "Isotype Brand/Red · wordmark Neutral/White",
         "Geist Medium · letter spacing −4%",
       ),
       tile(
-        `<div class="sg-center sg-pad">${icon("i-mark", 140, ' class="logo__mark" style="width:auto;height:140px"')}</div>`,
+        `<div class="sg-center sg-pad">${icon("i-mark", 80, ' class="logo__mark" style="width:auto;height:80px"')}</div>`,
         "Isotype",
         "Shield 18 × 21.5 · fill Brand/Red",
       ),
@@ -401,10 +402,20 @@ const surfaces = section(
       "Line field",
       [
         tile(
-          readFileSync("site/ds/line-field.svg", "utf8").replace(
-            "<svg ",
-            '<svg class="sg-field-vector" ',
-          ),
+          readFileSync("site/ds/line-field.svg", "utf8")
+            .replace("<svg ", '<svg class="sg-field-vector" ')
+            // Bars rise through the field like the site's; the negative delay
+            // starts each one where the static drawing places it.
+            .replace(
+              /<rect x="([\d.]+)" y="(\d+)" width="2" height="(\d+)"/g,
+              (m, x, y, h) => {
+                const dur = [4.4, 3.6, 5.8, 6.4][fieldBars++ % 4];
+                const delay = (((220 - y) / (220 + Number(h))) * dur).toFixed(
+                  2,
+                );
+                return `<rect class="sg-field-bar" style="--y:${y}px;--h:${h}px;--dur:${dur}s;--delay:-${delay}s" x="${x}" y="${y}" width="2" height="${h}"`;
+              },
+            ),
           "Line field",
           "Hairlines every 12px · white 5.5%",
           "Bars 2px, 48–120px, white 32% · one red per field · rise 3.2–6.6s",
@@ -742,7 +753,7 @@ const icons = section(
           "Hero animation · key frame",
         ),
         tile(
-          `<div class="sg-pad"><img src="../ds/wordmark.svg" alt="" style="width:100%" /></div>`,
+          `<div class="sg-pad sg-wordmark">${readFileSync("site/ds/wordmark.svg", "utf8").replace('<rect x="56"', '<rect class="footer__mark-bar" x="56"')}</div>`,
           "Striped wordmark",
           "Footer · stripes every 8px, white 42%",
         ),

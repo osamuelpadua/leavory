@@ -148,7 +148,10 @@
 }
 .sg-row {
   display: flex;
+  flex-wrap: wrap;
+  align-content: center;
   align-items: flex-end;
+  height: 100%;
   justify-content: center;
   gap: 32px;
 }
@@ -445,6 +448,24 @@
   display: block;
   width: 100%;
   height: 220px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sg-field-bar {
+    animation: sg-field-rise var(--dur) linear var(--delay) infinite;
+  }
+}
+@keyframes sg-field-rise {
+  from {
+    transform: translateY(calc(220px - var(--y)));
+  }
+  to {
+    transform: translateY(calc(-1 * (var(--y) + var(--h))));
+  }
+}
+.sg-wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ---------- Components in context ---------- */
